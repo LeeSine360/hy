@@ -165,12 +165,19 @@ layui.use('element', function(){
 });
 layui.use('form', function(){
   var form = layui.form;
+  var $ = layui.$;
   
   //监听提交
   form.on('submit(formDemo)', function(data){
     layer.msg(JSON.stringify(data.field));
     return false;
   });
+
+  form.on('checkbox', function () {
+    $("[type='checkbox']").prop("checked", "");
+    $(this).prop("checked", "checked");
+    form.render('checkbox');
+  })
 });
 layui.use('table', function(){
   var table = layui.table;
