@@ -616,8 +616,9 @@ a cite {
 }
 .layui-body {
     position: absolute;
-    left: 200px;
-    right: 0;
+    padding: 20px 0;
+    left: 100px;
+    right: 100px;
     top: 0;
     bottom: 0;
     z-index: 998;
@@ -647,22 +648,22 @@ a cite {
 }
 .layui-layout-admin .layui-footer {
     position: fixed;
-    left: 200px;
+    left: 0;
     right: 0;
     bottom: 0;
     height: 44px;
     line-height: 44px;
-    padding: 0 15px;
+    padding: 0 100px;
     background-color: #eee
 }
 .layui-layout-admin .layui-logo {
     position: absolute;
-    left: 0;
+    left: 100px;
     top: 0;
     width: 200px;
     height: 100%;
     line-height: 60px;
-    text-align: center;
+    text-align: left;
     color: #009688;
     font-size: 16px
 }
@@ -671,12 +672,12 @@ a cite {
 }
 .layui-layout-left {
     position: absolute!important;
-    left: 200px;
+    left: 300px;
     top: 0
 }
 .layui-layout-right {
     position: absolute!important;
-    right: 0;
+    right: 100px;
     top: 0
 }
 .layui-container {
