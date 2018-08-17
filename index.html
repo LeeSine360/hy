@@ -82,7 +82,7 @@
     </span>
     <hr>
     <blockquote class="layui-elem-quote">引用区域的文字</blockquote>
-    <div class="layui-tab" lay-allowClose="true">
+    <div class="layui-tab" lay-allowClose="true" lay-filter="layui-tab">
       <ul class="layui-tab-title">
         <li class="layui-this">合同新增</li>
         <li>合同查阅</li>
@@ -172,12 +172,12 @@ layui.use('element', function(){
   
   $(".layui-nav-item .layui-nav-child dd a").click(function(){
     //$(this).append('<span class="layui-badge-dot"></span>');
-    console.log($(this).data("menu"));
-    element.tabAdd('.layui-tab', {
+    console.log($(this).data("menu"));     
+    element.tabAdd('layui-tab', {
       title: '选项卡的标题'
       ,content: '选项卡的内容' //支持传入html
       ,id: '选项卡标题的lay-id属性值'
-    });   
+    });  
   });
 });
 layui.use('form', function(){
