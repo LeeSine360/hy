@@ -15,39 +15,45 @@
     <div class="layui-logo">项目管理部·成本控制</div>
     <!-- 头部区域（可配合layui已有的水平导航） -->
     <ul class="layui-nav layui-layout-left">
-      <li class="layui-nav-item"><a href="">首页</a></li>
+      <li class="layui-nav-item"><a href="javascript:;">首页</a></li>
       <li class="layui-nav-item">
-        <a href="">项目管理</a>
+        <a href="javascript:;">项目管理</a>
         <dl class="layui-nav-child">
-          <dd><a href="">项目新增</a></dd>
-          <dd><a href="">项目查阅</a></dd>
+          <dd><a href="javascript:;" data-menu="proAdd">项目新增</a></dd>
+          <dd><a href="javascript:;" data-menu="proQuery">项目查阅</a></dd>
         </dl>
       </li>
       <li class="layui-nav-item">
-        <a href="">供应商管理</a>
+        <a href="javascript:;">项目经理管理</a>
         <dl class="layui-nav-child">
-          <dd><a href="">供应商新增</a></dd>
-          <dd><a href="">供应商查阅</a></dd>
+          <dd><a href="javascript:;" data-menu="managerAdd">项目经理新增</a></dd>
+          <dd><a href="javascript:;" data-menu="managerQuery">项目经理查阅</a></dd>
         </dl>
       </li>
       <li class="layui-nav-item">
-        <a href="">合同管理</a>
+        <a href="javascript:;">供应商管理</a>
         <dl class="layui-nav-child">
-          <dd><a href="">合同新增</a></dd>
-          <dd><a href="">合同查阅</a></dd>
-          <dd><a href="">合同审核（副总经办）</a></dd>
-          <dd><a href="">合同盖章确认（综合部）</a></dd>
-          <dd><a href="">合同存档</a></dd>
+          <dd><a href="javascript:;" data-menu="companyAdd">供应商新增</a></dd>
+          <dd><a href="javascript:;" data-menu="companyQuery">供应商查阅</a></dd>
+        </dl>
+      </li>
+      <li class="layui-nav-item">
+        <a href="javascript:;">合同管理</a>
+        <dl class="layui-nav-child">
+          <dd><a href="javascript:;" data-menu="contractAdd">合同新增</a></dd>
+          <dd><a href="javascript:;" data-menu="contractQuery">合同查阅</a></dd>
+          <dd><a href="javascript:;" data-menu="contractVerify">合同审核（副总经办）</a></dd>
+          <dd><a href="javascript:;" data-menu="contractConfirm">合同盖章确认（综合部）</a></dd>
+          <dd><a href="javascript:;" data-menu="contractSave">合同存档</a></dd>
         </dl>
       </li>
       <li class="layui-nav-item">
         <a href="javascript:;">财务管理</a>
         <dl class="layui-nav-child">
-          <dd><a href="">报销申请</a></dd>
-          <dd><a href="">报销查询</a></dd>
-          <dd><a href="">报销审核（财务部）</a></dd>
-          <dd><a href="">对账单录入</a></dd>
-          <dd><a href="">结算单录入</a></dd>
+          <dd><a href="javascript:;" data-menu="financeAdd">报销申请</a></dd>
+          <dd><a href="javascript:;" data-menu="financeQuery">报销查询</a></dd>
+          <dd><a href="javascript:;" data-menu="financeVerify">报销审核（财务部）<span class="layui-badge-dot"></span></a></dd>
+          <dd><a href="javascript:;" data-menu="statementAdd">结算单录入</a></dd>
         </dl>
       </li>
     </ul>
@@ -58,11 +64,11 @@
           admin
         </a>
         <dl class="layui-nav-child">
-          <dd><a href="">基本资料</a></dd>
-          <dd><a href="">安全设置</a></dd>
+          <dd><a href="javascript:;">基本资料</a></dd>
+          <dd><a href="javascript:;">安全设置</a></dd>
         </dl>
       </li>
-      <li class="layui-nav-item"><a href="">退出</a></li>
+      <li class="layui-nav-item"><a href="javascript:;">退出</a></li>
     </ul>
   </div>
   
@@ -71,8 +77,8 @@
   <div class="layui-body">
     <!-- 内容主体区域 -->
     <span class="layui-breadcrumb">
-      <a href="">首页</a>
-      <a href=""><cite>合同管理</cite></a>
+      <a href="javascript:;">首页</a>
+      <a href="javascript:;"><cite>合同管理</cite></a>
     </span>
     <hr>
     <blockquote class="layui-elem-quote">引用区域的文字</blockquote>
@@ -86,7 +92,7 @@
           <form class="layui-form" action="">
             <div class="layui-form-item">
               <label class="layui-form-label">输入框</label>
-              <div class="layui-input-block">
+              <div class="layui-input-inline">
                 <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
               </div>
             </div>
@@ -99,12 +105,12 @@
             </div>
             <div class="layui-form-item">
               <label class="layui-form-label">选择框</label>
-              <div class="layui-input-block">
+              <div class="layui-input-inline">
                 <select name="city" lay-verify="required">
                   <option value=""></option>
                   <option value="0">北京</option>
                   <option value="1">上海</option>
-                  <option value="2">广州</option>
+                  <option value="2">广州广州广州广州广州广州广州广州广州广州广州广州</option>
                   <option value="3">深圳</option>
                   <option value="4">杭州</option>
                 </select>
@@ -120,13 +126,13 @@
             </div>
             <div class="layui-form-item">
               <label class="layui-form-label">开关</label>
-              <div class="layui-input-block">
+              <div class="layui-input-inline">
                 <input type="checkbox" name="switch" lay-skin="switch">
               </div>
             </div>
             <div class="layui-form-item">
               <label class="layui-form-label">单选框</label>
-              <div class="layui-input-block">
+              <div class="layui-input-inline">
                 <input type="radio" name="sex" value="男" title="男">
                 <input type="radio" name="sex" value="女" title="女" checked>
               </div>
@@ -161,9 +167,18 @@
 <script>
 //JavaScript代码区域
 layui.use('element', function(){
-  var element = layui.element;
-  console.log(element);
+  var element = layui.element,
+  $ = layui.$;
   
+  $(".layui-nav-item .layui-nav-child dd a").click(function(){
+    //$(this).append('<span class="layui-badge-dot"></span>');
+    console.log($(this).data("menu"));
+    element.tabAdd('.layui-tab', {
+      title: '选项卡的标题'
+      ,content: '选项卡的内容' //支持传入html
+      ,id: '选项卡标题的lay-id属性值'
+    });   
+  });
 });
 layui.use('form', function(){
   var form = layui.form;
