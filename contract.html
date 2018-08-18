@@ -14,14 +14,14 @@
   <div class="layui-header">
     <div class="layui-logo">项目管理部·成本控制</div>
     <!-- 头部区域（可配合layui已有的水平导航） -->
-    <ul class="layui-nav layui-layout-left">
+   <ul class="layui-nav layui-layout-left">
       <li class="layui-nav-item"><a href="index.html">首页</a></li>
       <li class="layui-nav-item"><a href="project.html">项目管理</a></li>
-      <li class="layui-nav-item"><a href="manager.html">项目经理管理</a></li>
       <li class="layui-nav-item"><a href="company.html">供应商管理</a></li>
       <li class="layui-nav-item"><a href="contract.html">合同管理</a></li>
       <li class="layui-nav-item"><a href="finace.html">财务管理</a></li>
     </ul>
+
     <ul class="layui-nav layui-layout-right">
       <li class="layui-nav-item">
         <a href="javascript:;">
@@ -46,11 +46,14 @@
       <a href="javascript:;"><cite>合同管理</cite></a>
     </span>
     <hr>
-    
+    <blockquote class="layui-elem-quote">注意事项：暂无</blockquote>
     <div class="layui-tab layui-tab-brief">
       <ul class="layui-tab-title">
-        <li class="layui-this">项目新增</li>
-        <li>项目查阅</li>
+        <li class="layui-this">合同新增</a></li>
+        <li>合同查阅</a></li>
+        <li>合同审核（副总经办）<span class="layui-badge-dot"></a></li>
+        <li>合同盖章确认（综合部）<span class="layui-badge-dot"></a></li>
+        <li>合同存档</a></li>
       </ul>
       <div class="layui-tab-content">
         <div class="layui-tab-item layui-show">
@@ -71,7 +74,7 @@
             <div class="layui-form-item">
               <label class="layui-form-label">选择框</label>
               <div class="layui-input-inline">
-                <select name="city" lay-verify="required">
+                <select name="city" lay-verify="required" lay-verify="" lay-search>
                   <option value=""></option>
                   <option value="0">北京</option>
                   <option value="1">上海</option>
