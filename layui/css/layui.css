@@ -616,9 +616,9 @@ a cite {
 }
 .layui-body {
     position: absolute;
-    padding: 20px 0;
-    left: 100px;
-    right: 100px;
+    padding: 20px 100px;
+    left: 0;
+    right: 0;
     top: 0;
     bottom: 0;
     z-index: 998;

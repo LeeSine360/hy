@@ -5,3 +5,10 @@
 .layui-show .layui-form{
 	margin-right: 0px;
 }
+.layui-icon{
+	color:#e6e6e6;
+	font-size: 30px;
+}
+.layui-icon:hover{
+	color:#d2d2d2;
+}
