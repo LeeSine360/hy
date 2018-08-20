@@ -158,15 +158,12 @@ layui.use('table', function(){
     ,url: '/demo/table/user/' //数据接口
     ,page: true //开启分页
     ,cols: [[ //表头
-      {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
-      ,{field: 'username', title: '用户名', width:80}
-      ,{field: 'sex', title: '性别', width:80, sort: true}
-      ,{field: 'city', title: '城市', width:80} 
-      ,{field: 'sign', title: '签名', width: 177}
-      ,{field: 'experience', title: '积分', width: 80, sort: true}
-      ,{field: 'score', title: '评分', width: 80, sort: true}
-      ,{field: 'classify', title: '职业', width: 80}
-      ,{field: 'wealth', title: '财富', width: 135, sort: true}
+      {field: 'proId', title: '序号', width:80, sort: true, fixed: 'left'}
+      ,{field: 'proName', title: '项目名称', width:360}
+      ,{field: 'proStart', title: '开工日期', width:180}
+      ,{field: 'proDays', title: '工期（天）', width:100} 
+      ,{field: 'proRemark', title: '备注'}
+      ,{field: 'proEdit', title: '编辑',width:100}
     ]]
   });  
 });
