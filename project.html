@@ -63,7 +63,13 @@
                 <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
               </div>
             </div>
-             <div class="layui-form-item">
+            <div class="layui-form-item">
+              <label class="layui-form-label">项目总造价</label>
+              <div class="layui-input-inline">
+                <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-form-item">
               <label class="layui-form-label">开工日期</label>
               <div class="layui-input-inline">
                 <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
@@ -75,16 +81,7 @@
                 <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
               </div>
               <div class="layui-form-mid layui-word-aux">天</div>
-            </div>
-            <div class="layui-form-item">
-              <label class="layui-form-label">标段名称</label>
-              <div class="layui-input-inline">
-                <input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
-              </div>
-              <div class="layui-form-mid layui-word-aux">
-                <i class="layui-icon layui-icon-add-circle-fine"></i>
-              </div>
-            </div>
+            </div>            
             
             <div class="layui-form-item layui-form-text">
               <label class="layui-form-label">备注</label>
@@ -103,6 +100,44 @@
         <div class="layui-tab-item">
           <table id="demo" lay-filter="test"></table>
         </div>
+        <div class="layui-tab-item layui">
+          <form class="layui-form" action="">
+            <div class="layui-form-item">
+              <label class="layui-form-label">标段名称</label>
+              <div class="layui-input-inline">
+                <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+             <div class="layui-form-item">
+              <label class="layui-form-label">开工日期</label>
+              <div class="layui-input-inline">
+                <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-form-item">
+              <label class="layui-form-label">工期</label>
+              <div class="layui-input-inline">
+                <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+              </div>
+              <div class="layui-form-mid layui-word-aux">天</div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+              <label class="layui-form-label">备注</label>
+              <div class="layui-input-block">
+                <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+              </div>
+            </div>
+            <div class="layui-form-item">
+              <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+              </div>
+            </div>            
+          </form>
+        </div>
+        <div class="layui-tab-item">
+	          <table id="demo1" lay-filter="test1"></table>
+	        </div>
       </div>
     </div>
   </div>
@@ -151,7 +186,7 @@ layui.use('form', function(){
 layui.use('table', function(){
   var table = layui.table;
   
-  //第一个实例
+  //项目表格
   table.render({
     elem: '#demo'
     ,height: 315
@@ -160,12 +195,28 @@ layui.use('table', function(){
     ,cols: [[ //表头
       {field: 'proId', title: '序号', width:80, sort: true, fixed: 'left'}
       ,{field: 'proName', title: '项目名称', width:360}
+      ,{field: 'proPrice', title: '项目总造价', width:100}
       ,{field: 'proStart', title: '开工日期', width:180}
       ,{field: 'proDays', title: '工期（天）', width:100} 
       ,{field: 'proRemark', title: '备注'}
       ,{field: 'proEdit', title: '编辑',width:100}
     ]]
-  });  
+  });
+  //标段表格
+  table.render({
+    elem: '#demo1'
+    ,height: 315
+    ,url: '/demo/table/user/' //数据接口
+    ,page: true //开启分页
+    ,cols: [[ //表头
+      {field: 'proId', title: '序号', width:80, sort: true, fixed: 'left'}
+      ,{field: 'proName', title: '标段名称', width:360}
+      ,{field: 'proStart', title: '开工日期', width:180}
+      ,{field: 'proDays', title: '工期（天）', width:100} 
+      ,{field: 'proRemark', title: '备注'}
+      ,{field: 'proEdit', title: '编辑',width:100}
+    ]]
+  });
 });
 
 /*$(function(){
