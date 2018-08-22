@@ -272,7 +272,25 @@
           </form>
         </div>
         <div class="layui-tab-item">
-          <table id="demo" lay-filter="test"></table>
+          <div class="layui-search">
+            <div class="layui-inline">
+              <input class="layui-input" name="id" id="test-table-demoReload" autocomplete="off" placeholder="请输入项目名称或编号">          
+            </div>
+            <div class="layui-inline">
+              <input class="layui-input" name="id" id="test-table-demoReload" autocomplete="off" placeholder="请选择标段名称">          
+            </div>          
+            <button class="layui-btn" data-type="reload">搜索</button>
+          </div>
+          <table id="demo1" lay-filter="test1"></table>
+        </div>
+        <div class="layui-tab-item">
+          <table id="demo2" lay-filter="test2"></table>
+        </div>
+        <div class="layui-tab-item">
+          <table id="demo3" lay-filter="test3"></table>
+        </div>
+        <div class="layui-tab-item">
+          <table id="demo4" lay-filter="test4"></table>
         </div>
       </div>
     </div>
@@ -402,7 +420,58 @@ layui.use('table', function(){
   
   //第一个实例
   table.render({
-    elem: '#demo'
+    elem: '#demo1'
+    ,height: 315
+    ,url: '/demo/table/user/' //数据接口
+    ,page: true //开启分页
+    ,cols: [[ //表头
+      {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
+      ,{field: 'username', title: '用户名', width:80}
+      ,{field: 'sex', title: '性别', width:80, sort: true}
+      ,{field: 'city', title: '城市', width:80} 
+      ,{field: 'sign', title: '签名', width: 177}
+      ,{field: 'experience', title: '积分', width: 80, sort: true}
+      ,{field: 'score', title: '评分', width: 80, sort: true}
+      ,{field: 'classify', title: '职业', width: 80}
+      ,{field: 'wealth', title: '财富', width: 135, sort: true}
+    ]]
+  });  
+  table.render({
+    elem: '#demo2'
+    ,height: 315
+    ,url: '/demo/table/user/' //数据接口
+    ,page: true //开启分页
+    ,cols: [[ //表头
+      {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
+      ,{field: 'username', title: '用户名', width:80}
+      ,{field: 'sex', title: '性别', width:80, sort: true}
+      ,{field: 'city', title: '城市', width:80} 
+      ,{field: 'sign', title: '签名', width: 177}
+      ,{field: 'experience', title: '积分', width: 80, sort: true}
+      ,{field: 'score', title: '评分', width: 80, sort: true}
+      ,{field: 'classify', title: '职业', width: 80}
+      ,{field: 'wealth', title: '财富', width: 135, sort: true}
+    ]]
+  });  
+  table.render({
+    elem: '#demo3'
+    ,height: 315
+    ,url: '/demo/table/user/' //数据接口
+    ,page: true //开启分页
+    ,cols: [[ //表头
+      {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
+      ,{field: 'username', title: '用户名', width:80}
+      ,{field: 'sex', title: '性别', width:80, sort: true}
+      ,{field: 'city', title: '城市', width:80} 
+      ,{field: 'sign', title: '签名', width: 177}
+      ,{field: 'experience', title: '积分', width: 80, sort: true}
+      ,{field: 'score', title: '评分', width: 80, sort: true}
+      ,{field: 'classify', title: '职业', width: 80}
+      ,{field: 'wealth', title: '财富', width: 135, sort: true}
+    ]]
+  });  
+  table.render({
+    elem: '#demo4'
     ,height: 315
     ,url: '/demo/table/user/' //数据接口
     ,page: true //开启分页
