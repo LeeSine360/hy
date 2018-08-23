@@ -109,10 +109,10 @@
     <blockquote class="layui-elem-quote">公告：暂无</blockquote>
     <div class="layui-tab layui-tab-brief">
       <ul class="layui-tab-title">
-        <li class="layui-this">合同新增</a></li>
-        <li>合同查阅</a></li>
-        <li>合同审核（副总经办）<span class="layui-badge-dot"></a></li>
-        <li>合同盖章确认（综合部）<span class="layui-badge-dot"></a></li>
+        <li class="layui-this">合同新增</li>
+        <li>合同查阅</li>
+        <li>合同审核（副总经办）<span class="layui-badge-dot"></li>
+        <li>合同盖章确认（综合部）<span class="layui-badge-dot"></li>
         <li>合同存档</a></li>
       </ul>
       <div class="layui-tab-content">
@@ -275,10 +275,7 @@
           <div class="layui-search">
             <div class="layui-inline">
               <input class="layui-input" name="id" id="test-table-demoReload" autocomplete="off" placeholder="请输入项目名称或编号">          
-            </div>
-            <div class="layui-inline">
-              <input class="layui-input" name="id" id="test-table-demoReload" autocomplete="off" placeholder="请选择标段名称">          
-            </div>          
+            </div>                     
             <button class="layui-btn" data-type="reload">搜索</button>
           </div>
           <table id="demo1" lay-filter="test1"></table>
@@ -425,15 +422,13 @@ layui.use('table', function(){
     ,url: '/demo/table/user/' //数据接口
     ,page: true //开启分页
     ,cols: [[ //表头
-      {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
-      ,{field: 'username', title: '用户名', width:80}
-      ,{field: 'sex', title: '性别', width:80, sort: true}
-      ,{field: 'city', title: '城市', width:80} 
-      ,{field: 'sign', title: '签名', width: 177}
-      ,{field: 'experience', title: '积分', width: 80, sort: true}
-      ,{field: 'score', title: '评分', width: 80, sort: true}
-      ,{field: 'classify', title: '职业', width: 80}
-      ,{field: 'wealth', title: '财富', width: 135, sort: true}
+      {field: 'id', title: '序号', width:80, sort: true, fixed: 'left'}
+      ,{field: 'username', title: '项目名称', width:280}
+      ,{field: 'sex', title: '项目编号', width:100, sort: true}
+      ,{field: 'city', title: '合同编号', width:100} 
+      ,{field: 'sign', title: '对方名称', width: 280}
+      ,{field: 'experience', title: '分类名称', width: 100, sort: true}
+      ,{field: 'wealth', title: '操作'}
     ]]
   });  
   table.render({
@@ -442,15 +437,13 @@ layui.use('table', function(){
     ,url: '/demo/table/user/' //数据接口
     ,page: true //开启分页
     ,cols: [[ //表头
-      {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
-      ,{field: 'username', title: '用户名', width:80}
-      ,{field: 'sex', title: '性别', width:80, sort: true}
-      ,{field: 'city', title: '城市', width:80} 
-      ,{field: 'sign', title: '签名', width: 177}
-      ,{field: 'experience', title: '积分', width: 80, sort: true}
-      ,{field: 'score', title: '评分', width: 80, sort: true}
-      ,{field: 'classify', title: '职业', width: 80}
-      ,{field: 'wealth', title: '财富', width: 135, sort: true}
+      {field: 'id', title: '序号', width:80, sort: true, fixed: 'left'}
+      ,{field: 'username', title: '项目名称', width:280}
+      ,{field: 'sex', title: '项目编号', width:100, sort: true}
+      ,{field: 'city', title: '合同编号', width:100} 
+      ,{field: 'sign', title: '对方名称', width: 280}
+      ,{field: 'experience', title: '分类名称', width: 100, sort: true}
+      ,{field: 'wealth', title: '操作'}
     ]]
   });  
   table.render({
@@ -459,15 +452,13 @@ layui.use('table', function(){
     ,url: '/demo/table/user/' //数据接口
     ,page: true //开启分页
     ,cols: [[ //表头
-      {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
-      ,{field: 'username', title: '用户名', width:80}
-      ,{field: 'sex', title: '性别', width:80, sort: true}
-      ,{field: 'city', title: '城市', width:80} 
-      ,{field: 'sign', title: '签名', width: 177}
-      ,{field: 'experience', title: '积分', width: 80, sort: true}
-      ,{field: 'score', title: '评分', width: 80, sort: true}
-      ,{field: 'classify', title: '职业', width: 80}
-      ,{field: 'wealth', title: '财富', width: 135, sort: true}
+      {field: 'id', title: '序号', width:80, sort: true, fixed: 'left'}
+      ,{field: 'username', title: '项目名称', width:280}
+      ,{field: 'sex', title: '项目编号', width:100, sort: true}
+      ,{field: 'city', title: '合同编号', width:100} 
+      ,{field: 'sign', title: '对方名称', width: 280}
+      ,{field: 'experience', title: '分类名称', width: 100, sort: true}
+      ,{field: 'wealth', title: '操作'}
     ]]
   });  
   table.render({
@@ -476,15 +467,13 @@ layui.use('table', function(){
     ,url: '/demo/table/user/' //数据接口
     ,page: true //开启分页
     ,cols: [[ //表头
-      {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
-      ,{field: 'username', title: '用户名', width:80}
-      ,{field: 'sex', title: '性别', width:80, sort: true}
-      ,{field: 'city', title: '城市', width:80} 
-      ,{field: 'sign', title: '签名', width: 177}
-      ,{field: 'experience', title: '积分', width: 80, sort: true}
-      ,{field: 'score', title: '评分', width: 80, sort: true}
-      ,{field: 'classify', title: '职业', width: 80}
-      ,{field: 'wealth', title: '财富', width: 135, sort: true}
+     {field: 'id', title: '序号', width:80, sort: true, fixed: 'left'}
+      ,{field: 'username', title: '项目名称', width:280}
+      ,{field: 'sex', title: '项目编号', width:100, sort: true}
+      ,{field: 'city', title: '合同编号', width:100} 
+      ,{field: 'sign', title: '对方名称', width: 280}
+      ,{field: 'experience', title: '分类名称', width: 100, sort: true}
+      ,{field: 'wealth', title: '操作'}
     ]]
   });  
 });
