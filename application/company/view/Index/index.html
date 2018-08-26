@@ -1,0 +1,176 @@
+ 
+ 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>浩宇建设 - 项目部</title>
+<link rel="stylesheet" href="static/layui/css/layui.css">
+<link rel="stylesheet" href="static/layui/css/global.css">
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+  <div class="layui-header">
+    <div class="layui-logo">项目管理部·成本控制</div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+    <ul class="layui-nav layui-layout-left">
+      <li class="layui-nav-item"><a href="index">首页</a></li>
+      <li class="layui-nav-item"><a href="project">项目管理</a></li>
+      <li class="layui-nav-item"><a href="company">供应商管理</a></li>
+      <li class="layui-nav-item"><a href="contract">合同管理</a></li>
+      <li class="layui-nav-item"><a href="finace">财务管理</a></li>
+    </ul>
+
+    <ul class="layui-nav layui-layout-right">
+      <li class="layui-nav-item">
+        <a href="javascript:;">
+          <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+          admin
+        </a>
+        <dl class="layui-nav-child">
+          <dd><a href="javascript:;">基本资料</a></dd>
+          <dd><a href="javascript:;">安全设置</a></dd>
+        </dl>
+      </li>
+      <li class="layui-nav-item"><a href="javascript:;">退出</a></li>
+    </ul>
+  </div>
+  
+  
+  
+  <div class="layui-body">
+    <!-- 内容主体区域 -->
+    <span class="layui-breadcrumb">
+      <a href="javascript:;">首页</a>
+      <a href="javascript:;"><cite>供应商管理</cite></a>
+    </span>
+    <hr>
+    <blockquote class="layui-elem-quote">公告：暂无</blockquote>
+    <div class="layui-tab layui-tab-brief">
+      <ul class="layui-tab-title">
+        <li class="layui-this">供应商新增</li>
+        <li>供应商查阅</li>
+      </ul>
+      <div class="layui-tab-content">
+        <div class="layui-tab-item layui-show">
+          <form class="layui-form" action="">
+            <div class="layui-form-item">
+              <label class="layui-form-label">供应商名称</label>
+              <div class="layui-input-inline">
+                <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-form-item">
+              <label class="layui-form-label">开户行名称</label>
+              <div class="layui-input-inline">
+                <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-form-item">
+              <label class="layui-form-label">付款账号</label>
+              <div class="layui-input-inline">
+                <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-form-item">
+              <label class="layui-form-label">联系电话</label>
+              <div class="layui-input-inline">
+                <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            
+            <div class="layui-form-item layui-form-text">
+              <label class="layui-form-label">备注</label>
+              <div class="layui-input-block">
+                <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+              </div>
+            </div>
+            <div class="layui-form-item">
+              <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="layui-tab-item">
+          <table id="demo" lay-filter="test"></table>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="layui-footer">
+    <!-- 底部固定区域 -->
+    © 湖南浩宇建设有限公司 - Lee.
+  </div>
+</div>
+<script src="static/layui/layui.js"></script>
+<script>
+//JavaScript代码区域
+layui.use('element', function(){
+  var element = layui.element,
+  $ = layui.$;
+  
+  $(".layui-nav-item .layui-nav-child dd a").click(function(){
+    //$(this).append('<span class="layui-badge-dot"></span>');
+    console.log($(this).data("menu"));     
+    element.tabAdd('layui-tab', {
+      title: '选项卡的标题'
+      ,content: '选项卡的内容' //支持传入html
+      ,id: 'tt'
+    }); 
+    element.tabChange("nav", "tt");
+    element.init();
+  });
+});
+layui.use('form', function(){
+  var form = layui.form;
+  var $ = layui.$;
+  
+  //监听提交
+  form.on('submit(formDemo)', function(data){
+    layer.msg(JSON.stringify(data.field));
+    return false;
+  });
+
+  form.on('checkbox', function () {
+    $("[type='checkbox']").prop("checked", "");
+    $(this).prop("checked", "checked");
+    form.render('checkbox');
+    layer.msg("错误~~~");
+  })
+});
+layui.use('table', function(){
+  var table = layui.table;
+  
+  //第一个实例
+  table.render({
+    elem: '#demo'
+    ,height: 315
+    ,url: '/demo/table/user/' //数据接口
+    ,page: true //开启分页
+    ,cols: [[ //表头
+      {field: 'id', title: '序号', width:80, sort: true, fixed: 'left'}
+      ,{field: 'username', title: '供应商名称', width:280}
+      ,{field: 'sex', title: '开户行名称', width:280, sort: true}
+      ,{field: 'city', title: '付款账号', width:180} 
+      ,{field: 'sign', title: '联系号码', width: 100}
+      ,{field: 'experience', title: '备注'}
+      ,{field: 'score', title: '编辑', width: 100, sort: true}
+    ]]
+  });  
+});
+
+/*$(function(){
+  form.on('checkbox', function () {
+    $("[type='checkbox']").prop("checked", "");
+    $(this).prop("checked", "checked");
+    form.render('checkbox');
+  })
+})*/
+</script>
+</body>
+</html>
+
