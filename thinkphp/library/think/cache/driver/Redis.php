@@ -64,15 +64,12 @@ class Redis extends Driver
         } elseif (class_exists('\Predis\Client')) {
             $params = [];
             foreach ($this->options as $key => $val) {
-                if (in_array($key, ['aggregate', 'cluster', 'connections', 'exceptions', 'prefix', 'profile', 'replication', 'parameters'])) {
+                if (in_array($key, ['aggregate', 'cluster', 'connections', 'exceptions', 'prefix', 'profile', 'replication'])) {
                     $params[$key] = $val;
                     unset($this->options[$key]);
                 }
             }
-
             $this->handler = new \Predis\Client($this->options, $params);
-
-            $this->options['prefix'] = '';
         } else {
             throw new \BadFunctionCallException('not support: redis');
         }

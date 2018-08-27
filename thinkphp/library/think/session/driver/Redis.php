@@ -108,12 +108,10 @@ class Redis implements SessionHandlerInterface
     public function write($sessID, $sessData)
     {
         if ($this->config['expire'] > 0) {
-            $result = $this->handler->setex($this->config['session_name'] . $sessID, $this->config['expire'], $sessData);
+            return $this->handler->setex($this->config['session_name'] . $sessID, $this->config['expire'], $sessData);
         } else {
-            $result = $this->handler->set($this->config['session_name'] . $sessID, $sessData);
+            return $this->handler->set($this->config['session_name'] . $sessID, $sessData);
         }
-
-        return $result ? true : false;
     }
 
     /**

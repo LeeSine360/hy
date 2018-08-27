@@ -184,9 +184,4 @@ class Think
     {
         return call_user_func_array([$this->template, $method], $params);
     }
-
-    public function __debugInfo()
-    {
-        return ['config' => $this->config];
-    }
 }

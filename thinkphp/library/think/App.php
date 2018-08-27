@@ -20,7 +20,7 @@ use think\route\Dispatch;
  */
 class App extends Container
 {
-    const VERSION = '5.1.23';
+    const VERSION = '5.1.19';
 
     /**
      * 当前模块路径
@@ -178,8 +178,6 @@ class App extends Container
 
         $this->instance('app', $this);
 
-        $this->configExt = $this->env->get('config_ext', '.php');
-
         // 加载惯例配置文件
         $this->config->set(include $this->thinkPath . 'convention.php');
 
@@ -205,6 +203,8 @@ class App extends Container
 
         // 注册应用命名空间
         Loader::addNamespace($this->namespace, $this->appPath);
+
+        $this->configExt = $this->env->get('config_ext', '.php');
 
         // 初始化应用
         $this->init();
@@ -312,7 +312,7 @@ class App extends Container
 
             // 自动读取配置文件
             if (is_dir($path . 'config')) {
-                $dir = $path . 'config' . DIRECTORY_SEPARATOR;
+                $dir = $path . 'config';
             } elseif (is_dir($this->configPath . $module)) {
                 $dir = $this->configPath . $module;
             }
@@ -321,7 +321,8 @@ class App extends Container
 
             foreach ($files as $file) {
                 if ('.' . pathinfo($file, PATHINFO_EXTENSION) === $this->configExt) {
-                    $this->config->load($dir . $file, pathinfo($file, PATHINFO_FILENAME));
+                    $filename = $dir . DIRECTORY_SEPARATOR . $file;
+                    $this->config->load($filename, pathinfo($file, PATHINFO_FILENAME));
                 }
             }
         }
@@ -556,8 +557,7 @@ class App extends Container
         if ($this->route->config('route_annotation')) {
             // 自动生成路由定义
             if ($this->appDebug) {
-                $suffix = $this->route->config('controller_suffix') || $this->route->config('class_suffix');
-                $this->build->buildRoute($suffix);
+                $this->build->buildRoute($this->route->config('controller_suffix'));
             }
 
             $filename = $this->runtimePath . 'build_route.php';

@@ -378,12 +378,4 @@ class Log implements LoggerInterface
     {
         $this->log(__FUNCTION__, $message, $context);
     }
-
-    public function __debugInfo()
-    {
-        $data = get_object_vars($this);
-        unset($data['app']);
-
-        return $data;
-    }
 }
