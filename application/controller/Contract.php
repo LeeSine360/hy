@@ -1,8 +1,8 @@
 <?php
-namespace app\contract\controller;
+namespace app\controller;
 use think\Controller;
 
-class Index extends Controller {
+class Contract extends Controller {
 	public function index() {
 		return $this->fetch();
 	}

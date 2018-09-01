@@ -1,8 +1,8 @@
 <?php
-namespace app\index\controller;
+namespace app\controller;
 use think\Controller;
 
-class Index extends Controller {
+class Project extends Controller {
 	public function index() {
 		return $this->fetch();
 	}

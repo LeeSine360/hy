@@ -1,8 +1,8 @@
 <?php
-namespace app\project\controller;
+namespace app\controller;
 use think\Controller;
 
-class Index extends Controller {
+class Manager extends Controller {
 	public function index() {
 		return $this->fetch();
 	}
