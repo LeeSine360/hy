@@ -110,6 +110,13 @@
         <div class="layui-tab-item layui">
           <form class="layui-form" action="">
             <div class="layui-form-item">
+              <label class="layui-form-label">项目名称</label>
+              <div class="layui-input-inline">
+                <select name="proId" lay-verify="proId" lay-search>
+                </select>
+              </div>
+            </div>
+            <div class="layui-form-item">
               <label class="layui-form-label">标段名称</label>
               <div class="layui-input-inline">
                 <input type="text" name="bidsName" required  lay-verify="required" placeholder="请输入标段名称" autocomplete="off" class="layui-input">
@@ -180,7 +187,7 @@ layui.use('form', function(){
   //监听提交
   form.on('submit(formDemo)', function(data){
     $.ajax({
-      url:'/hy/public/project/add',
+      url:'/project/add',
       method:'post',
       data:data.field,
       dataType:'JSON',
@@ -208,7 +215,7 @@ layui.use('table', function(){
   table.render({
     elem: '#proList'
     ,height: 315
-    ,url: '/hy/public/project/query' //数据接口
+    ,url: '/project/query' //数据接口
     ,page: true //开启分页
     ,cols: [[ //表头
       {field: 'proId', title: '项目编号',width: 100, sort: true, fixed: 'left'}
@@ -224,7 +231,7 @@ layui.use('table', function(){
   table.render({
     elem: '#bidsList'
     ,height: 315
-    ,url: '/hy/public/project/query' //数据接口
+    ,url: '/project/query' //数据接口
     ,page: true //开启分页
     ,cols: [[ //表头
       {field: 'proId', title: '序号', width:100, sort: true, fixed: 'left'}
