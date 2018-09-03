@@ -60,25 +60,32 @@
             <div class="layui-form-item">
               <label class="layui-form-label">项目名称</label>
               <div class="layui-input-inline">
-                <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+                <input type="text" name="proName" required  lay-verify="required" placeholder="请输入项目名称" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-form-item">
+              <label class="layui-form-label">项目编号</label>
+              <div class="layui-input-inline">
+                <input type="text" name="proNumber" required  lay-verify="number" placeholder="请输入项目编号" autocomplete="off" class="layui-input">
               </div>
             </div>
             <div class="layui-form-item">
               <label class="layui-form-label">项目总造价</label>
               <div class="layui-input-inline">
-                <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+                <input type="text" name="proPrice" required  lay-verify="number" placeholder="请输入项目总造价" autocomplete="off" class="layui-input">
               </div>
+              <div class="layui-form-mid layui-word-aux">万</div>
             </div>
             <div class="layui-form-item">
               <label class="layui-form-label">开工日期</label>
               <div class="layui-input-inline">
-                <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+                <input type="text" id="proStart" name="proStart" required  lay-verify="date" placeholder="请选择项目开工日期" autocomplete="off" class="layui-input">
               </div>
             </div>
             <div class="layui-form-item">
               <label class="layui-form-label">工期</label>
               <div class="layui-input-inline">
-                <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+                <input type="text" name="proDays" required  lay-verify="number" placeholder="请输入项目工期" autocomplete="off" class="layui-input">
               </div>
               <div class="layui-form-mid layui-word-aux">天</div>
             </div>            
@@ -86,7 +93,7 @@
             <div class="layui-form-item layui-form-text">
               <label class="layui-form-label">备注</label>
               <div class="layui-input-block">
-                <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+                <textarea name="proRemark" class="layui-textarea"></textarea>
               </div>
             </div>
             <div class="layui-form-item">
@@ -98,33 +105,33 @@
           </form>
         </div>
         <div class="layui-tab-item">
-          <table id="demo" lay-filter="test"></table>
+          <table id="proList" lay-filter="proList"></table>
         </div>
         <div class="layui-tab-item layui">
           <form class="layui-form" action="">
             <div class="layui-form-item">
               <label class="layui-form-label">标段名称</label>
               <div class="layui-input-inline">
-                <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+                <input type="text" name="bidsName" required  lay-verify="required" placeholder="请输入标段名称" autocomplete="off" class="layui-input">
               </div>
             </div>
              <div class="layui-form-item">
               <label class="layui-form-label">开工日期</label>
               <div class="layui-input-inline">
-                <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+                <input type="text" name="bidsStart" required  lay-verify="required" placeholder="请输入标段开工日期" autocomplete="off" class="layui-input">
               </div>
             </div>
             <div class="layui-form-item">
               <label class="layui-form-label">工期</label>
               <div class="layui-input-inline">
-                <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+                <input type="text" name="bidsDays" required  lay-verify="required" placeholder="请输入标段工期" autocomplete="off" class="layui-input">
               </div>
               <div class="layui-form-mid layui-word-aux">天</div>
             </div>
             <div class="layui-form-item layui-form-text">
               <label class="layui-form-label">备注</label>
               <div class="layui-input-block">
-                <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+                <textarea name="bidsRemark" placeholder="请输入内容" class="layui-textarea"></textarea>
               </div>
             </div>
             <div class="layui-form-item">
@@ -136,7 +143,7 @@
           </form>
         </div>
         <div class="layui-tab-item">
-	          <table id="demo1" lay-filter="test1"></table>
+	          <table id="bidsList" lay-filter="bidsList"></table>
 	        </div>
       </div>
     </div>
@@ -172,7 +179,18 @@ layui.use('form', function(){
   
   //监听提交
   form.on('submit(formDemo)', function(data){
-    layer.msg(JSON.stringify(data.field));
+    $.ajax({
+      url:'/hy/public/project/add',
+      method:'post',
+      data:data.field,
+      dataType:'JSON',
+      success:function(res){        
+        layer.msg(res.msg);
+        //parent.closeIframe(res.msg);
+      },
+      error:function (data) {
+      }
+    })
     return false;
   });
 
@@ -188,28 +206,28 @@ layui.use('table', function(){
   
   //项目表格
   table.render({
-    elem: '#demo'
+    elem: '#proList'
     ,height: 315
-    ,url: '/demo/table/user/' //数据接口
+    ,url: '/hy/public/project/query' //数据接口
     ,page: true //开启分页
     ,cols: [[ //表头
-      {field: 'proId', title: '序号', width:80, sort: true, fixed: 'left'}
-      ,{field: 'proName', title: '项目名称', width:360}
-      ,{field: 'proPrice', title: '项目总造价', width:100}
-      ,{field: 'proStart', title: '开工日期', width:180}
-      ,{field: 'proDays', title: '工期（天）', width:100} 
+      {field: 'proId', title: '项目编号',width: 100, sort: true, fixed: 'left'}
+      ,{field: 'proName', title: '项目名称'}
+      ,{field: 'proPrice', title: '项目总造价',width: 120}
+      ,{field: 'proStart', title: '开工日期',width: 120}
+      ,{field: 'proDays', title: '工期（天）',width: 100} 
       ,{field: 'proRemark', title: '备注'}
-      ,{field: 'proEdit', title: '编辑',width:100}
+      ,{field: 'proEdit', title: '操作'}
     ]]
   });
   //标段表格
   table.render({
-    elem: '#demo1'
+    elem: '#bidsList'
     ,height: 315
-    ,url: '/demo/table/user/' //数据接口
+    ,url: '/hy/public/project/query' //数据接口
     ,page: true //开启分页
     ,cols: [[ //表头
-      {field: 'proId', title: '序号', width:80, sort: true, fixed: 'left'}
+      {field: 'proId', title: '序号', width:100, sort: true, fixed: 'left'}
       ,{field: 'proName', title: '标段名称', width:360}
       ,{field: 'proStart', title: '开工日期', width:180}
       ,{field: 'proDays', title: '工期（天）', width:100} 
@@ -218,14 +236,14 @@ layui.use('table', function(){
     ]]
   });
 });
-
-/*$(function(){
-  form.on('checkbox', function () {
-    $("[type='checkbox']").prop("checked", "");
-    $(this).prop("checked", "checked");
-    form.render('checkbox');
-  })
-})*/
+layui.use('laydate', function(){
+  var laydate = layui.laydate;
+  
+  //执行一个laydate实例
+  laydate.render({
+    elem: '#proStart' //指定元素
+  });
+});
 </script>
 </body>
 </html>
