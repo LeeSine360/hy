@@ -98,6 +98,7 @@
             </div>
             <div class="layui-form-item">
               <div class="layui-input-block">
+                <input type="hidden" name="proAC" value="project" />
                 <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
               </div>
@@ -111,8 +112,8 @@
           <form class="layui-form" action="">
             <div class="layui-form-item">
               <label class="layui-form-label">项目名称</label>
-              <div class="layui-input-inline">
-                <select name="proId" lay-verify="proId" lay-search>
+              <div class="layui-input-inline" id="proIdLine">
+                <select id="proId" name="proId" lay-verify="proId" lay-filter="proId" lay-search>
                 </select>
               </div>
             </div>
@@ -122,18 +123,13 @@
                 <input type="text" name="bidsName" required  lay-verify="required" placeholder="请输入标段名称" autocomplete="off" class="layui-input">
               </div>
             </div>
-             <div class="layui-form-item">
-              <label class="layui-form-label">开工日期</label>
-              <div class="layui-input-inline">
-                <input type="text" name="bidsStart" required  lay-verify="required" placeholder="请输入标段开工日期" autocomplete="off" class="layui-input">
-              </div>
-            </div>
             <div class="layui-form-item">
-              <label class="layui-form-label">工期</label>
+              <label class="layui-form-label">项目经理</label>
               <div class="layui-input-inline">
-                <input type="text" name="bidsDays" required  lay-verify="required" placeholder="请输入标段工期" autocomplete="off" class="layui-input">
+                <select id="managerId" name="managerId" lay-verify="managerId" lay-filter="proId" lay-search>
+                </select>
               </div>
-              <div class="layui-form-mid layui-word-aux">天</div>
+              <i class="layui-icon layui-icon-add-circle" style="font-size: 32px; color: #009688;cursor: pointer"></i>
             </div>
             <div class="layui-form-item layui-form-text">
               <label class="layui-form-label">备注</label>
@@ -143,6 +139,7 @@
             </div>
             <div class="layui-form-item">
               <div class="layui-input-block">
+                <input type="hidden" name="proAC" value="bids" />
                 <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
               </div>
@@ -162,28 +159,24 @@
   </div>
 </div>
 <script src="static/layui/layui.js"></script>
+<script type="text/html" id="colBar">
+  <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
+  <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
 <script>
 //JavaScript代码区域
 layui.use('element', function(){
   var element = layui.element,
   $ = layui.$;
-  
-  $(".layui-nav-item .layui-nav-child dd a").click(function(){
-    //$(this).append('<span class="layui-badge-dot"></span>');
-    console.log($(this).data("menu"));     
-    element.tabAdd('layui-tab', {
-      title: '选项卡的标题'
-      ,content: '选项卡的内容' //支持传入html
-      ,id: 'tt'
-    }); 
-    element.tabChange("nav", "tt");
-    element.init();
-  });
+
+  refreshProjectOption();
+  refreshProjectList();
+  refreshBidsList();
 });
 layui.use('form', function(){
   var form = layui.form;
-  var $ = layui.$;
-  
+  var $ = layui.$;  
   //监听提交
   form.on('submit(formDemo)', function(data){
     $.ajax({
@@ -200,57 +193,104 @@ layui.use('form', function(){
     })
     return false;
   });
-
-  form.on('checkbox', function () {
-    $("[type='checkbox']").prop("checked", "");
-    $(this).prop("checked", "checked");
-    form.render('checkbox');
-    layer.msg("错误~~~");
-  })
-});
-layui.use('table', function(){
-  var table = layui.table;
-  
-  //项目表格
-  table.render({
-    elem: '#proList'
-    ,height: 315
-    ,url: '/project/query' //数据接口
-    ,page: true //开启分页
-    ,cols: [[ //表头
-      {field: 'proId', title: '项目编号',width: 100, sort: true, fixed: 'left'}
-      ,{field: 'proName', title: '项目名称'}
-      ,{field: 'proPrice', title: '项目总造价',width: 120}
-      ,{field: 'proStart', title: '开工日期',width: 120}
-      ,{field: 'proDays', title: '工期（天）',width: 100} 
-      ,{field: 'proRemark', title: '备注'}
-      ,{field: 'proEdit', title: '操作'}
-    ]]
-  });
-  //标段表格
-  table.render({
-    elem: '#bidsList'
-    ,height: 315
-    ,url: '/project/query' //数据接口
-    ,page: true //开启分页
-    ,cols: [[ //表头
-      {field: 'proId', title: '序号', width:100, sort: true, fixed: 'left'}
-      ,{field: 'proName', title: '标段名称', width:360}
-      ,{field: 'proStart', title: '开工日期', width:180}
-      ,{field: 'proDays', title: '工期（天）', width:100} 
-      ,{field: 'proRemark', title: '备注'}
-      ,{field: 'proEdit', title: '编辑',width:100}
-    ]]
-  });
 });
 layui.use('laydate', function(){
   var laydate = layui.laydate;
   
   //执行一个laydate实例
   laydate.render({
-    elem: '#proStart' //指定元素
+    elem: ['#proStart',] //指定元素
   });
 });
+window.refreshProjectOption = function() {
+  layui.use('form', function(){
+    var form = layui.form;
+    var $ = layui.$;  
+    $.ajax({
+      url:'/project/query',
+      method:'GET',
+      dataType:'JSON',
+      success:function(res){   
+        var num = res.data.length;
+        var option = "";
+        res.data.forEach( function(element, index) {
+          option += "<option value='"+element.proId+"'>"+element.proName+"</option>";
+          $("#proId").html(option)
+        });
+        form.render('select');
+      }
+    });
+  });
+}
+window.refreshProjectList = function(){
+  layui.use(['table','layer'], function(){
+    var table = layui.table,
+    layer = layui.layer;
+    
+    //项目表格
+    table.render({
+      elem: '#proList'
+      ,height: 315
+      ,url: '/project/query' //数据接口
+      ,page: true //开启分页
+      ,cols: [[ //表头
+        {field: 'proNumber', title: '项目编号',width: 100, sort: true, fixed: 'left'}
+        ,{field: 'proName', title: '项目名称'}
+        ,{field: 'proPrice', title: '项目总造价',width: 120}
+        ,{field: 'proStart', title: '开工日期',width: 120}
+        ,{field: 'proDays', title: '工期（天）',width: 100} 
+        ,{field: 'proRemark', title: '备注'}
+        ,{field: 'proEdit', title: '操作',fixed:'right', align:'center', toolbar: '#colBar'}
+      ]]
+    });
+
+    table.on('tool(proList)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+      var data = obj.data; //获得当前行数据
+      var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+      var tr = obj.tr; //获得当前行 tr 的DOM对象
+     
+      if(layEvent === 'detail'){ //查看
+        console.log(data);
+        //do somehing
+      } else if(layEvent === 'del'){ //删除
+        layer.confirm('真的删除行么', function(index){
+          obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+          layer.close(index);
+          //向服务端发送删除指令
+        });
+      } else if(layEvent === 'edit'){ //编辑
+        //do something
+        
+        //同步更新缓存对应的值
+        obj.update({
+          username: '123'
+          ,title: 'xxx'
+        });
+      }
+    });
+  });
+}
+window.refreshBidsList = function(){
+  layui.use('table', function(){
+    var table = layui.table;
+    
+    ///标段表格
+    table.render({
+      elem: '#bidsList'
+      ,height: 315
+      ,url: '/project/query' //数据接口
+      ,page: true //开启分页
+      ,cols: [[ //表头
+        {field: 'proId', title: '序号', width:100, sort: true, fixed: 'left'}
+        ,{field: 'proName', title: '标段名称', width:360}
+        ,{field: 'proStart', title: '开工日期', width:180}
+        ,{field: 'proDays', title: '工期（天）', width:100} 
+        ,{field: 'proRemark', title: '备注'}
+        ,{field: 'proEdit', title: '编辑',width:100}
+      ]]
+    });
+  })
+}
 </script>
 </body>
 </html>
