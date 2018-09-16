@@ -139,7 +139,7 @@
                 <input type="checkbox" name="like[dai]" title="发呆">
               </div>
             </div>
-            <div class="layui-form-item">
+            <!--<div class="layui-form-item">
               <label class="layui-form-label">分类名称</label>
               <div class="layui-input-inline">
                 <select name="city" lay-verify="required" lay-verify="">
@@ -151,7 +151,7 @@
                   <option value="4">杭州</option>
                 </select>
               </div>
-            </div>
+            </div>-->
             <div class="layui-form-item">
               <label class="layui-form-label">供应商名称</label>
               <div class="layui-input-inline">
@@ -183,8 +183,6 @@
               <div class="layui-input-inline">
                 <input type="text" class="layui-input" id="dataTimeStart" placeholder="请选择合同开始日期">
               </div>
-            </div>
-            <div class="layui-form-item">
               <label class="layui-form-label">截止日期</label>
               <div class="layui-input-inline">
                 <input type="text" class="layui-input" id="dataTimeEnd" placeholder="请选择合同截止日期">
@@ -213,9 +211,10 @@
             <div class="layui-form-item">
               <label class="layui-form-label">标签</label>
               <div class="layui-input-block">
-                <div class="label-selected">
-                  <a href="javascript:;" class="layui-btn layui-btn-sm show-labelitem" style="float: right; margin: 4px; display: block;line-height: 30px;">展开标签库 </a>
+                <div class="label-selected" lay-verify="required">
+                  <a href="javascript:;" class="layui-btn layui-btn-sm show-labelitem" style="float: right; margin: 4px; display: block;line-height: 30px;">编辑标签库 </a>
                   <a href="javascript:;" class="layui-btn layui-btn-sm hide-labelitem" style="float: right; margin: 4px; display: none;line-height: 30px;">收起标签库 </a>
+                  <a href="javascript:;" class="layui-btn layui-btn-sm show-labelitem" style="float: right; margin: 4px; display: block;line-height: 30px;">展开标签库 </a>
                   <input type="hidden" name="label">
                 </div>
                 <div class="layui-col-md12" id="labelItem">
