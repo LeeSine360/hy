@@ -81,23 +81,16 @@
             <div class="layui-form-item">
               <label class="layui-form-label">分类</label>
               <div class="layui-input-inline">
-                <select name="city" lay-verify="required">
+                <select name="city" lay-filter="classify" lay-verify="required">
                   <option value=""></option>
-                  <option value="0">材料</option>
-                  <option value="1">租赁</option>
-                  <option value="2">人工</option>
+                  <option value="0">材料采购</option>
+                  <option value="1">设备租赁</option>
+                  <option value="2">人员工资</option>
                   <option value="3">其他</option>
                 </select>
               </div>
             </div>
-            <div class="layui-form-item">
-              <label class="layui-form-label">合同</label>
-              <div class="layui-input-block">
-                <input type="radio" name="sex" value="有" title="有">
-                <input type="radio" name="sex" value="无" title="无" checked>
-              </div>
-            </div>
-            <div class="layui-form-item">
+            <div class="layui-form-item hidden">
               <label class="layui-form-label">合同名称</label>
               <div class="layui-input-inline">
                 <select name="city" lay-verify="required" lay-verify="" lay-search>
@@ -172,6 +165,33 @@ layui.use('form', function(){
   form.on('submit(formDemo)', function(data){
     layer.msg(JSON.stringify(data.field));
     return false;
+  });
+
+  form.on('select(classify)',function(data){
+    if(data.value == 2){
+      layer.open({
+        content: 'test'
+        ,btn: ['按钮一', '按钮二', '按钮三']
+        ,yes: function(index, layero){
+          //按钮【按钮一】的回调
+        }
+        ,btn2: function(index, layero){
+          //按钮【按钮二】的回调
+          
+          //return false 开启该代码可禁止点击该按钮关闭
+        }
+        ,btn3: function(index, layero){
+          //按钮【按钮三】的回调
+          
+          //return false 开启该代码可禁止点击该按钮关闭
+        }
+        ,cancel: function(){ 
+          //右上角关闭回调
+          
+          //return false 开启该代码可禁止点击该按钮关闭
+        }
+      });
+    }
   });
 
   form.on('checkbox', function () {

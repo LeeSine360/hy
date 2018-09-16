@@ -58,44 +58,44 @@
             <div class="layui-form-item">
               <label class="layui-form-label">供应商名称</label>
               <div class="layui-input-inline">
-                <input type="text" name="title" required  lay-verify="required" placeholder="请输入供应商名称" autocomplete="off" class="layui-input">
+                <input type="text" name="comName" required  lay-verify="required" placeholder="请输入供应商名称" autocomplete="off" class="layui-input">
               </div>
             </div>
             <div class="layui-form-item">
               <label class="layui-form-label">开户行名称</label>
               <div class="layui-input-inline">
-                <input type="text" name="title" required  lay-verify="required" placeholder="请输入供应商开户行" autocomplete="off" class="layui-input">
+                <input type="text" name="comAccountName" required  lay-verify="required" placeholder="请输入供应商开户行" autocomplete="off" class="layui-input">
               </div>
             </div>
             <div class="layui-form-item">
               <label class="layui-form-label">付款账号</label>
               <div class="layui-input-inline">
-                <input type="text" name="title" required  lay-verify="required" placeholder="请输入供应商账号" autocomplete="off" class="layui-input">
+                <input type="text" name="comAccount" required  lay-verify="required" placeholder="请输入供应商账号" autocomplete="off" class="layui-input">
               </div>
             </div>
             <div class="layui-form-item">
               <label class="layui-form-label">联系电话</label>
               <div class="layui-input-inline">
-                <input type="text" name="title" required  lay-verify="required" placeholder="请输入供应商联系电话" autocomplete="off" class="layui-input">
+                <input type="text" name="comPhone" required  lay-verify="required" placeholder="请输入供应商联系电话" autocomplete="off" class="layui-input">
               </div>
             </div>
             
             <div class="layui-form-item layui-form-text">
               <label class="layui-form-label">备注</label>
               <div class="layui-input-block">
-                <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+                <textarea name="remark" placeholder="请输入内容" class="layui-textarea"></textarea>
               </div>
             </div>
             <div class="layui-form-item">
               <div class="layui-input-block">
-                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                <button class="layui-btn" lay-submit lay-filter="companyForm">立即提交</button>
                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
               </div>
             </div>
           </form>
         </div>
         <div class="layui-tab-item">
-          <table id="demo" lay-filter="test"></table>
+          <table id="tabList" lay-filter="tab"></table>
         </div>
       </div>
     </div>
@@ -107,31 +107,25 @@
   </div>
 </div>
 <script src="static/layui/layui.js"></script>
+<script type="text/html" id="colBar">
+  <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
+  <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
 <script>
 //JavaScript代码区域
-layui.use('element', function(){
+layui.use(['element','form','table'], function(){
   var element = layui.element,
+  form = layui.form,
+  table = layui.table,
   $ = layui.$;
   
-  $(".layui-nav-item .layui-nav-child dd a").click(function(){
-    //$(this).append('<span class="layui-badge-dot"></span>');
-    console.log($(this).data("menu"));     
-    element.tabAdd('layui-tab', {
-      title: '选项卡的标题'
-      ,content: '选项卡的内容' //支持传入html
-      ,id: 'tt'
-    }); 
-    element.tabChange("nav", "tt");
-    element.init();
-  });
-});
-layui.use('form', function(){
-  var form = layui.form;
-  var $ = layui.$;
-  
   //监听提交
-  form.on('submit(formDemo)', function(data){
-    layer.msg(JSON.stringify(data.field));
+  form.on('submit(companyForm)', function(data){
+    $.post('/company/add',data.field,function(res){        
+        layer.msg(res.msg);
+      }
+    )
     return false;
   });
 
@@ -140,36 +134,27 @@ layui.use('form', function(){
     $(this).prop("checked", "checked");
     form.render('checkbox');
     layer.msg("错误~~~");
-  })
-});
-layui.use('table', function(){
-  var table = layui.table;
-  
+  });
   //第一个实例
   table.render({
-    elem: '#demo'
-    ,height: 315
-    ,url: '/demo/table/user/' //数据接口
+    elem: '#tabList'
+    ,id: 'tabListReload'
+    ,url: '/company/query' //数据接口
     ,page: true //开启分页
     ,cols: [[ //表头
-      {field: 'id', title: '序号', width:80, sort: true, fixed: 'left'}
-      ,{field: 'username', title: '供应商名称', width:280}
-      ,{field: 'sex', title: '开户行名称', width:280, sort: true}
-      ,{field: 'city', title: '付款账号', width:180} 
-      ,{field: 'sign', title: '联系号码', width: 100}
-      ,{field: 'experience', title: '备注'}
-      ,{field: 'score', title: '编辑', width: 100, sort: true}
+      {field: 'comId', title: '序号', width:80}
+      ,{field: 'comName', title: '供应商名称', width:280}
+      ,{field: 'comBankName', title: '开户行名称', width:180, sort: true}
+      ,{field: 'comAccount', title: '付款账号', width:180} 
+      ,{field: 'comPhone', title: '联系号码', width: 100}
+      ,{field: 'comRemark', title: '备注'}
+      ,{field: 'comEdit', title: '编辑', toolbar: '#colBar'}
     ]]
-  });  
+  });
+  element.on("tab(tab)", function(data){
+    table.reload("tabListReload", {});
+  });
 });
-
-/*$(function(){
-  form.on('checkbox', function () {
-    $("[type='checkbox']").prop("checked", "");
-    $(this).prop("checked", "checked");
-    form.render('checkbox');
-  })
-})*/
 </script>
 </body>
 </html>

@@ -8,7 +8,7 @@
 <title>浩宇建设 - 项目部</title>
 <link rel="stylesheet" href="static/layui/css/layui.css">
 <link rel="stylesheet" href="static/layui/css/global.css">
-<link rel="stylesheet" href="static/layui/css/modules/formSelects/deafult/formSelects-v4.css">
+<link rel="stylesheet" href="static/layui/css/modules/formSelects/default/formSelects-v4.css">
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -48,7 +48,7 @@
     </span>
     <hr>
     <blockquote class="layui-elem-quote">公告：暂无</blockquote>
-    <div class="layui-tab layui-tab-brief">
+    <div class="layui-tab layui-tab-brief" lay-filter="tab">
       <ul class="layui-tab-title">
         <li class="layui-this">项目新增</li>
         <li>项目查阅</li>
@@ -99,7 +99,7 @@
             <div class="layui-form-item">
               <div class="layui-input-block">
                 <input type="hidden" name="proAC" value="project" />
-                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                <button class="layui-btn" lay-submit lay-filter="projectForm">立即提交</button>
                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
               </div>
             </div>
@@ -129,7 +129,7 @@
                 <!--<select id="managerId" name="managerId" lay-verify="managerId" lay-filter="proId" lay-search>
                 </select>-->
 
-<select name="city" xm-select="select1" xm-select-search="/project/manager">
+<select name="bidsManager" xm-select="select" xm-select-search="/project/manager">
 </select>
               </div>
               <i class="layui-icon layui-icon-add-circle" style="font-size: 32px; color: #009688;cursor: pointer"></i>
@@ -143,7 +143,7 @@
             <div class="layui-form-item">
               <div class="layui-input-block">
                 <input type="hidden" name="proAC" value="bids" />
-                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                <button class="layui-btn" lay-submit lay-filter="bidsForm">立即提交</button>
                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
               </div>
             </div>            
@@ -169,56 +169,80 @@
 </script>
 <script>
 //JavaScript代码区域
-layui.use('element', function(){
-  var element = layui.element,
-  $ = layui.$;
-
-  refreshProjectOption();
-  refreshProjectList();
-  refreshBidsList();
-});
-layui.use('form', function(){
-  var form = layui.form;
-  var $ = layui.$;  
-  //监听提交
-  form.on('submit(formDemo)', function(data){
-    $.ajax({
-      url:'/project/add',
-      method:'post',
-      data:data.field,
-      dataType:'JSON',
-      success:function(res){        
-        layer.msg(res.msg);
-        //parent.closeIframe(res.msg);
-      },
-      error:function (data) {
-      }
-    })
-    return false;
-  });
-});
-layui.use('laydate', function(){
-  var laydate = layui.laydate;
-  
-  //执行一个laydate实例
-  laydate.render({
-    elem: '#proStart' //指定元素
-  });
-});
 layui.config({
         base: 'static/layui/lay/modules/'
     }).extend({
         formSelects: 'formSelects-v4'
-    });
-layui.use('formSelects', function(){
-    var formSelects = layui.formSelects;
-    
 });
-window.refreshProjectOption = function() {
-  layui.use('form', function(){
-    var form = layui.form;
-    var $ = layui.$;  
-    $.ajax({
+layui.use(['element','laydate','form','formSelects','table','layer'], function(){
+  var element = layui.element,
+  table = layui.table,
+  formSelects = layui.formSelects,
+  laydate = layui.laydate,
+  form = layui.form,
+  $ = layui.$;
+
+  //项目表格
+  table.render({
+    elem: '#proList'
+    ,id: 'proListReload'
+    ,height: 315
+    ,url: '/project/query' //数据接口
+    ,page: true //开启分页
+    ,cols: [[ //表头
+      {field: 'proNumber', title: '项目编号',width: 100, sort: true, fixed: 'left'}
+      ,{field: 'proName', title: '项目名称'}
+      ,{field: 'proPrice', title: '项目总造价',width: 120}
+      ,{field: 'proStart', title: '开工日期',width: 120}
+      ,{field: 'proDays', title: '工期（天）',width: 100} 
+      ,{field: 'proRemark', title: '备注'}
+      ,{field: 'proEdit', title: '操作',fixed:'right', align:'center', toolbar: '#colBar'}
+    ]]
+  });
+  ///标段表格
+  table.render({
+    elem: '#bidsList'
+    ,id:'bidsListReload'
+    ,height: 315
+    ,url: '/project/query' //数据接口
+    ,page: true //开启分页
+    ,cols: [[ //表头
+      {field: 'proId', title: '序号', width:100, sort: true, fixed: 'left'}
+      ,{field: 'proName', title: '标段名称', width:360}
+      ,{field: 'proStart', title: '开工日期', width:180}
+      ,{field: 'proDays', title: '工期（天）', width:100} 
+      ,{field: 'proRemark', title: '备注'}
+      ,{field: 'proEdit', title: '编辑',width:100}
+    ]]
+  });
+
+  element.on("tab(tab)", function(data){
+    if(data.index == 1){
+      table.reload("proListReload", {});
+    }else if(data.index == 3){
+      table.reload('bidsListReload', {});
+    }
+  });
+  form.on('submit(projectForm)', function(data){
+    $.post('/project/add',data.field,function(res){        
+        layer.msg(res.msg);
+        //parent.closeIframe(res.msg);
+      },'json'
+    );
+    return false;
+  });
+  form.on('submit(bidsForm)', function(data){
+    $.post('/project/add',data.field,function(res){        
+        layer.msg(res.msg);
+        //parent.closeIframe(res.msg);
+      }
+    )
+    return false;
+  });
+  laydate.render({
+    elem: '#proStart' //指定元素
+  });
+  $.ajax({
       url:'/project/query',
       method:'GET',
       dataType:'JSON',
@@ -231,78 +255,35 @@ window.refreshProjectOption = function() {
         });
         form.render('select');
       }
-    });
   });
-}
-window.refreshProjectList = function(){
-  layui.use(['table','layer'], function(){
-    var table = layui.table,
-    layer = layui.layer;
-    
-    //项目表格
-    table.render({
-      elem: '#proList'
-      ,height: 315
-      ,url: '/project/query' //数据接口
-      ,page: true //开启分页
-      ,cols: [[ //表头
-        {field: 'proNumber', title: '项目编号',width: 100, sort: true, fixed: 'left'}
-        ,{field: 'proName', title: '项目名称'}
-        ,{field: 'proPrice', title: '项目总造价',width: 120}
-        ,{field: 'proStart', title: '开工日期',width: 120}
-        ,{field: 'proDays', title: '工期（天）',width: 100} 
-        ,{field: 'proRemark', title: '备注'}
-        ,{field: 'proEdit', title: '操作',fixed:'right', align:'center', toolbar: '#colBar'}
-      ]]
-    });
 
-    table.on('tool(proList)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
-      var data = obj.data; //获得当前行数据
-      var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
-      var tr = obj.tr; //获得当前行 tr 的DOM对象
-     
-      if(layEvent === 'detail'){ //查看
-        console.log(data);
-        //do somehing
-      } else if(layEvent === 'del'){ //删除
-        layer.confirm('真的删除行么', function(index){
-          obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
-          layer.close(index);
-          //向服务端发送删除指令
-        });
-      } else if(layEvent === 'edit'){ //编辑
-        //do something
-        
-        //同步更新缓存对应的值
-        obj.update({
-          username: '123'
-          ,title: 'xxx'
-        });
-      }
-    });
+
+  table.on('tool(proList)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+    var data = obj.data; //获得当前行数据
+    var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+    var tr = obj.tr; //获得当前行 tr 的DOM对象
+   
+    if(layEvent === 'detail'){ //查看
+      console.log(data);
+      //do somehing
+    } else if(layEvent === 'del'){ //删除
+      layer.confirm('真的删除行么', function(index){
+        obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+        layer.close(index);
+        //向服务端发送删除指令
+      });
+    } else if(layEvent === 'edit'){ //编辑
+      //do something
+      
+      //同步更新缓存对应的值
+      obj.update({
+        username: '123'
+        ,title: 'xxx'
+      });
+    }
   });
-}
-window.refreshBidsList = function(){
-  layui.use('table', function(){
-    var table = layui.table;
-    
-    ///标段表格
-    table.render({
-      elem: '#bidsList'
-      ,height: 315
-      ,url: '/project/query' //数据接口
-      ,page: true //开启分页
-      ,cols: [[ //表头
-        {field: 'proId', title: '序号', width:100, sort: true, fixed: 'left'}
-        ,{field: 'proName', title: '标段名称', width:360}
-        ,{field: 'proStart', title: '开工日期', width:180}
-        ,{field: 'proDays', title: '工期（天）', width:100} 
-        ,{field: 'proRemark', title: '备注'}
-        ,{field: 'proEdit', title: '编辑',width:100}
-      ]]
-    });
-  })
-}
+  
+});
 </script>
 </body>
 </html>
