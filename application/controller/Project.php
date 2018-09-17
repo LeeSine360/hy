@@ -10,6 +10,9 @@ class Project extends Controller {
 	public function index() {
 		return $this->fetch();
 	}
+	public function manager(){
+		return $this->fetch();
+	}
 
 	public function add() {
 		$param = $_POST;
@@ -64,7 +67,7 @@ class Project extends Controller {
 		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $data);
 		return json($return);
 	}
-	public function manager() {
+	public function managerSearch() {
 		$param = $_GET;
 		$list = Man::where('name', 'like', "%{$param['keyword']}%")->select();
 		$number = count($list);
@@ -83,4 +86,10 @@ class Project extends Controller {
 		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $data);
 		return json($return);
 	}
+    public function managerList(){
+        $data = Man::field('id,name,phone')->order('id desc' )->select();
+        $number = count($data);
+        $return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $data);
+        return json($return);
+    }
 }

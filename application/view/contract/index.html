@@ -134,9 +134,9 @@
             <div class="layui-form-item">
               <label class="layui-form-label">标段名称</label>
               <div class="layui-input-block">
-                <input type="checkbox" name="like[write]" title="写作">
-                <input type="checkbox" name="like[read]" title="阅读" checked>
-                <input type="checkbox" name="like[dai]" title="发呆">
+                <input type="checkbox" name="like[write]" title="A">
+                <input type="checkbox" name="like[read]" title="B" checked>
+                <input type="checkbox" name="like[dai]" title="C">
               </div>
             </div>
             <!--<div class="layui-form-item">
@@ -212,7 +212,7 @@
               <label class="layui-form-label">标签</label>
               <div class="layui-input-block">
                 <div class="label-selected" lay-verify="required">
-                  <a href="javascript:;" class="layui-btn layui-btn-sm show-labelitem" style="float: right; margin: 4px; display: block;line-height: 30px;">编辑标签库 </a>
+                  <a href="javascript:;" name="labelButton" class="layui-btn layui-btn-sm" style="float: right; margin: 4px; display: block;line-height: 30px;">编辑标签库 </a>
                   <a href="javascript:;" class="layui-btn layui-btn-sm hide-labelitem" style="float: right; margin: 4px; display: none;line-height: 30px;">收起标签库 </a>
                   <a href="javascript:;" class="layui-btn layui-btn-sm show-labelitem" style="float: right; margin: 4px; display: block;line-height: 30px;">展开标签库 </a>
                   <input type="hidden" name="label">
@@ -300,22 +300,23 @@
 <script src="static/layui/layui.js"></script>
 <script>
 //JavaScript代码区域
-layui.use('element', function(){
+layui.use(['element','form','table','laydate','layer'], function(){
   var element = layui.element,
+  layer = layui.layer,
+  form = layui.form,
+  table = layui.table,
+  laydate = layui.laydate,
   $ = layui.$;
-  
-  $(".layui-nav-item .layui-nav-child dd a").click(function(){
-    //$(this).append('<span class="layui-badge-dot"></span>');
-    console.log($(this).data("menu"));     
-    element.tabAdd('layui-tab', {
-      title: '选项卡的标题'
-      ,content: '选项卡的内容' //支持传入html
-      ,id: 'tt'
-    }); 
-    element.tabChange("nav", "tt");
-    element.init();
-  });
 
+  $("a[name = 'labelButton']").click(function(data){
+    layer.open({
+      type: 2,
+      area:['600px', '500px'],
+      title:"标签库",
+      content: "/contract/label" //注意，如果str是object，那么需要字符拼接。
+    });
+  });
+  
   //标签选择器
   $(".show-labelitem").on("click",function(){
     $(this).hide();
@@ -338,17 +339,17 @@ layui.use('element', function(){
       return false;
     }
     $(".label-selected").append(labelHTML);
-    val = '';
+    var val = '';
     for(var i = 0; i < $(".label-selected").children("li").length; i++){
       val += $(".label-selected").children("li").eq(i).attr("data")+',';
     }
     $("input[name='label']").val(val);
     $(this).addClass("selected");
   });
-  var val = "";
+
   $(".label-selected").on("click","li",function(){
     var id = $(this).attr("data");
-    val = '';
+    var val = '';
     $(this).remove();
     for(var i = 0; i < $(".label-selected").children("li").length; i++){
       val += $(".label-selected").children("li").eq(i).attr("data")+',';
@@ -384,7 +385,7 @@ layui.use('element', function(){
         layer.msg("错误~~~");
       }
     })
-  })
+  });
   //获取标签
   $("#cell").on("click",function(){
     if($("input[name='label']").val() == ""){
@@ -392,11 +393,7 @@ layui.use('element', function(){
     }else{
     layer.msg("标签内容为："+$("input[name='label']").val());
     }
-  })
-});
-layui.use('form', function(){
-  var form = layui.form;
-  var $ = layui.$;
+  });
   
   //监听提交
   form.on('submit(formDemo)', function(data){
@@ -409,10 +406,7 @@ layui.use('form', function(){
     $(this).prop("checked", "checked");
     form.render('checkbox');
     layer.msg("错误~~~");
-  })
-});
-layui.use('table', function(){
-  var table = layui.table;
+  });
   
   //第一个实例
   table.render({
@@ -421,12 +415,12 @@ layui.use('table', function(){
     ,url: '/demo/table/user/' //数据接口
     ,page: true //开启分页
     ,cols: [[ //表头
-      {field: 'id', title: '序号', width:80, sort: true, fixed: 'left'}
-      ,{field: 'username', title: '项目名称', width:280}
-      ,{field: 'sex', title: '项目编号', width:100, sort: true}
-      ,{field: 'city', title: '合同编号', width:100} 
-      ,{field: 'sign', title: '对方名称', width: 280}
-      ,{field: 'experience', title: '分类名称', width: 100, sort: true}
+      {field: 'id', title: '序号', width:80, sort: true}
+      ,{field: 'name', title: '项目名称', width:280}
+      ,{field: 'number', title: '标段名称', width:100, sort: true}
+      ,{field: 'contractNum', title: '合同编号', width:100} 
+      ,{field: 'company', title: '供应商名称', width: 280}
+      ,{field: 'category', title: '合同总价', width: 100, sort: true}
       ,{field: 'wealth', title: '操作'}
     ]]
   });  
@@ -475,9 +469,6 @@ layui.use('table', function(){
       ,{field: 'wealth', title: '操作'}
     ]]
   });  
-});
-layui.use('laydate', function(){
-  var laydate = layui.laydate;
   
   //执行一个laydate实例
   laydate.render({
@@ -487,14 +478,6 @@ layui.use('laydate', function(){
     elem: '#dataTimeEnd' //指定元素
   });
 });
-
-/*$(function(){
-  form.on('checkbox', function () {
-    $("[type='checkbox']").prop("checked", "");
-    $(this).prop("checked", "checked");
-    form.render('checkbox');
-  })
-})*/
 </script>
 </body>
 </html>
