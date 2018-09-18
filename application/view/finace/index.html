@@ -52,7 +52,7 @@
         <li class="layui-this">报销申请</li>
         <li>报销查询</li>
         <li>报销审核（财务部）<span class="layui-badge-dot"></span></li>
-        <li>结算单录入</li>
+        <li>对账单录入</li>
       </ul>
       <div class="layui-tab-content">
         <div class="layui-tab-item layui-show">
@@ -76,6 +76,14 @@
                 <input type="checkbox" name="like[write]" title="A">
                 <input type="checkbox" name="like[read]" title="B" checked>
                 <input type="checkbox" name="like[dai]" title="C">
+              </div>
+            </div>
+            <div class="layui-form-item">
+              <label class="layui-form-label">报销类别</label>
+              <div class="layui-input-block">
+                <input type="radio" name="sex" value="1" title="材料/租赁" checked>
+                <input type="radio" name="sex" value="2" title="人员工资">
+                <input type="radio" name="sex" value="1" title="其他">
               </div>
             </div>
             <!--<div class="layui-form-item">
@@ -103,7 +111,6 @@
                 </select>
               </div>
             </div>
-            
             <div class="layui-form-item">
               <label class="layui-form-label">报销金额</label>
               <div class="layui-input-inline">
@@ -211,15 +218,12 @@ layui.use('table', function(){
     ,url: '/demo/table/user/' //数据接口
     ,page: true //开启分页
     ,cols: [[ //表头
-      {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
-      ,{field: 'username', title: '用户名', width:80}
-      ,{field: 'sex', title: '性别', width:80, sort: true}
-      ,{field: 'city', title: '城市', width:80} 
-      ,{field: 'sign', title: '签名', width: 177}
-      ,{field: 'experience', title: '积分', width: 80, sort: true}
-      ,{field: 'score', title: '评分', width: 80, sort: true}
-      ,{field: 'classify', title: '职业', width: 80}
-      ,{field: 'wealth', title: '财富', width: 135, sort: true}
+      {field: 'id', title: '编号', width:80}
+      ,{field: 'username', title: '项目名称', width:180}
+      ,{field: 'sex', title: '标段名称', width:180}
+      ,{field: 'city', title: '供应商名称', width:380} 
+      ,{field: 'sign', title: '合同总价', width: 180}
+      ,{field: 'experience', title: '已付金额', width: 180}
     ]]
   });  
 });

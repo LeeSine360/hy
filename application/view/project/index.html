@@ -187,7 +187,7 @@ layui.use(['element','laydate','form','formSelects','table','layer'], function()
     elem: '#proList'
     ,id: 'proListReload'
     ,height: 315
-    ,url: '/project/query' //数据接口
+    ,url: '/project/projectQuery' //数据接口
     ,page: true //开启分页
     ,cols: [[ //表头
       {field: 'proNumber', title: '项目编号',width: 100, sort: true, fixed: 'left'}
@@ -204,15 +204,15 @@ layui.use(['element','laydate','form','formSelects','table','layer'], function()
     elem: '#bidsList'
     ,id:'bidsListReload'
     ,height: 315
-    ,url: '/project/query' //数据接口
+    ,url: '/project/bidsQuery' //数据接口
     ,page: true //开启分页
     ,cols: [[ //表头
-      {field: 'proId', title: '序号', width:100, sort: true, fixed: 'left'}
-      ,{field: 'proName', title: '标段名称', width:360}
-      ,{field: 'proStart', title: '开工日期', width:180}
-      ,{field: 'proDays', title: '工期（天）', width:100} 
-      ,{field: 'proRemark', title: '备注'}
-      ,{field: 'proEdit', title: '编辑',width:100}
+      {field: 'id', title: '序号', width:60}
+      ,{field: 'projectName', title: '项目名称', width:360}
+      ,{field: 'bidsName', title: '标段名称', width:160}
+      ,{field: 'managerName', title: '项目经理', width:180}
+      ,{field: 'remark', title: '备注'}
+      ,{field: 'bidsEdit', title: '操作',fixed:'right', align:'center', toolbar: '#colBar'}
     ]]
   });
 

@@ -47,7 +47,7 @@ class Project extends Controller {
 		return json(array('code' => $id, 'msg' => $msg));
 	}
 
-	public function query() {
+	public function projectQuery() {
 		$list = Pro::all();
 		$number = count($list);
 
@@ -65,6 +65,26 @@ class Project extends Controller {
 		}
 
 		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $data);
+		return json($return);
+	}
+	public function bidsQuery() {
+		$param = $_GET;
+		$curr = $param['page'] <= 1 ? 1 : ($param['page'] - 1) * $param['limit'] + 1;
+		$limit = $param['limit'];
+		$list = Db::query("SELECT
+								b.id as id,
+								b.name as bidsName,
+								p.name as projectName,
+								(SELECT GROUP_CONCAT(m.name) FROM hy_manager m WHERE FIND_IN_SET(m.id,b.m_id)) as managerName
+						   FROM 
+						   		hy_bids b,
+						   		hy_project p
+						   WHERE
+						   		b.p_id = p.id
+						  ");
+		$number = count($list);
+
+		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $list);
 		return json($return);
 	}
 	public function managerSearch() {

@@ -298,6 +298,21 @@
   </div>
 </div>
 <script src="static/layui/layui.js"></script>
+<script type="text/html" id="colBar">
+  <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
+  <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script type="text/html" id="colBar1">
+  <a class="layui-btn layui-btn-xs" lay-event="detail">通过</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">不通过</a>
+</script>
+<script type="text/html" id="colBar2">
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">确认</a>
+</script>
+<script type="text/html" id="colBar3">
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">归档</a>
+</script>
 <script>
 //JavaScript代码区域
 layui.use(['element','form','table','laydate','layer'], function(){
@@ -411,62 +426,62 @@ layui.use(['element','form','table','laydate','layer'], function(){
   //第一个实例
   table.render({
     elem: '#demo1'
-    ,height: 315
-    ,url: '/demo/table/user/' //数据接口
+    ,url: '/contract/contractQuery' //数据接口
     ,page: true //开启分页
     ,cols: [[ //表头
-      {field: 'id', title: '序号', width:80, sort: true}
-      ,{field: 'name', title: '项目名称', width:280}
-      ,{field: 'number', title: '标段名称', width:100, sort: true}
-      ,{field: 'contractNum', title: '合同编号', width:100} 
-      ,{field: 'company', title: '供应商名称', width: 280}
-      ,{field: 'category', title: '合同总价', width: 100, sort: true}
-      ,{field: 'wealth', title: '操作'}
+      {field: 'id', title: '编号', width:80}
+      ,{field: 'proName', title: '项目名称', width:180}
+      ,{field: 'bidsName', title: '项目名称', width:100}
+      ,{field: 'proNumber', title: '项目编号', width:90}
+      ,{field: 'conNumber', title: '合同编号', width:90} 
+      ,{field: 'comName', title: '供应商名称', width: 180}
+      ,{field: 'conPrice', title: '合同总价', width: 100}
+      ,{field: 'category', title: '分类名称', width: 180}
+      ,{field: 'conEdit', title: '操作', toolbar: '#colBar'}
     ]]
   });  
   table.render({
     elem: '#demo2'
-    ,height: 315
-    ,url: '/demo/table/user/' //数据接口
-    ,page: true //开启分页
+    ,url: '/contract/contractVerify' //数据接口
+    ,page: false //开启分页
     ,cols: [[ //表头
-      {field: 'id', title: '序号', width:80, sort: true, fixed: 'left'}
-      ,{field: 'username', title: '项目名称', width:280}
-      ,{field: 'sex', title: '项目编号', width:100, sort: true}
-      ,{field: 'city', title: '合同编号', width:100} 
-      ,{field: 'sign', title: '对方名称', width: 280}
-      ,{field: 'experience', title: '分类名称', width: 100, sort: true}
-      ,{field: 'wealth', title: '操作'}
+      {field: 'id', title: '编号', width:80}
+      ,{field: 'proName', title: '项目名称', width:180}
+      ,{field: 'bidsName', title: '标段名称', width:100}
+      ,{field: 'proNumber', title: '项目编号', width:90}
+      ,{field: 'conNumber', title: '合同编号', width:90} 
+      ,{field: 'comName', title: '供应商名称', width: 180}
+      ,{field: 'conPrice', title: '合同总价', width: 100}
+      ,{field: 'category', title: '分类名称', width: 180}
+      ,{field: 'conEdit', title: '操作', toolbar: '#colBar1'}
     ]]
   });  
   table.render({
     elem: '#demo3'
-    ,height: 315
-    ,url: '/demo/table/user/' //数据接口
-    ,page: true //开启分页
+    ,url: '/contract/contractConfirm' //数据接口
+    ,page: false //开启分页
     ,cols: [[ //表头
-      {field: 'id', title: '序号', width:80, sort: true, fixed: 'left'}
-      ,{field: 'username', title: '项目名称', width:280}
-      ,{field: 'sex', title: '项目编号', width:100, sort: true}
-      ,{field: 'city', title: '合同编号', width:100} 
-      ,{field: 'sign', title: '对方名称', width: 280}
-      ,{field: 'experience', title: '分类名称', width: 100, sort: true}
-      ,{field: 'wealth', title: '操作'}
+       {field: 'id', title: '编号', width:80}
+      ,{field: 'proName', title: '项目名称', width:180}
+      ,{field: 'bidsName', title: '标段名称', width:250}
+      ,{field: 'proNumber', title: '项目编号', width:90}
+      ,{field: 'conNumber', title: '合同编号', width:90} 
+      ,{field: 'comName', title: '供应商名称', width: 280}
+      ,{field: 'conEdit', title: '操作', toolbar: '#colBar2'}
     ]]
   });  
   table.render({
     elem: '#demo4'
-    ,height: 315
-    ,url: '/demo/table/user/' //数据接口
-    ,page: true //开启分页
+    ,url: '/contract/contractSave' //数据接口
+    ,page: false //开启分页
     ,cols: [[ //表头
-     {field: 'id', title: '序号', width:80, sort: true, fixed: 'left'}
-      ,{field: 'username', title: '项目名称', width:280}
-      ,{field: 'sex', title: '项目编号', width:100, sort: true}
-      ,{field: 'city', title: '合同编号', width:100} 
-      ,{field: 'sign', title: '对方名称', width: 280}
-      ,{field: 'experience', title: '分类名称', width: 100, sort: true}
-      ,{field: 'wealth', title: '操作'}
+      {field: 'id', title: '编号', width:80}
+      ,{field: 'proName', title: '项目名称', width:180}
+      ,{field: 'bidsName', title: '标段名称', width:250}
+      ,{field: 'proNumber', title: '项目编号', width:90}
+      ,{field: 'conNumber', title: '合同编号', width:90} 
+      ,{field: 'comName', title: '供应商名称', width: 280}
+      ,{field: 'conEdit', title: '操作', toolbar: '#colBar3'}
     ]]
   });  
   
