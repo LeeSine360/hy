@@ -81,27 +81,35 @@
             <div class="layui-form-item">
               <label class="layui-form-label">报销类别</label>
               <div class="layui-input-block">
-                <input type="radio" name="sex" value="1" title="材料/租赁" checked>
-                <input type="radio" name="sex" value="2" title="人员工资">
-                <input type="radio" name="sex" value="1" title="其他">
+                <input type="radio" name="classify" lay-filter="classify" value="1" title="材料/租赁/分包项目" checked>
+                <input type="radio" name="classify" lay-filter="classify" value="2" title="人员工资">
+                <input type="radio" name="classify" lay-filter="classify" value="3" title="费用报销">
               </div>
             </div>
-            <!--<div class="layui-form-item">
-              <label class="layui-form-label">分类</label>
+            <div class="layui-form-item hidden" id="category">
+              <label class="layui-form-label">班组名称</label>
               <div class="layui-input-inline">
-                <select name="city" lay-filter="classify" lay-verify="required">
-                  <option value=""></option>
-                  <option value="0">材料采购</option>
-                  <option value="1">设备租赁</option>
-                  <option value="2">人员工资</option>
-                  <option value="3">其他</option>
-                </select>
+                <select name="city" lay-filter="category">
+                  <option value="3">行管组</option>
+                  <option value="0">钢筋工组</option>
+                  <option value="1">泥工组</option>
+                  <option value="2">木工组</option>
+                  <option value="3">架工组</option>
+                  <option value="3">防水工组</option>
+                  <option value="3">水电工组</option>
+                </select>                
               </div>
-            </div>-->
-            <div class="layui-form-item">
+              <div class="layui-input-inline">
+                <input type="text" name="title" placeholder="请输入组长姓名" autocomplete="off" class="layui-input">
+              </div>
+              <div class="layui-input-inline">
+                <input type="text" name="title" placeholder="请输入联系电话" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-form-item show" id="company">
               <label class="layui-form-label">供应商名称</label>
               <div class="layui-input-inline">
-                <select name="city" lay-verify="required" lay-verify="" lay-search>
+                <select name="city" lay-verify="" lay-search>
                   <option value=""></option>
                   <option value="0">北京</option>
                   <option value="1">上海</option>
@@ -148,8 +156,10 @@
 <script src="static/layui/layui.js"></script>
 <script>
 //JavaScript代码区域
-layui.use('element', function(){
+layui.use(['element','form','table'], function(){
   var element = layui.element,
+  form = layui.form,
+  table = layui.table,
   $ = layui.$;
   
   $(".layui-nav-item .layui-nav-child dd a").click(function(){
@@ -163,10 +173,6 @@ layui.use('element', function(){
     element.tabChange("nav", "tt");
     element.init();
   });
-});
-layui.use('form', function(){
-  var form = layui.form;
-  var $ = layui.$;
   
   //监听提交
   form.on('submit(formDemo)', function(data){
@@ -174,7 +180,33 @@ layui.use('form', function(){
     return false;
   });
 
-  form.on('select(classify)',function(data){
+  form.on('radio(classify)',function(data){
+    switch (data.value) {
+      case "1":
+        if($("#company").hasClass('hidden')){
+          $("#company").removeClass("hidden");
+          $("#category").addClass("hidden");
+        }
+        break;
+      case "2":
+        if($("#category").hasClass('hidden')){
+          $("#company").addClass("hidden");
+          $("#category").removeClass("hidden");
+        }
+        break;
+      case "3":
+        if(!$("#category").hasClass('hidden')){
+          $("#category").addClass("hidden");
+        }
+        if(!$("#company").hasClass('hidden')){
+          $("#company").addClass("hidden");
+        }
+        break;
+     
+    }
+  });
+
+  form.on('select(category)',function(data){
     if(data.value == 2){
       layer.open({
         content: 'test'
@@ -206,11 +238,12 @@ layui.use('form', function(){
     $(this).prop("checked", "checked");
     form.render('checkbox');
     layer.msg("错误~~~");
-  })
-});
-layui.use('table', function(){
-  var table = layui.table;
-  
+  });
+
+  form.on('select(test)', function(data){
+    console.log(data);
+  });
+    
   //第一个实例
   table.render({
     elem: '#demo'
@@ -227,14 +260,6 @@ layui.use('table', function(){
     ]]
   });  
 });
-
-/*$(function(){
-  form.on('checkbox', function () {
-    $("[type='checkbox']").prop("checked", "");
-    $(this).prop("checked", "checked");
-    form.render('checkbox');
-  })
-})*/
 </script>
 </body>
 </html>
