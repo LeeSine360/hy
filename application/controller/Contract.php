@@ -11,10 +11,49 @@ class Contract extends Controller {
 		return $this->fetch();
 	}
 	public function labelList(){
-		//$data = Db::table('hy_category')->select();
-		$data = Db::table('hy_category cate,hy_classify class')->where('cate.classify_id = class.id')->field('cate.id as id,cate.name as name ,class.name as classify')->order('cate.id desc' )->select();
-		$number = count($data);
-		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $data);
+		$param = $_GET;
+		$id = isset($param['id'])?$param['id']:false;
+		$page = $param['page'];
+		$limit = $param['limit'];
+		$curr = $page <= 1 ? 1 : ($page - 1) * $limit + 1;
+		if($id){
+			$data = Db::query(" SELECT 
+								ca.id as id,
+								ca.name as name,
+								c.name as classify 
+							FROM hy_classify c,
+								 hy_category ca 
+							WHERE 
+								 c.id = $id AND 
+								 c.id=ca.c_id
+						");
+			$dataTotal = Db::query(" SELECT 
+								count(c.id) as value
+							FROM hy_classify c,
+								 hy_category ca 
+							WHERE 
+								 c.id = $id AND 
+								 c.id=ca.c_id
+						");
+		}else{
+			$data = Db::query(" SELECT 
+								ca.id as id,
+								ca.name as name,
+								c.name as classify 
+							FROM hy_classify c,
+								 hy_category ca 
+							WHERE 
+								 c.id=ca.c_id
+						");
+			$dataTotal = Db::query(" SELECT 
+								count(c.id) as value
+							FROM hy_classify c,
+								 hy_category ca 
+							WHERE 
+								 c.id=ca.c_id
+						");
+		}
+		$return = array('code' => 0, 'msg' => '', 'count' => $dataTotal[0]['value'], 'data' => $data);
 		return json($return);
 	}
 	public function classQuery(){
@@ -160,6 +199,22 @@ class Contract extends Controller {
 								c.c_id = com.id AND
 								cm.confirm = 1 AND
 								cm.vertify = 1
+						");
+		$number = count($data);
+		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $data);
+		return json($return);
+	}
+	public function labelQuery(){
+		$param = $_GET;
+		$data = Db::query(" SELECT 
+								ca.id as id,
+								c.name as className,
+								ca.name as cateName 
+							FROM hy_classify c,
+								 hy_category ca 
+							WHERE 
+								 c.id = {$param['id']} AND 
+								 c.id=ca.c_id
 						");
 		$number = count($data);
 		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $data);

@@ -17,6 +17,14 @@ layui.use(['element','table','form'], function(){
   form = layui.form,
   $ = layui.$;
 
+  form.on('select(classId)', function(data){
+    table.reload('labelList', {
+      where: { //设定异步数据接口的额外参数，任意设
+        id: data.value
+      }
+    });
+  });
+
   $.ajax({
       url:'/contract/classQuery',
       method:'GET',
@@ -26,13 +34,16 @@ layui.use(['element','table','form'], function(){
         var option = "";
         res.data.forEach( function(element, index) {
           option += "<option value='"+element.id+"'>"+element.name+"</option>";
-          console.log(option);
           $("#classId").html(option)
         });
         form.render('select');
       }
   });
 });
+</script>
+<script type="text/html" id="colBar">
+  <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 <div class="layui-tab" style="margin:10px 10px">
 	<div class="layui-form">
@@ -44,12 +55,13 @@ layui.use(['element','table','form'], function(){
     	</div>
         <button class="layui-btn" data-type="reload">添加</button>
   	</div>
-	<table class="layui-table" lay-data="{height:390, url:'/contract/labellist', page:true, id:'test'}" lay-filter="test">
+	<table class="layui-table" lay-data="{height:390, url:'/contract/labellist', page:true, id:'labelList'}" lay-filter="labelList">
 		<thead>
 		    <tr>
 			    <th lay-data="{field:'id', width:80}">ID</th>
 			    <th lay-data="{field:'classify', width:180}">分类名称</th>
-			    <th lay-data="{field:'name', width:180}">标签名称</th>			    
+			    <th lay-data="{field:'name', width:180}">标签名称</th>
+          <th lay-data="{field:'bidsEdit', width:120, align:'center', toolbar: '#colBar'}">操作</th>   
 		    </tr>
 		</thead>
 	</table>
