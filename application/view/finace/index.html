@@ -99,10 +99,13 @@
                   <option value="3">水电工组</option>
                 </select>                
               </div>
-              <div class="layui-input-inline">
+              <div class="layui-input-inline" style="width: 200px">
+                <input type="text" class="layui-input" id="dataTime" placeholder="请选择月份">
+              </div>
+              <div class="layui-input-inline" style="width: 200px">
                 <input type="text" name="title" placeholder="请输入组长姓名" autocomplete="off" class="layui-input">
               </div>
-              <div class="layui-input-inline">
+              <div class="layui-input-inline" style="width: 200px">
                 <input type="text" name="title" placeholder="请输入联系电话" autocomplete="off" class="layui-input">
               </div>
             </div>
@@ -156,10 +159,11 @@
 <script src="static/layui/layui.js"></script>
 <script>
 //JavaScript代码区域
-layui.use(['element','form','table'], function(){
+layui.use(['element','form','table','laydate'], function(){
   var element = layui.element,
   form = layui.form,
   table = layui.table,
+  laydate = layui.laydate,
   $ = layui.$;
   
   $(".layui-nav-item .layui-nav-child dd a").click(function(){
@@ -258,7 +262,12 @@ layui.use(['element','form','table'], function(){
       ,{field: 'sign', title: '合同总价', width: 180}
       ,{field: 'experience', title: '已付金额', width: 180}
     ]]
-  });  
+  }); 
+
+  laydate.render({
+    elem: '#dataTime'
+    ,type: 'month' //指定元素
+  }); 
 });
 </script>
 </body>
