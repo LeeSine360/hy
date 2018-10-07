@@ -124,6 +124,12 @@
               </div>
             </div>
             <div class="layui-form-item">
+              <label class="layui-form-label">标段造价</label>
+              <div class="layui-input-inline">
+                <input type="text" name="bidsPrice" required  lay-verify="required" placeholder="请输入标段造价" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-form-item">
               <label class="layui-form-label">项目经理</label>
               <div class="layui-input-inline">
                 <!--<select id="managerId" name="managerId" lay-verify="managerId" lay-filter="proId" lay-search>
@@ -210,6 +216,7 @@ layui.use(['element','laydate','form','formSelects','table','layer'], function()
       {field: 'id', title: '序号', width:60}
       ,{field: 'projectName', title: '项目名称', width:360}
       ,{field: 'bidsName', title: '标段名称', width:160}
+      ,{field: 'bidsPrice', title: '标段造价', width:160}
       ,{field: 'managerName', title: '项目经理', width:180}
       ,{field: 'remark', title: '备注'}
       ,{field: 'bidsEdit', title: '操作',fixed:'right', align:'center', toolbar: '#colBar'}
@@ -243,7 +250,7 @@ layui.use(['element','laydate','form','formSelects','table','layer'], function()
     elem: '#proStart' //指定元素
   });
   $.ajax({
-      url:'/project/query',
+      url:'/project/projectQuery',
       method:'GET',
       dataType:'JSON',
       success:function(res){   

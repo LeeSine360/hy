@@ -56,6 +56,14 @@
         <div class="layui-tab-item layui-show">
           <form class="layui-form" action="">
             <div class="layui-form-item">
+              <label class="layui-form-label">分类名称</label>
+              <div class="layui-input-inline" id="catIdList">
+                <select id="catId" name="catId" lay-verify="catId" lay-filter="catId" lay-search>
+                </select>
+              </div>
+              <i class="layui-icon layui-icon-edit" style="font-size: 32px; color: #009688;cursor: pointer"></i>
+            </div>
+            <div class="layui-form-item">
               <label class="layui-form-label">供应商名称</label>
               <div class="layui-input-inline">
                 <input type="text" name="comName" required  lay-verify="required" placeholder="请输入供应商名称" autocomplete="off" class="layui-input">
@@ -143,6 +151,7 @@ layui.use(['element','form','table'], function(){
     ,page: true //开启分页
     ,cols: [[ //表头
       {field: 'comId', title: '序号', width:80}
+      ,{field: 'catName', title: '分类名称', width:100}
       ,{field: 'comName', title: '供应商名称', width:280}
       ,{field: 'comBankName', title: '开户行名称', width:180, sort: true}
       ,{field: 'comAccount', title: '付款账号', width:180} 
@@ -151,8 +160,35 @@ layui.use(['element','form','table'], function(){
       ,{field: 'comEdit', title: '编辑', toolbar: '#colBar'}
     ]]
   });
+
   element.on("tab(tab)", function(data){
     table.reload("tabListReload", {});
+  });
+
+  $(".layui-icon-edit").click(function(event) {
+    layer.open({
+      type: 2,
+      area:['600px', '500px'],
+      title:"分类名称查询 / 编辑",
+      content: "/company/classify" //注意，如果str是object，那么需要字符拼接。
+    });
+  });
+  $(document).ready(function(){
+    //获取分类名称列表
+    $.ajax({
+      url:'/company/classifylist',
+      method:'GET',
+      dataType:'JSON',
+      success:function(res){   
+        var num = res.data.length;
+        var option = "";
+        res.data.forEach( function(element, index) {
+          option += "<option value='"+element.id+"'>"+element.cateName+"</option>";
+          $("#catId").html(option)
+        });
+        form.render('select');
+      }
+    });
   });
 });
 </script>

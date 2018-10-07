@@ -60,23 +60,12 @@
             <div class="layui-form-item">
               <label class="layui-form-label">项目名称</label>
               <div class="layui-input-inline">
-                <select name="city" lay-verify="required" lay-verify="" lay-search>
-                  <option value=""></option>
-                  <option value="0">北京</option>
-                  <option value="1">上海</option>
-                  <option value="2">广州广州广州广州广州广州广州广州广州广州广州广州</option>
-                  <option value="3">深圳</option>
-                  <option value="4">杭州</option>
-                </select>
+                <select name="proList" id="proList" lay-verify="required" lay-filter="proList" lay-search></select>
               </div>
             </div>
             <div class="layui-form-item">
               <label class="layui-form-label">标段名称</label>
-              <div class="layui-input-block">
-                <input type="checkbox" name="like[write]" title="A">
-                <input type="checkbox" name="like[read]" title="B" checked>
-                <input type="checkbox" name="like[dai]" title="C">
-              </div>
+              <div class="layui-input-block" id="bidsList"></div>
             </div>
             <div class="layui-form-item">
               <label class="layui-form-label">报销类别</label>
@@ -110,16 +99,10 @@
                 <input type="text" name="title" placeholder="请输入联系电话" autocomplete="off" class="layui-input">
               </div>
             </div>
-            <div class="layui-form-item show" id="company">
+            <div class="layui-form-item" id="company">
               <label class="layui-form-label">供应商名称</label>
               <div class="layui-input-inline">
-                <select name="city" lay-verify="" lay-search>
-                  <option value=""></option>
-                  <option value="0">北京</option>
-                  <option value="1">上海</option>
-                  <option value="2">广州</option>
-                  <option value="3">深圳</option>
-                  <option value="4">杭州</option>
+                <select name="comList" id="comList" lay-verify="required" lay-filter="comList" lay-search>
                 </select>
               </div>
             </div>
@@ -168,8 +151,7 @@ layui.use(['element','form','table','laydate'], function(){
   $ = layui.$;
   
   $(".layui-nav-item .layui-nav-child dd a").click(function(){
-    //$(this).append('<span class="layui-badge-dot"></span>');
-    console.log($(this).data("menu"));     
+    //$(this).append('<span class="layui-badge-dot"></span>');  
     element.tabAdd('layui-tab', {
       title: '选项卡的标题'
       ,content: '选项卡的内容' //支持传入html
@@ -188,9 +170,26 @@ layui.use(['element','form','table','laydate'], function(){
   form.on('radio(classify)',function(data){
     switch (data.value) {
       case "1":
+      case "4":
         if($("#company").hasClass('hidden')){
           $("#company").removeClass("hidden");
           $("#category").addClass("hidden");
+        }
+        if(data.value == 4){
+          $.ajax({
+            url:'/contract/comList',
+            method:'GET',
+            dataType:'JSON',
+            success:function(res){   
+              var num = res.data.length;
+              var option = "";
+              res.data.forEach( function(element, index) {      
+                option += "<option value='"+element.id+"'>"+element.name+"</option>";
+                $("#comList").html(option);
+              });
+              form.render('select');
+            }
+          }); 
         }
         break;
       case "2":
@@ -242,13 +241,47 @@ layui.use(['element','form','table','laydate'], function(){
     $("[type='checkbox']").prop("checked", "");
     $(this).prop("checked", "checked");
     form.render('checkbox');
-    layer.msg("错误~~~");
+    var proId = $("#proList").val(); //获取项目ID
+    var bidId = $(this).val(); //获取标段ID
+    //获取供应商名称列表
+    $.ajax({
+        url:'/contract/comList',
+        method:'GET',
+        dataType:'JSON',
+        data:'id='+proId+'&bid='+bidId,
+        success:function(res){   
+          var num = res.data.length;
+          var option = "";
+          res.data.forEach( function(element, index) {      
+            option += "<option value='"+element.id+"'>"+element.name+"</option>";
+            $("#comList").html(option);
+          });
+          form.render('select');
+        }
+    });
   });
 
-  form.on('select(test)', function(data){
-    console.log(data);
-  });
+  form.on('select(proList)', function(data){
+    $("#comList").html('');
     
+    //获取标段名称列表
+    $.ajax({
+        url:'/contract/bidsList',
+        method:'GET',
+        data:'id='+data.value,
+        dataType:'JSON',
+        success:function(res){
+          $("#bidsList").empty();
+          var html = '';
+          res.data.forEach(function(element, index) {
+            html += "<input type='checkbox' name='bids' title='"+element.name+"' value="+element.id+">";//拼接标签
+          });
+          $("#bidsList").html(html);
+          form.render("checkbox");
+        }
+    });
+  });
+
   //第一个实例
   table.render({
     elem: '#demo'
@@ -268,7 +301,25 @@ layui.use(['element','form','table','laydate'], function(){
   laydate.render({
     elem: '#dataTime'
     ,type: 'month' //指定元素
-  }); 
+  });
+
+  $(document).ready(function(){
+    //获取项目名称列表
+    $.ajax({
+      url:'/project/projectQuery',
+      method:'GET',
+      dataType:'JSON',
+      success:function(res){   
+        var num = res.data.length;
+        var option = "<option value=0>请选择</option>";
+        res.data.forEach( function(element, index) {
+          option += "<option value='"+element.proId+"'>"+element.proName+"</option>";
+          $("#proList").html(option)
+        });
+        form.render('select');
+      }
+    });
+  });
 });
 </script>
 </body>

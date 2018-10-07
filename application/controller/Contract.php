@@ -7,62 +7,62 @@ class Contract extends Controller {
 	public function index() {
 		return $this->fetch();
 	}
-	public function label(){
+	public function label() {
 		return $this->fetch();
 	}
-	public function labelList(){
+	public function labelList() {
 		$param = $_GET;
-		$id = isset($param['id'])?$param['id']:false;
+		$id = isset($param['id']) ? $param['id'] : false;
 		$page = $param['page'];
 		$limit = $param['limit'];
 		$curr = $page <= 1 ? 1 : ($page - 1) * $limit + 1;
-		if($id){
-			$data = Db::query(" SELECT 
+		if ($id) {
+			$data = Db::query(" SELECT
 								ca.id as id,
 								ca.name as name,
-								c.name as classify 
+								c.name as classify
 							FROM hy_classify c,
-								 hy_category ca 
-							WHERE 
-								 c.id = $id AND 
+								 hy_category ca
+							WHERE
+								 c.id = $id AND
 								 c.id=ca.c_id
 						");
-			$dataTotal = Db::query(" SELECT 
+			$dataTotal = Db::query(" SELECT
 								count(c.id) as value
 							FROM hy_classify c,
-								 hy_category ca 
-							WHERE 
-								 c.id = $id AND 
+								 hy_category ca
+							WHERE
+								 c.id = $id AND
 								 c.id=ca.c_id
 						");
-		}else{
-			$data = Db::query(" SELECT 
+		} else {
+			$data = Db::query(" SELECT
 								ca.id as id,
 								ca.name as name,
-								c.name as classify 
+								c.name as classify
 							FROM hy_classify c,
-								 hy_category ca 
-							WHERE 
+								 hy_category ca
+							WHERE
 								 c.id=ca.c_id
 						");
-			$dataTotal = Db::query(" SELECT 
+			$dataTotal = Db::query(" SELECT
 								count(c.id) as value
 							FROM hy_classify c,
-								 hy_category ca 
-							WHERE 
+								 hy_category ca
+							WHERE
 								 c.id=ca.c_id
 						");
 		}
 		$return = array('code' => 0, 'msg' => '', 'count' => $dataTotal[0]['value'], 'data' => $data);
 		return json($return);
 	}
-	public function classQuery(){
+	public function classQuery() {
 		$data = Db::table('hy_classify')->field('id,name')->order('id desc')->select();
 		$number = count($data);
 		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $data);
 		return json($return);
 	}
-	public function contractQuery(){
+	public function contractQuery() {
 		$param = $_GET;
 		$curr = $param['page'] <= 1 ? 1 : ($param['page'] - 1) * $param['limit'] + 1;
 		$limit = $param['limit'];
@@ -74,9 +74,9 @@ class Contract extends Controller {
 								com.name as comName,
 								c.price as conPrice,
 								ca.name as category,
-								(SELECT 
+								(SELECT
 									GROUP_CONCAT(b.name)
-								 FROM hy_bids b 
+								 FROM hy_bids b
 								 WHERE FIND_IN_SET(b.id,c.b_id)
 								) AS bidsName
 							FROM
@@ -87,10 +87,10 @@ class Contract extends Controller {
 							WHERE
 								c.p_id = p.id AND
 								c.c_id = com.id AND
-								c.category_id = ca.id				
+								c.category_id = ca.id
 							ORDER BY c.id ASC
 							LIMIT $curr, $limit"
-						);
+		);
 		$listTotal = Db::query("SELECT
 								c.id as id,
 								p.number as proNumber,
@@ -99,9 +99,9 @@ class Contract extends Controller {
 								com.name as comName,
 								c.price as conPrice,
 								ca.name as category,
-								(SELECT 
+								(SELECT
 									GROUP_CONCAT(b.name)
-								 FROM hy_bids b 
+								 FROM hy_bids b
 								 WHERE FIND_IN_SET(b.id,c.b_id)
 								) AS bidsName
 							FROM
@@ -118,7 +118,7 @@ class Contract extends Controller {
 		return json($return);
 	}
 
-	public function contractVerify(){
+	public function contractVerify() {
 		$data = Db::query(" SELECT
 								c.id as id,
 								p.number as proNumber,
@@ -127,9 +127,9 @@ class Contract extends Controller {
 								com.name as comName,
 								c.price as conPrice,
 								ca.name as category,
-								(SELECT 
+								(SELECT
 									GROUP_CONCAT(b.name)
-								 FROM hy_bids b 
+								 FROM hy_bids b
 								 WHERE FIND_IN_SET(b.id,c.b_id)
 								) AS bidsName
 							FROM
@@ -149,16 +149,16 @@ class Contract extends Controller {
 		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $data);
 		return json($return);
 	}
-	public function contractConfirm(){
+	public function contractConfirm() {
 		$data = Db::query(" SELECT
 								c.id as id,
 								p.number as proNumber,
 								p.name as proName,
 								c.number as conNumber,
 								com.name as comName,
-								(SELECT 
+								(SELECT
 									GROUP_CONCAT(b.name)
-								 FROM hy_bids b 
+								 FROM hy_bids b
 								 WHERE FIND_IN_SET(b.id,c.b_id)
 								) AS bidsName
 							FROM
@@ -176,16 +176,16 @@ class Contract extends Controller {
 		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $data);
 		return json($return);
 	}
-	public function contractSave(){
+	public function contractSave() {
 		$data = Db::query(" SELECT
 								c.id as id,
 								p.number as proNumber,
 								p.name as proName,
 								c.number as conNumber,
 								com.name as comName,
-								(SELECT 
+								(SELECT
 									GROUP_CONCAT(b.name)
-								 FROM hy_bids b 
+								 FROM hy_bids b
 								 WHERE FIND_IN_SET(b.id,c.b_id)
 								) AS bidsName
 							FROM
@@ -204,18 +204,63 @@ class Contract extends Controller {
 		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $data);
 		return json($return);
 	}
-	public function labelQuery(){
+	public function categoryList() {
 		$param = $_GET;
-		$data = Db::query(" SELECT 
+		$data = Db::query(" SELECT
 								ca.id as id,
 								c.name as className,
-								ca.name as cateName 
-							FROM hy_classify c,
-								 hy_category ca 
-							WHERE 
-								 c.id = {$param['id']} AND 
-								 c.id=ca.c_id
+								ca.name as cateName
+							FROM
+								hy_company com,
+								hy_classify c,
+								hy_category ca
+							WHERE
+								 com.id = {$param['id']} AND
+								 com.c_id=c.id AND
+								 c.id = ca.c_id
 						");
+		$number = count($data);
+		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $data);
+		return json($return);
+	}
+	public function comList() {
+		$param = $_GET;
+		$id = isset($param['id']) ? $param['id'] : 0; //项目ID
+		$bid = isset($param['bid']) ? $param['bid'] : 0; //标段ID
+		$query = "";
+		if ($id == 0) {
+			$query = " SELECT
+								com.id as id,
+								com.name as name
+							FROM
+								hy_company com,
+								hy_contract con
+							WHERE
+								 con.c_id=com.id
+						";
+		} else {
+			$query = " SELECT
+								com.id as id,
+								com.name as name
+							FROM
+								hy_company com,
+								hy_contract con
+							WHERE
+								 con.p_id = $id AND
+								 $bid in (con.b_id) AND
+								 con.c_id=com.id
+						";
+		}
+		$data = Db::query($query);
+		$number = count($data);
+		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $data);
+		return json($return);
+	}
+	public function bidsList() {
+		$param = $_GET;
+		$id = isset($param['id']) ? $param['id'] : 0;
+		$query = "SELECT id,name FROM hy_bids where p_id = $id";
+		$data = Db::query($query);
 		$number = count($data);
 		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $data);
 		return json($return);

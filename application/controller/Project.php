@@ -10,7 +10,7 @@ class Project extends Controller {
 	public function index() {
 		return $this->fetch();
 	}
-	public function manager(){
+	public function manager() {
 		return $this->fetch();
 	}
 
@@ -37,6 +37,7 @@ class Project extends Controller {
 			$data = [
 				'p_id' => $param['proId'],
 				'name' => $param['bidsName'],
+				'price' => $param['bidsPrice'],
 				'm_id' => $param['bidsManager'],
 				'remark' => $param['bidsRemark'],
 			];
@@ -74,9 +75,10 @@ class Project extends Controller {
 		$list = Db::query("SELECT
 								b.id as id,
 								b.name as bidsName,
+								b.price as bidsPrice,
 								p.name as projectName,
 								(SELECT GROUP_CONCAT(m.name) FROM hy_manager m WHERE FIND_IN_SET(m.id,b.m_id)) as managerName
-						   FROM 
+						   FROM
 						   		hy_bids b,
 						   		hy_project p
 						   WHERE
@@ -106,10 +108,28 @@ class Project extends Controller {
 		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $data);
 		return json($return);
 	}
-    public function managerList(){
-        $data = Man::field('id,name,phone')->order('id desc' )->select();
-        $number = count($data);
-        $return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $data);
-        return json($return);
-    }
+	public function managerList() {
+		$data = Man::field('id,name,phone')->order('id desc')->select();
+		$number = count($data);
+		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $data);
+		return json($return);
+	}
+	public function labelList() {
+		$list = Db::query("SELECT
+								b.id as id,
+								b.name as bidsName,
+								b.price as bidsPrice,
+								p.name as projectName,
+								(SELECT GROUP_CONCAT(m.name) FROM hy_manager m WHERE FIND_IN_SET(m.id,b.m_id)) as managerName
+						   FROM
+						   		hy_bids b,
+						   		hy_project p
+						   WHERE
+						   		b.p_id = p.id
+						  ");
+		$number = count($list);
+
+		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $list);
+		return json($return);
+	}
 }
