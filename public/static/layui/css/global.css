@@ -1,0 +1,69 @@
+.layui-show{
+	padding: 20px 0; 
+	/*border: 1px solid #eee;*/
+}
+/*.layui-show .layui-form{
+	margin-right: 0px;
+}
+.layui-icon{
+	color:#e6e6e6;
+	font-size: 30px;
+}*/
+.layui-icon:hover{
+	color:#d2d2d2;
+}
+.hidden{
+	display: none;
+}
+
+/*label标签库*/
+.label-selected{
+  width: 100%;
+  min-height:38px;
+  margin:10px 0;
+  border:1px solid #ccc;
+  background-color: #fff;
+  position: relative;
+}
+
+.label-selected li {
+    display: inline-block;
+    height: 27px;
+    line-height: 27px;
+    font-size: .8rem;
+    padding: 0 1rem;
+    border: 1px solid #e6e6e6;
+    border-radius: 2px;
+    cursor: pointer;
+    margin: 4px 2px;
+    color: #666;
+}
+#labelItem{
+  margin-bottom: 10px;
+  display: none;
+}
+.label-item {
+    border: 1px solid #e6e6e6;
+    padding: 10px;
+    border-radius: 0 2px 2px 0;
+    position: relative;
+    overflow: hidden;
+    background: #fff;
+}
+.label-item li {
+    display: inline-block;
+    height: 27px;
+    line-height: 27px;
+    font-size: .8rem;
+    padding: 0 1rem;
+    border: 1px solid #e6e6e6;
+    border-radius: 2px;
+    cursor: pointer;
+    margin-bottom: 5px;
+    margin-left: 2px;
+    color: #666;
+}
+.label-item .selected{
+  color:#ccc;
+}
+/*label标签库-end*/
