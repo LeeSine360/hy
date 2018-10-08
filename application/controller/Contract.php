@@ -236,7 +236,9 @@ class Contract extends Controller {
 								hy_company com,
 								hy_contract con
 							WHERE
-								 con.c_id=com.id
+								con.c_id=com.id
+							GROUP BY
+								com.id
 						";
 		} else {
 			$query = " SELECT
@@ -246,9 +248,11 @@ class Contract extends Controller {
 								hy_company com,
 								hy_contract con
 							WHERE
-								 con.p_id = $id AND
-								 $bid in (con.b_id) AND
-								 con.c_id=com.id
+								con.p_id = $id AND
+								$bid in (con.b_id) AND
+								con.c_id=com.id
+							GROUP BY
+								com.id
 						";
 		}
 		$data = Db::query($query);
