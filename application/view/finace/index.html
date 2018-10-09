@@ -129,7 +129,24 @@
           </form>
         </div>
         <div class="layui-tab-item">
-          <table id="demo" lay-filter="test"></table>
+          <form class="layui-form" action="">
+            <div class="layui-search">
+              <div class="layui-input-inline">
+                <select name="proList" id="proList" lay-verify="required" lay-filter="proList" lay-search></select>
+              </div>
+              <div class="layui-input-inline">
+                <select name="proList" id="proList" lay-verify="required" lay-filter="proList" lay-search></select>
+              </div>
+              <div class="layui-input-inline">
+                <select name="proList" id="proList" lay-verify="required" lay-filter="proList" lay-search></select>
+              </div>
+              <div class="layui-inline" style="width: 240px">
+                <input class="layui-input" name="id" id="test-table-demoReload" autocomplete="off" placeholder="请输入供应商名称或合同编号">     
+              </div>                     
+              <button class="layui-btn" data-type="reload">搜索</button>
+            </div>
+            <table id="demo" lay-filter="test"></table>
+          </form>
         </div>
       </div>
     </div>
