@@ -1,43 +1,4 @@
- 
- 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>浩宇建设 - 项目部</title>
-<link rel="stylesheet" href="static/layui/css/layui.css">
-<link rel="stylesheet" href="static/layui/css/global.css">
-</head>
-<body class="layui-layout-body">
-<div class="layui-layout layui-layout-admin">
-  <div class="layui-header">
-    <div class="layui-logo">项目管理部·成本控制</div>
-    <!-- 头部区域（可配合layui已有的水平导航） -->
-   <ul class="layui-nav layui-layout-left">
-      <li class="layui-nav-item"><a href="index">首页</a></li>
-      <li class="layui-nav-item"><a href="project">项目管理</a></li>
-      <li class="layui-nav-item"><a href="company">供应商管理</a></li>
-      <li class="layui-nav-item"><a href="contract">合同管理</a></li>
-      <li class="layui-nav-item"><a href="finace">财务管理</a></li>
-    </ul>
-
-    <ul class="layui-nav layui-layout-right">
-      <li class="layui-nav-item">
-        <a href="javascript:;">
-          <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-          admin
-        </a>
-        <dl class="layui-nav-child">
-          <dd><a href="javascript:;">基本资料</a></dd>
-          <dd><a href="javascript:;">安全设置</a></dd>
-        </dl>
-      </li>
-      <li class="layui-nav-item"><a href="javascript:;">退出</a></li>
-    </ul>
-  </div>
-  
-  
+{include file="../application/view/public/header.html" /}
   
   <div class="layui-body">
     <!-- 内容主体区域 -->
@@ -130,8 +91,6 @@
                 <div class="layui-col-md12" id="labelItem">
                   <div class="label-item" id="labelItemContent">
                     <!--<a href="javascript:;" class="replacelable" style="position: absolute;right:1rem;bottom:.75rem;color: #1994dc" onselectstart="return false">换一批</a>-->
-                    <li data="2"><span>java 教程</span></li>
-                    <li data="16"><span>SEM</span></li>
                   </div>
                 </div>
               </div>
@@ -433,7 +392,7 @@ layui.use(['element','form','table','laydate','layer'], function(){
       dataType:'JSON',
       success:function(res){   
         var num = res.data.length;
-        var option = "";
+        var option = "<option value=''>请选择项目名称</option>";
         res.data.forEach( function(element, index) {
           option += "<option value='"+element.proId+"'>"+element.proName+"</option>";
           $("#proList").html(option)
