@@ -140,7 +140,7 @@ class Contract extends Controller {
 								hy_category ca
 							WHERE
 								c.p_id = p.id AND
-								c.id = cm.c_id AND
+								c.m_id = cm.id AND
 								c.c_id = com.id AND
 								c.category_id = ca.id AND
 								cm.vertify = 0
@@ -168,7 +168,7 @@ class Contract extends Controller {
 								hy_project p
 							WHERE
 								c.p_id = p.id AND
-								c.id = cm.c_id AND
+								c.m_id = cm.id AND
 								c.c_id = com.id AND
 								cm.confirm = 0
 						");
@@ -195,7 +195,7 @@ class Contract extends Controller {
 								hy_project p
 							WHERE
 								c.p_id = p.id AND
-								c.id = cm.c_id AND
+								c.m_id = cm.id AND
 								c.c_id = com.id AND
 								cm.confirm = 1 AND
 								cm.vertify = 1
