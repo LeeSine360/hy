@@ -111,13 +111,12 @@ layui.use(['element','form','table'], function(){
     ,url: '/company/query' //数据接口
     ,page: true //开启分页
     ,cols: [[ //表头
-      {field: 'comId', title: '序号', width:80}
+      {field: 'comId', title: '编号', width:80}
       ,{field: 'catName', title: '分类名称', width:100}
       ,{field: 'comName', title: '供应商名称', width:280}
       ,{field: 'comBankName', title: '开户行名称', width:180, sort: true}
       ,{field: 'comAccount', title: '付款账号', width:180} 
       ,{field: 'comPhone', title: '联系电话', width: 100}
-      ,{field: 'comRemark', title: '备注'}
       ,{field: 'comEdit', title: '编辑', toolbar: '#colBar'}
     ]]
   });

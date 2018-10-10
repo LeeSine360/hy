@@ -91,8 +91,6 @@
                 <div class="layui-col-md12" id="labelItem">
                   <div class="label-item" id="labelItemContent">
                     <!--<a href="javascript:;" class="replacelable" style="position: absolute;right:1rem;bottom:.75rem;color: #1994dc" onselectstart="return false">换一批</a>-->
-                    <li data="2"><span>java 教程</span></li>
-                    <li data="16"><span>SEM</span></li>
                   </div>
                 </div>
               </div>
@@ -394,7 +392,7 @@ layui.use(['element','form','table','laydate','layer'], function(){
       dataType:'JSON',
       success:function(res){   
         var num = res.data.length;
-        var option = "";
+        var option = "<option value=''>请选择项目名称</option>";
         res.data.forEach( function(element, index) {
           option += "<option value='"+element.proId+"'>"+element.proName+"</option>";
           $("#proList").html(option)

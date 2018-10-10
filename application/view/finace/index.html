@@ -289,7 +289,7 @@ layui.use(['element','form','table','laydate'], function(){
       dataType:'JSON',
       success:function(res){   
         var num = res.data.length;
-        var option = "<option value=0>请选择</option>";
+        var option = "<option value=''>请选择项目名称</option>";
         res.data.forEach( function(element, index) {
           option += "<option value='"+element.proId+"'>"+element.proName+"</option>";
           $("#proList").html(option)
