@@ -13,13 +13,51 @@
 <div class="layui-layout layui-layout-admin">
   <div class="layui-header">
     <div class="layui-logo">项目管理部·成本控制</div>
-    <!-- 头部区域（可配合layui已有的水平导航） -->
+    <!-- 头部区域（可配合layui已有的水平导航）
     <ul class="layui-nav layui-layout-left">
       <li class="layui-nav-item"><a href="index">概况</a></li>
       <li class="layui-nav-item"><a href="project">项目管理</a></li>
       <li class="layui-nav-item"><a href="company">供应商管理</a></li>
       <li class="layui-nav-item"><a href="contract">合同管理</a></li>
       <li class="layui-nav-item"><a href="finace">财务管理</a></li>
+    </ul> -->
+    <ul class="layui-nav layui-layout-left">
+      <li class="layui-nav-item"><a href="index">概况</a></li>
+      <li class="layui-nav-item">
+        <a href="project">项目管理</a>
+        <dl class="layui-nav-child"> <!-- 二级菜单 -->
+          <dd><a href="project">项目新建</a></dd>
+          <dd><a href="project">项目查询</a></dd>
+          <dd><a href="">标段新建</a></dd>
+          <dd><a href="">标段查询</a></dd>
+        </dl>
+      </li>
+      <li class="layui-nav-item">
+        <a href="company">供应商管理</a>
+        <dl class="layui-nav-child"> <!-- 二级菜单 -->
+          <dd><a href="company">供应商新建</a></dd>
+          <dd><a href="project">供应商查询</a></dd>
+        </dl>
+      </li>
+      <li class="layui-nav-item">
+        <a href="contract">合同管理</a>
+        <dl class="layui-nav-child"> <!-- 二级菜单 -->
+          <dd><a href="contract">合同新增</a></dd>
+          <dd><a href="project">合同查阅</a></dd>
+          <dd><a href="project">合同审核（副总经办）</a></dd>
+          <dd><a href="project">合同盖章确认（综合部）</a></dd>
+          <dd><a href="project">合同存档</a></dd>
+        </dl>
+      </li>
+      <li class="layui-nav-item">
+        <a href="finace">财务管理</a>
+        <dl class="layui-nav-child"> <!-- 二级菜单 -->
+          <dd><a href="finace">报销申请</a></dd>
+          <dd><a href="project">报销查询</a></dd>
+          <dd><a href="project">报销审核（财务部）</a></dd>
+          <dd><a href="project">对账单录入</a></dd>
+        </dl>
+      </li>
     </ul>
 
     <ul class="layui-nav layui-layout-right">

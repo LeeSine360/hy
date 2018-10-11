@@ -2,6 +2,7 @@
 namespace app\controller;
 use think\Controller;
 use think\Db;
+use think\facade\Request;
 
 class Contract extends Controller {
 	public function index() {
@@ -11,10 +12,9 @@ class Contract extends Controller {
 		return $this->fetch();
 	}
 	public function labelList() {
-		$param = $_GET;
-		$id = isset($param['id']) ? $param['id'] : false;
-		$page = $param['page'];
-		$limit = $param['limit'];
+		$id = Request::param('id');
+		$page = Request::param('page');
+		$limit = Request::param('limit');
 		$curr = $page <= 1 ? 1 : ($page - 1) * $limit + 1;
 		if ($id) {
 			$data = Db::query(" SELECT
@@ -63,9 +63,9 @@ class Contract extends Controller {
 		return json($return);
 	}
 	public function contractQuery() {
-		$param = $_GET;
-		$curr = $param['page'] <= 1 ? 1 : ($param['page'] - 1) * $param['limit'] + 1;
-		$limit = $param['limit'];
+		$page = Request::param('page');
+		$limit = Request::param('limit');
+		$curr = $page <= 1 ? 1 : ($page - 1) * $limit + 1;
 		$data = Db::query("SELECT
 								c.id as id,
 								p.number as proNumber,
@@ -205,7 +205,7 @@ class Contract extends Controller {
 		return json($return);
 	}
 	public function categoryList() {
-		$param = $_GET;
+		$id = Request::param('id');
 		$data = Db::query(" SELECT
 								ca.id as id,
 								c.name as className,
@@ -215,7 +215,7 @@ class Contract extends Controller {
 								hy_classify c,
 								hy_category ca
 							WHERE
-								 com.id = {$param['id']} AND
+								 com.id = $id AND
 								 com.c_id=c.id AND
 								 c.id = ca.c_id
 						");
@@ -224,9 +224,8 @@ class Contract extends Controller {
 		return json($return);
 	}
 	public function comList() {
-		$param = $_GET;
-		$id = isset($param['id']) ? $param['id'] : 0; //项目ID
-		$bid = isset($param['bid']) ? $param['bid'] : 0; //标段ID
+		$id = Request::param('id'); //项目ID
+		$bid =  Request::param('bid'); //标段ID
 		$query = "";
 		if ($id == 0) {
 			$query = " SELECT
@@ -261,8 +260,7 @@ class Contract extends Controller {
 		return json($return);
 	}
 	public function bidsList() {
-		$param = $_GET;
-		$id = isset($param['id']) ? $param['id'] : 0;
+		$id = Request::param('id'); //项目ID
 		$query = "SELECT id,name FROM hy_bids where p_id = $id";
 		$data = Db::query($query);
 		$number = count($data);
