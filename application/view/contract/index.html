@@ -72,11 +72,11 @@
             <div class="layui-form-item">
               <label class="layui-form-label">经办人</label>
               <div class="layui-input-inline">
-                <input type="text" name="title" lay-verify="required" placeholder="请输入经办人姓名" autocomplete="off" class="layui-input">
+                <input type="text" id="transactor" name="transactor" lay-verify="required" placeholder="请输入经办人姓名" autocomplete="off" class="layui-input">
               </div>
               <label class="layui-form-label">联系电话</label>
               <div class="layui-input-inline">
-                <input type="text" name="title" lay-verify="required" placeholder="请输入经办人电话" autocomplete="off" class="layui-input">
+                <input type="text" id="transactorPhone" name="transactorPhone" lay-verify="required" placeholder="请输入经办人电话" autocomplete="off" class="layui-input">
               </div>
             </div>
             <div class="layui-form-item">
@@ -164,13 +164,19 @@
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">归档</a>
 </script>
 <script>
+layui.config({
+        base: 'static/layui/lay/modules/'
+    }).extend({
+        autocomplete: 'autocomplete'
+});
 //JavaScript代码区域
-layui.use(['element','form','table','laydate','layer'], function(){
+layui.use(['element','form','table','laydate','layer','autocomplete'], function(){
   var element = layui.element,
   layer = layui.layer,
   form = layui.form,
   table = layui.table,
   laydate = layui.laydate,
+  autocomplete = layui.autocomplete,
   $ = layui.$;
 
   $("a[name = 'labelButton']").click(function(data){
@@ -279,20 +285,31 @@ layui.use(['element','form','table','laydate','layer'], function(){
     $(".label-selected").children("li").remove();
     //获取标签名称列表
     $.ajax({
-        url:'/contract/categorylist',
-        method:'GET',
-        data:'id='+data.value,
-        dataType:'JSON',
-        success:function(res){
-          $(".label-item").find("li").remove();//删除原先所有，本来想让数据表随机搜索的，想着有点mmp，就没搞，用的是limit
-          var html = '';
-          res.data.forEach(function(element, index) {
-            html += "<li data=\""+element.id+"\"><i class=\"layui-icon layui-icon-close\" style=\"font-size: 10px;\"></i><span>"+element.cateName+"</span></li>";//拼接标签
-          });
-          $(".label-item").append(html);//追加至文档
-        }
+      url:'/contract/categorylist',
+      method:'GET',
+      data:'id='+data.value,
+      dataType:'JSON',
+      success:function(res){
+        $(".label-item").find("li").remove();//删除原先所有，本来想让数据表随机搜索的，想着有点mmp，就没搞，用的是limit
+        var html = '';
+        res.data.forEach(function(element, index) {
+          html += "<li data=\""+element.id+"\"><i class=\"layui-icon layui-icon-close\" style=\"font-size: 10px;\"></i><span>"+element.cateName+"</span></li>";//拼接标签
+        });
+        $(".label-item").append(html);//追加至文档
+      }
     });
   });
+
+  //监听经办人输入框 *****待完善******
+  autocomplete.render({
+    elem: $('#transactor'),
+    url: 'example_request_url',
+    template_val: '{{d.consignee}}',
+    template_txt: '{{d.consignee}} <span class=\'layui-badge layui-bg-gray\'>{{d.phone_number}}</span>',
+    onselect: function (resp) {
+        
+    }
+  })
 
   //监听项目名称下拉列表
   form.on('select(proList)',function(data){

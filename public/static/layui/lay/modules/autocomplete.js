@@ -1,6 +1,6 @@
 layui.define(['jquery', 'laytpl', 'layer'], function (e) {
     "use strict";
-    layui.link('/resource/css/autocomplete.css');
+    layui.link('/static/layui/css/modules/autocomplete/autocomplete.css');
     var hint = layui.hint(),
         $ = layui.jquery,
         laytpl = layui.laytpl,
