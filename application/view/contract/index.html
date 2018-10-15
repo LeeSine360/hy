@@ -20,6 +20,13 @@
         <div class="layui-tab-item layui-show">
           <form class="layui-form" action="">
             <div class="layui-form-item">
+              <label class="layui-form-label">公司名称</label>
+              <div class="layui-input-inline">
+                <select id="corpId" name="corpId" lay-verify="corpId" lay-filter="corpId" lay-search>
+                </select>
+              </div>
+            </div>
+            <div class="layui-form-item">
               <label class="layui-form-label">项目名称</label>
               <div class="layui-input-inline">
                 <select name="proList" id="proList" lay-verify="required" lay-filter="proList" lay-search></select>
@@ -434,7 +441,21 @@ layui.use(['element','form','table','laydate','layer','autocomplete'], function(
         }
     });
 
-    
+    //获取公司列表
+    $.ajax({
+      url:'/project/corpQuery',
+      method:'GET',
+      dataType:'JSON',
+      success:function(res){   
+        var num = res.data.length;
+        var option = "";
+        res.data.forEach( function(element, index) {
+          option += "<option value='"+element.corpId+"'>"+element.corpName+"</option>";
+          $("#corpId").html(option)
+        });
+        form.render('select');
+      }
+    });
   });
 });
 </script>

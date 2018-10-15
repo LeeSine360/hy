@@ -5,6 +5,7 @@ use app\model\Manager as Man;
 use app\model\Project as Pro;
 use think\Controller;
 use think\Db;
+use think\facade\Request;
 
 class Project extends Controller {
 	public function index() {
@@ -13,38 +14,34 @@ class Project extends Controller {
 	public function manager() {
 		return $this->fetch();
 	}
+	public function corporation(){
+		return $this->fetch();
+	}
 
-	public function add() {
-		$param = $_POST;
-		$id = 0;
-		$msg = '';
-		if ($param['proAC'] == 'project') {
-			$pro = Pro::create([
-				'name' => $param['proName'],
-				'price' => $param['proPrice'],
-				'start_time' => $param['proStart'],
-				'days' => $param['proDays'],
-				'number' => $param['proNumber'],
-				'remark' => $param['proRemark'],
-			]);
+	public function proAdd() {
+		$pro = Pro::create([
+			'name' => Request::param('proName'),
+			'price' => Request::param('proPrice'),
+			'start_time' => Request::param('proStart'),
+			'days' => Request::param('proDays'),
+			'number' => Request::param('proNumber'),
+			'remark' => Request::param('proRemark'),
+		]);
 
-			$id = $pro->id;
-			$msg = $id > 0 ? "添加成功！" : "添加失败！";
-		}
-		if ($param['proAC'] == 'bids') {
-			//name, p_id, m_id, create_time, update_time, remark
-			//{proId: "10", bidsName: "TEST", proManager: "22,21,20,19,18", bidsRemark: "TEST", proAC: "bids"}
-			$data = [
-				'p_id' => $param['proId'],
-				'name' => $param['bidsName'],
-				'price' => $param['bidsPrice'],
-				'm_id' => $param['bidsManager'],
-				'remark' => $param['bidsRemark'],
+		$id = $pro->id;
+		$msg = $id > 0 ? "添加成功！" : "添加失败！";
+		return json(array('code' => $id, 'msg' => $msg));
+	}
+	public function bidsAdd(){
+		$data = [
+				'p_id' => Request::param('proId'),
+				'name' => Request::param('bidsName'),
+				'price' => Request::param('bidsPrice'),
+				'm_id' => Request::param('bidsManager'),
+				'remark' => Request::param('bidsRemark'),
 			];
-			$id = Db::table('hy_bids')->insertGetId($data);
-			$msg = $id > 0 ? "添加成功！" : "添加失败！";
-		}
-
+		$id = Db::table('hy_bids')->insertGetId($data);
+		$msg = $id > 0 ? "添加成功！" : "添加失败！";
 		return json(array('code' => $id, 'msg' => $msg));
 	}
 
@@ -68,10 +65,22 @@ class Project extends Controller {
 		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $data);
 		return json($return);
 	}
+
+	public function corpQuery(){
+		$list = Db::query("SELECT 
+								id as corpId,
+								name as corpName,
+								remark as corpRemark
+						   FROM hy_corporation");
+		$number = count($list);
+		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $list);
+		return json($return);
+	}
+
 	public function bidsQuery() {
-		$param = $_GET;
-		$curr = $param['page'] <= 1 ? 1 : ($param['page'] - 1) * $param['limit'] + 1;
-		$limit = $param['limit'];
+		$page = Request::param('page');
+		$limit = Request::param('limit');
+		$curr = $page <= 1 ? 1 : ($page - 1) * $limit + 1;
 		$list = Db::query("SELECT
 								b.id as id,
 								b.name as bidsName,
@@ -90,8 +99,8 @@ class Project extends Controller {
 		return json($return);
 	}
 	public function managerSearch() {
-		$param = $_GET;
-		$list = Man::where('name', 'like', "%{$param['keyword']}%")->select();
+		$keyword = Request::param('keyword');
+		$list = Man::where('name', 'like', "%{$keyword}%")->select();
 		$number = count($list);
 
 		$data = array();
