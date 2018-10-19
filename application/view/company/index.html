@@ -48,6 +48,16 @@
                 <input type="text" name="comPhone" required  lay-verify="required" placeholder="请输入供应商联系电话" autocomplete="off" class="layui-input">
               </div>
             </div>
+
+            <div class="layui-form-item">
+              <label class="layui-form-label">资料详情</label>
+              <div class="layui-input-inline" style="width:600px">
+                <input type="checkbox" name="" title="营业执照" lay-skin="primary">
+                <input type="checkbox" name="" title="法人身份证" lay-skin="primary">
+                <input type="checkbox" name="" title="开户银行许可证" lay-skin="primary">
+                <input type="checkbox" name="" title="其他资质证明" lay-skin="primary">
+              </div>
+            </div>
             
             <div class="layui-form-item layui-form-text">
               <label class="layui-form-label">备注</label>
@@ -98,12 +108,6 @@ layui.use(['element','form','table'], function(){
     return false;
   });
 
-  form.on('checkbox', function () {
-    $("[type='checkbox']").prop("checked", "");
-    $(this).prop("checked", "checked");
-    form.render('checkbox');
-    layer.msg("错误~~~");
-  });
   //第一个实例
   table.render({
     elem: '#tabList'
