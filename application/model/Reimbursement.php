@@ -2,6 +2,5 @@
 namespace app\model;
 use think\Model;
 
-class Finace extends Model
-{
+class Reimbursement extends Model {
 }

@@ -12,8 +12,8 @@
       <ul class="layui-tab-title">
         <li class="layui-this">项目新增</li>
         <li>项目查阅</li>
-        <li>标段新建</li>
-        <li>标段查阅</li>
+        <li>项目经理新建</li>
+        <li>项目经理查阅</li>
       </ul>
       <div class="layui-tab-content">
         <div class="layui-tab-item layui-show">
@@ -86,30 +86,21 @@
               </div>
             </div>
             <div class="layui-form-item">
-              <label class="layui-form-label">标段名称</label>
-              <div class="layui-input-inline">
-                <input type="text" name="bidsName" required  lay-verify="required" placeholder="请输入标段名称" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-form-item">
-              <label class="layui-form-label">标段造价</label>
-              <div class="layui-input-inline">
-                <input type="text" name="bidsPrice" required  lay-verify="required" placeholder="请输入标段造价" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-form-item">
               <label class="layui-form-label">项目经理</label>
               <div class="layui-input-inline">
-                <!--<select id="managerId" name="managerId" lay-verify="managerId" lay-filter="proId" lay-search>
-                </select>-->
-
-<select name="bidsManager" xm-select="select" xm-select-search="/project/managerSearch">
-</select>
+                <select name="bidsManager" xm-select="select" xm-select-search="/project/managerSearch">
+                </select>
               </div>
               <i class="layui-icon layui-icon-edit" id="managerWindow" style="font-size: 32px; color: #009688;cursor: pointer"></i>
             </div>
+            <div class="layui-form-item">
+              <label class="layui-form-label">项目造价</label>
+              <div class="layui-input-inline">
+                <input type="text" name="bidsPrice" required  lay-verify="required" placeholder="请输入标段造价" autocomplete="off" class="layui-input">
+              </div>
+            </div>            
             <div class="layui-form-item layui-form-text">
-              <label class="layui-form-label">备注</label>
+              <label class="layui-form-label">项目描述</label>
               <div class="layui-input-block">
                 <textarea name="bidsRemark" placeholder="请输入内容" class="layui-textarea"></textarea>
               </div>
