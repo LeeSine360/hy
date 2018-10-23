@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "296bd8a1d28e39d56dcd80ce7be249f3",
+    "content-hash": "273692791bc31ed0af63bf2a49695ae0",
     "packages": [
         {
             "name": "topthink/framework",
@@ -97,6 +97,42 @@
                 }
             ],
             "time": "2018-05-11T06:45:42+00:00"
+        },
+        {
+            "name": "zouxiang0639/thinkcms-auth",
+            "version": "v1.1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zouxiang0639/thinkcms-auth.git",
+                "reference": "fbc66c60b66b8d4a317c7b4cc3052f30b9951e24"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zouxiang0639/thinkcms-auth/zipball/fbc66c60b66b8d4a317c7b4cc3052f30b9951e24",
+                "reference": "fbc66c60b66b8d4a317c7b4cc3052f30b9951e24",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "thinkcms\\auth\\": ""
+                },
+                "files": [
+                    "helper.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "zouxiang",
+                    "email": "542506511@qq.com"
+                }
+            ],
+            "description": "The ThinkPHP5 thinkcms-auth Package.",
+            "time": "2018-06-27T03:21:10+00:00"
         }
     ],
     "packages-dev": [],
