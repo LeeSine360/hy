@@ -32,17 +32,16 @@ class Project extends Controller {
 		$msg = $id > 0 ? "添加成功！" : "添加失败！";
 		return json(array('code' => $id, 'msg' => $msg));
 	}
-	public function bidsAdd(){
+	public function managerAdd(){
 		$data = [
-				'p_id' => Request::param('proId'),
-				'name' => Request::param('bidsName'),
-				'price' => Request::param('bidsPrice'),
-				'm_id' => Request::param('bidsManager'),
-				'remark' => Request::param('bidsRemark'),
+				'p_id' => Request::param('proId'),				
+				'm_id' => Request::param('mId'),
+				'price' => Request::param('price'),
+				'remark' => Request::param('remark'),
 			];
-		$id = Db::table('hy_bids')->insertGetId($data);
-		$msg = $id > 0 ? "添加成功！" : "添加失败！";
-		return json(array('code' => $id, 'msg' => $msg));
+		//$id = Db::table('hy_bids')->insertGetId($data);
+		//$msg = $id > 0 ? "添加成功！" : "添加失败！";
+		return json(array('code' => 0, 'msg' => $data));
 	}
 
 	public function projectQuery() {

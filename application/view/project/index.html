@@ -88,7 +88,7 @@
             <div class="layui-form-item">
               <label class="layui-form-label">项目经理</label>
               <div class="layui-input-inline">
-                <select name="bidsManager" xm-select="select" xm-select-search="/project/managerSearch">
+                <select name="mId" xm-select="select" xm-select-search="/project/managerSearch">
                 </select>
               </div>
               <i class="layui-icon layui-icon-edit" id="managerWindow" style="font-size: 32px; color: #009688;cursor: pointer"></i>
@@ -96,19 +96,19 @@
             <div class="layui-form-item">
               <label class="layui-form-label">项目造价</label>
               <div class="layui-input-inline">
-                <input type="text" name="bidsPrice" required  lay-verify="required" placeholder="请输入标段造价" autocomplete="off" class="layui-input">
+                <input type="text" name="price" required  lay-verify="required" placeholder="请输入标段造价" autocomplete="off" class="layui-input">
               </div>
             </div>            
             <div class="layui-form-item layui-form-text">
               <label class="layui-form-label">项目描述</label>
               <div class="layui-input-block">
-                <textarea name="bidsRemark" placeholder="请输入内容" class="layui-textarea"></textarea>
+                <textarea name="remark" placeholder="请输入内容" class="layui-textarea"></textarea>
               </div>
             </div>
             <div class="layui-form-item">
               <div class="layui-input-block">
-                <input type="hidden" name="proAC" value="bids" />
-                <button class="layui-btn" lay-submit lay-filter="bidsForm">立即提交</button>
+                <input type="hidden" name="proAC" value="manager" />
+                <button class="layui-btn" lay-submit lay-filter="managerForm">立即提交</button>
                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
               </div>
             </div>            
@@ -197,8 +197,8 @@ layui.use(['element','laydate','form','formSelects','table','layer'], function()
     );
     return false;
   });
-  form.on('submit(bidsForm)', function(data){
-    $.post('/project/bidsAdd',data.field,function(res){        
+  form.on('submit(managerForm)', function(data){
+    $.post('/project/managerAdd',data.field,function(res){        
         layer.msg(res.msg);
         //parent.closeIframe(res.msg);
       }
