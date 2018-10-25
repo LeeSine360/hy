@@ -13,41 +13,28 @@
 <script>
 layui.use(['element','table','form'], function(){
   var element = layui.element,
-  form = layui.form,
-  table = layui.table,
-  $ = layui.$;
-
-  form.on('submit(manager)', function(data){
-    $.post('/manager/add',data.field,function(res){        
-        layer.msg(res.msg);
-        //parent.closeIframe(res.msg);
-      },'json'
-    );
-    return false;
-  });
+  table = layui.table;
 });
 </script>
 <div class="layui-tab" style="margin:10px 10px">
-	<form class="layui-form" action="">
-		<div class="layui-form">
-	        <div class="layui-inline">
-	        	<input class="layui-input" name="name" autocomplete="off" placeholder="请输入项目经理姓名">
-	    	</div>
-	    	<div class="layui-inline">
-	        	<input class="layui-input" name="phone" autocomplete="off" placeholder="请输入联系电话">
-	    	</div>
-	        <button class="layui-btn" lay-submit lay-filter="manager">添加</button>
-	  </div>
-		<table class="layui-table" lay-data="{height:390, url:'/project/managerlist', page:true, id:'managerList'}" lay-filter="test">
-			<thead>
-			    <tr>
-				    <th lay-data="{field:'id', width:80}">ID</th>
-				    <th lay-data="{field:'name', width:180}">姓名</th>
-				    <th lay-data="{field:'phone', width:180}">联系电话</th>			    
-			    </tr>
-			</thead>
-		</table>
-	</form>
+	<div class="layui-form">
+        <div class="layui-inline">
+        	<input class="layui-input" name="id" id="test-table-demoReload" autocomplete="off" placeholder="请输入项目经理姓名">
+    	</div>
+    	<div class="layui-inline">
+        	<input class="layui-input" name="id" id="test-table-demoReload" autocomplete="off" placeholder="请输入联系电话">
+    	</div>
+        <button class="layui-btn" data-type="reload">添加</button>
+  </div>
+	<table class="layui-table" lay-data="{height:390, url:'/project/managerlist', page:true, id:'test'}" lay-filter="test">
+		<thead>
+		    <tr>
+			    <th lay-data="{field:'id', width:80}">ID</th>
+			    <th lay-data="{field:'name', width:180}">姓名</th>
+			    <th lay-data="{field:'phone', width:180}">联系电话</th>			    
+		    </tr>
+		</thead>
+	</table>
 </div>
 </body>
 </html>
