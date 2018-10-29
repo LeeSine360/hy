@@ -169,15 +169,14 @@ layui.use(['element','laydate','form','formSelects','table','layer'], function()
     elem: '#bidsList'
     ,id:'bidsListReload'
     ,height: 315
-    ,url: '/project/bidsQuery' //数据接口
+    ,url: '/project/projectManagerQuery' //数据接口
     ,page: true //开启分页
     ,cols: [[ //表头
       {field: 'id', title: '序号', width:60}
       ,{field: 'projectName', title: '项目名称', width:360}
-      ,{field: 'bidsName', title: '标段名称', width:160}
-      ,{field: 'bidsPrice', title: '标段造价', width:160}
-      ,{field: 'managerName', title: '项目经理', width:180}
-      ,{field: 'remark', title: '备注'}
+      ,{field: 'proManName', title: '项目标段经理', width:160}
+      ,{field: 'proManPrice', title: '标段造价', width:160}
+      ,{field: 'proManRemark', title: '备注'}
       ,{field: 'bidsEdit', title: '操作',fixed:'right', align:'center', toolbar: '#colBar'}
     ]]
   });
@@ -190,7 +189,7 @@ layui.use(['element','laydate','form','formSelects','table','layer'], function()
     }
   });
   form.on('submit(projectForm)', function(data){
-    $.post('/project/proAdd',data.field,function(res){        
+    $.post('/project/projectAdd',data.field,function(res){        
         layer.msg(res.msg);
         //parent.closeIframe(res.msg);
       },'json'
@@ -198,7 +197,7 @@ layui.use(['element','laydate','form','formSelects','table','layer'], function()
     return false;
   });
   form.on('submit(bidsForm)', function(data){
-    $.post('/project/bidsAdd',data.field,function(res){        
+    $.post('/project/projectManagerAdd',data.field,function(res){        
         layer.msg(res.msg);
         //parent.closeIframe(res.msg);
       }
@@ -226,7 +225,7 @@ layui.use(['element','laydate','form','formSelects','table','layer'], function()
   });
 
   $.ajax({
-      url:'/project/corpQuery',
+      url:'/project/corporationQuery',
       method:'GET',
       dataType:'JSON',
       success:function(res){   

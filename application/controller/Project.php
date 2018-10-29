@@ -18,29 +18,28 @@ class Project extends Controller {
 		return $this->fetch();
 	}
 
-	public function proAdd() {
+	public function projectAdd() {
 		$pro = Pro::create([
+			'number' => Request::param('proNumber'),
 			'name' => Request::param('proName'),
 			'price' => Request::param('proPrice'),
 			'start_time' => Request::param('proStart'),
 			'days' => Request::param('proDays'),
-			'number' => Request::param('proNumber'),
-			'remark' => Request::param('proRemark'),
+			'remark' => Request::param('proRemark')
 		]);
 
 		$id = $pro->id;
 		$msg = $id > 0 ? "添加成功！" : "添加失败！";
 		return json(array('code' => $id, 'msg' => $msg));
 	}
-	public function bidsAdd(){
+	public function projectManagerAdd(){
 		$data = [
-				'p_id' => Request::param('proId'),
-				'name' => Request::param('bidsName'),
-				'price' => Request::param('bidsPrice'),
-				'm_id' => Request::param('bidsManager'),
-				'remark' => Request::param('bidsRemark'),
+				'project_id' => Request::param('proId'),
+				'manager_id' => Request::param('proManManager'),
+				'price' => Request::param('proManPrice'),		
+				'remark' => Request::param('proManRemark'),
 			];
-		$id = Db::table('hy_bids')->insertGetId($data);
+		$id = Db::table('project_manager')->insertGetId($data);
 		$msg = $id > 0 ? "添加成功！" : "添加失败！";
 		return json(array('code' => $id, 'msg' => $msg));
 	}
@@ -54,11 +53,11 @@ class Project extends Controller {
 		foreach ($list as $key => $value) {
 			$data[] = array(
 				'proId' => $value['id'],
+				'proNumber' => $value['number'],
 				'proName' => $value['name'],
 				'proPrice' => $value['price'],
 				'proStart' => date("Y-m-d", $value['start_time']),
 				'proDays' => $value['days'],
-				'proNumber' => $value['number'],
 				'proRemark' => $value['remark']);
 		}
 
@@ -66,32 +65,31 @@ class Project extends Controller {
 		return json($return);
 	}
 
-	public function corpQuery(){
+	public function corporationQuery(){
 		$list = Db::query("SELECT 
 								id as corpId,
-								name as corpName,
-								remark as corpRemark
-						   FROM hy_corporation");
+								name as corpName
+						   FROM corporation");
 		$number = count($list);
 		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $list);
 		return json($return);
 	}
 
-	public function bidsQuery() {
+	public function projectManagerQuery() {
 		$page = Request::param('page');
 		$limit = Request::param('limit');
 		$curr = $page <= 1 ? 1 : ($page - 1) * $limit + 1;
 		$list = Db::query("SELECT
-								b.id as id,
-								b.name as bidsName,
-								b.price as bidsPrice,
+								pm.id as id,
+								pm.price as proManPrice,
 								p.name as projectName,
-								(SELECT GROUP_CONCAT(m.name) FROM hy_manager m WHERE FIND_IN_SET(m.id,b.m_id)) as managerName
+								(SELECT GROUP_CONCAT(m.name) FROM manager m WHERE FIND_IN_SET(m.id,pm.manager_id)) as managerName,
+								pm.remark as proManRemark
 						   FROM
-						   		hy_bids b,
-						   		hy_project p
+						   		project_manager pm,
+						   		project p
 						   WHERE
-						   		b.p_id = p.id
+						   		pm.project_id = p.id
 						  ");
 		$number = count($list);
 
@@ -121,24 +119,6 @@ class Project extends Controller {
 		$data = Man::field('id,name,phone')->order('id desc')->select();
 		$number = count($data);
 		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $data);
-		return json($return);
-	}
-	public function labelList() {
-		$list = Db::query("SELECT
-								b.id as id,
-								b.name as bidsName,
-								b.price as bidsPrice,
-								p.name as projectName,
-								(SELECT GROUP_CONCAT(m.name) FROM hy_manager m WHERE FIND_IN_SET(m.id,b.m_id)) as managerName
-						   FROM
-						   		hy_bids b,
-						   		hy_project p
-						   WHERE
-						   		b.p_id = p.id
-						  ");
-		$number = count($list);
-
-		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $list);
 		return json($return);
 	}
 }

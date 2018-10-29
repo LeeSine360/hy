@@ -19,7 +19,7 @@
             <div class="layui-form-item">
               <label class="layui-form-label">分类名称</label>
               <div class="layui-input-inline" id="catIdList">
-                <select id="catId" name="catId" lay-verify="catId" lay-filter="catId" lay-search>
+                <select id="classifyId" name="classifyId" xm-select="select" xm-select-search="/company/classifySearch">
                 </select>
               </div>
               <i class="layui-icon layui-icon-edit" style="font-size: 32px; color: #009688;cursor: pointer"></i>
@@ -93,15 +93,21 @@
 </script>
 <script>
 //JavaScript代码区域
-layui.use(['element','form','table'], function(){
+layui.config({
+        base: 'static/layui/lay/modules/'
+    }).extend({
+        formSelects: 'formSelects-v4',
+});
+layui.use(['element','form','table','formSelects'], function(){
   var element = layui.element,
   form = layui.form,
   table = layui.table,
+  formSelects = layui.formSelects,
   $ = layui.$;
   
   //监听提交
   form.on('submit(companyForm)', function(data){
-    $.post('/company/add',data.field,function(res){        
+    $.post('/company/companyAdd',data.field,function(res){        
         layer.msg(res.msg);
       }
     )
@@ -112,7 +118,7 @@ layui.use(['element','form','table'], function(){
   table.render({
     elem: '#tabList'
     ,id: 'tabListReload'
-    ,url: '/company/query' //数据接口
+    ,url: '/company/companyList' //数据接口
     ,page: true //开启分页
     ,cols: [[ //表头
       {field: 'comId', title: '编号', width:80}
@@ -148,7 +154,7 @@ layui.use(['element','form','table'], function(){
         var option = "";
         res.data.forEach( function(element, index) {
           option += "<option value='"+element.id+"'>"+element.cateName+"</option>";
-          $("#catId").html(option)
+          $("#classifyId").html(option)
         });
         form.render('select');
       }

@@ -4,6 +4,7 @@ namespace app\controller;
 use app\model\Company as Com;
 use think\Controller;
 use think\Db;
+use think\facade\Request;
 
 class Company extends Controller {
 	public function index() {
@@ -12,18 +13,17 @@ class Company extends Controller {
 	public function classify() {
 		return $this->fetch();
 	}
-	public function add() {
-		$param = $_POST;
+	public function companyAdd() {
 		$id = 0;
 		$msg = '';
 
-		$com = Com::create([
-			'name' => $param['comName'],
-			'c_id' => $param['catId'],
-			'bank_name' => $param['comAccountName'],
-			'account' => $param['comAccount'],
-			'phone' => $param['comPhone'],
-			'remark' => $param['remark'],
+		$com = Com::create([			
+			'category_id' => Request::param('catId'),
+			'name' => Request::param('comName'),
+			'bank_name' => Request::param('comAccountName'),
+			'account' => Request::param('comAccount'),
+			'phone' => Request::param('comPhone'),
+			'remark' => Request::param('remark'),
 		]);
 
 		$id = $com->id;
@@ -32,7 +32,7 @@ class Company extends Controller {
 		return json(array('code' => $id, 'msg' => $msg));
 	}
 
-	public function comQuery() {
+	public function companyQuery() {
 		$list = Com::all();
 		$number = count($list);
 
@@ -49,36 +49,33 @@ class Company extends Controller {
 		return json($return);
 	}
 
-	public function query() {
-		$param = $_GET;
-		$curr = $param['page'] <= 1 ? 1 : ($param['page'] - 1) * $param['limit'] + 1;
-		$limit = $param['limit'];
-		$list = Com::order('id', 'asc')->limit($curr, $limit)->select();
-		$listTotal = Com::all();
-		$total = count($listTotal);
-
-		$data = array();
-
-		foreach ($list as $key => $value) {
-			$data[] = array(
-				'comId' => $value['id'],
-				'comName' => $value['name'],
-				'comBankName' => $value['bank_name'],
-				'comAccount' => $value['account'],
-				'comPhone' => $value['phone'],
-				'comRemark' => $value['remark']);
-		}
-
-		$return = array('code' => 0, 'msg' => '', 'count' => $total, 'data' => $data);
+	public function companyList() {
+		$page = Request::param('page');
+		$limit = Request::param('limit');
+		$curr = $page <= 1 ? 1 : ($page - 1) * $limit + 1;
+		$list = Db::query("SELECT
+								SQL_CALC_FOUND_ROWS id as comId,
+								name as comName,
+								bank_name as comBankName,
+								account as comAccount,
+								phone as comPhone,
+								remark as comRemark
+						   FROM
+						   		company c						   
+						   ORDER BY c.id ASC
+						   LIMIT $curr,$limit
+						  ");
+		$listTotal = Db::query("SELECT FOUND_ROWS() as rowcount");
+		$return = array('code' => 0, 'msg' => '', 'count' => $listTotal[0]['rowcount'], 'data' => $list);
 		return json($return);
 	}
 
-	public function classifyList() {
+	public function classifySearch() {
 		$data = Db::query(" SELECT
 								c.id as id,
-								c.name as cateName
+								c.name as classifyName
 							FROM
-								 hy_classify c;
+								 classify c;
 						");
 		$number = count($data);
 		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $data);
