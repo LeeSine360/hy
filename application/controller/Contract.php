@@ -133,48 +133,52 @@ class Contract extends Controller {
 								c.number as conNumber,
 								com.name as comName,
 								(SELECT
-									GROUP_CONCAT(b.name)
-								 FROM bids b
-								 WHERE FIND_IN_SET(b.id,c.b_id)
-								) AS bidsName
+									GROUP_CONCAT(m.name)
+								 FROM manager m
+								 WHERE FIND_IN_SET(m.id,pm.manager_id)
+								) AS managerName
 							FROM
 								contract c,
-								contract_manager cm,
+								project_manager pm,
 								company com,
-								project p
+								project p,
+                                contract_examine ce
 							WHERE
-								c.p_id = p.id AND
-								c.m_id = cm.id AND
-								c.c_id = com.id AND
-								cm.confirm = 0
+								c.project_manager_id = pm.id AND
+								c.project_manager_id = p.id AND
+								c.company_id = com.id AND
+                                c.contract_examine_id = ce.id AND
+                                ce.confirm = 0
 						");
 		$number = count($data);
 		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $data);
 		return json($return);
 	}
 	public function contractSave() {
-		$data = Db::query(" SELECT
-								c.id as id,
+		$data = Db::query("SELECT
+								SQL_CALC_FOUND_ROWS c.id as id,
 								p.number as proNumber,
 								p.name as proName,
 								c.number as conNumber,
 								com.name as comName,
 								(SELECT
-									GROUP_CONCAT(b.name)
-								 FROM bids b
-								 WHERE FIND_IN_SET(b.id,c.b_id)
-								) AS bidsName
+									GROUP_CONCAT(m.name)
+								 FROM manager m
+								 WHERE FIND_IN_SET(m.id,pm.manager_id)
+								) AS managerName
 							FROM
 								contract c,
-								contract_manager cm,
+								project_manager pm,
 								company com,
-								project p
+								project p,
+                                contract_examine ce
 							WHERE
-								c.p_id = p.id AND
-								c.m_id = cm.id AND
-								c.c_id = com.id AND
-								cm.confirm = 1 AND
-								cm.vertify = 1
+								c.project_manager_id = pm.id AND
+								pm.project_id = p.id AND
+								c.company_id = com.id AND
+                                c.contract_examine_id AND ce.id AND
+								ce.confirm = 1 AND
+								ce.vertify = 1
 						");
 		$number = count($data);
 		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $data);
