@@ -33,7 +33,7 @@
               </div>
             </div>
             <div class="layui-form-item">
-              <label class="layui-form-label">标段名称</label>
+              <label class="layui-form-label">项目负责人</label>
               <div class="layui-input-block" id="bidsList"></div>
             </div>
             <div class="layui-form-item">
@@ -85,6 +85,14 @@
               <div class="layui-input-inline">
                 <input type="text" id="transactorPhone" name="transactorPhone" lay-verify="required" placeholder="请输入经办人电话" autocomplete="off" class="layui-input">
               </div>
+            </div>
+            <div class="layui-form-item">
+              <label class="layui-form-label">分类名称</label>
+              <div class="layui-input-inline" id="catIdList">
+                <select id="classifyId" name="classifyId" xm-select="select" xm-select-search="/company/classifySearch">
+                </select>
+              </div>
+              <i class="layui-icon layui-icon-edit" style="font-size: 32px; color: #009688;cursor: pointer"></i>
             </div>
             <div class="layui-form-item">
               <label class="layui-form-label">标签</label>

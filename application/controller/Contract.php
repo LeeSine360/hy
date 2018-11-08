@@ -78,9 +78,9 @@ class Contract extends Controller {
 								company com,								
 								category ca
 							WHERE
-								c.project_id = p.id AND
-								c.company_id = com.id AND
-								c.category_id = ca.id
+								p.id  = pm.project_id AND
+								pm.id = c.project_manager_id AND
+								c.company_id = com.id 								
 							ORDER BY c.id ASC
 							LIMIT $curr, $limit"
 		);
@@ -92,7 +92,7 @@ class Contract extends Controller {
 
 	public function contractVerify() {
 		$data = Db::query(" SELECT
-								c.id as id,
+								SQL_CALC_FOUND_ROWS c.id as id,
 								p.number as proNumber,
 								p.name as proName,
 								c.number as conNumber,
@@ -100,30 +100,34 @@ class Contract extends Controller {
 								c.price as conPrice,
 								ca.name as category,
 								(SELECT
-									GROUP_CONCAT(b.name)
-								 FROM bids b
-								 WHERE FIND_IN_SET(b.id,c.b_id)
-								) AS bidsName
+									GROUP_CONCAT(m.name)
+								 FROM manager m
+								 WHERE FIND_IN_SET(m.id,c.project_manager_id)
+								) AS managerName
 							FROM
 								contract c,
-								contract_manager cm,
-								company com,
+								project_manager pm,								
 								project p,
-								category ca
+								company com,
+								corporation co,
+								category ca,
+								contract_examine ce
 							WHERE
-								c.p_id = p.id AND
-								c.m_id = cm.id AND
-								c.c_id = com.id AND
+								c.project_manager_id = pm.id AND
+								pm.project_id = p.id AND
+								c.company_id = com.id AND
+								c.corporation_id = co.id AND
 								c.category_id = ca.id AND
-								cm.vertify = 0
+								c.contract_examine_id = ce.id AND 
+								ce.vertify = 0
 						");
-		$number = count($data);
-		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $data);
+		$listTotal = Db::query("SELECT FOUND_ROWS() as rowcount");		
+		$return = array('code' => 0, 'msg' => '', 'count' => $listTotal, 'data' => $data);
 		return json($return);
 	}
 	public function contractConfirm() {
 		$data = Db::query(" SELECT
-								c.id as id,
+								SQL_CALC_FOUND_ROWS c.id as id,
 								p.number as proNumber,
 								p.name as proName,
 								c.number as conNumber,
