@@ -220,8 +220,8 @@ layui.use(['element','form','table','laydate','layer','autocomplete'], function(
     var labelHTML = "<li data='"+id+"''><i class=\"layui-icon layui-icon-close\" style=\"font-size: 10px;color:#000\"></i> "+text+"</li>";
     if($(this).hasClass("selected")){
       return false;
-    }else if($(".label-selected").children("li").length >= 1){
-      layer.msg("最多可以选择1个哦");
+    }else if($(".label-selected").children("li").length >= 5){
+      layer.msg("最多可以选择5个哦");
       return false;
     }
     $(".label-selected").append(labelHTML);

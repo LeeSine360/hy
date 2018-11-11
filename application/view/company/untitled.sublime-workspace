@@ -1,0 +1,728 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"pro",
+				"project"
+			],
+			[
+				"el",
+				"elem"
+			],
+			[
+				"wid",
+				"width\tproperty"
+			],
+			[
+				"elem",
+				"element〔argument〕"
+			],
+			[
+				"ele",
+				"element〔argument〕"
+			],
+			[
+				"ca",
+				"category_id"
+			],
+			[
+				"com",
+				"company_id"
+			],
+			[
+				"rel",
+				"reload"
+			],
+			[
+				"class",
+				"classify"
+			],
+			[
+				"d",
+				"Db〔class〕"
+			],
+			[
+				"op",
+				"option\tTag"
+			],
+			[
+				"con",
+				"console"
+			],
+			[
+				"lay",
+				"layui"
+			],
+			[
+				"bak",
+				"background-color\tproperty"
+			],
+			[
+				"user",
+				"$userId〔variable〕"
+			],
+			[
+				"jso",
+				"json_encode〔function〕"
+			],
+			[
+				"json_",
+				"json_encode"
+			],
+			[
+				"ur",
+				"urldecode"
+			],
+			[
+				"url",
+				"urldecode〔function〕"
+			],
+			[
+				"is",
+				"$isOk〔variable〕"
+			],
+			[
+				"func",
+				"function"
+			],
+			[
+				"key",
+				"$key_str〔variable〕"
+			],
+			[
+				"erro",
+				"$errorNum〔variable〕"
+			],
+			[
+				"user_in",
+				"user_info"
+			],
+			[
+				"userd",
+				"$userData〔variable〕"
+			],
+			[
+				"userI",
+				"user_info_id"
+			],
+			[
+				"va",
+				"var_dump"
+			],
+			[
+				"l",
+				"length"
+			],
+			[
+				"res",
+				"$result〔variable〕"
+			],
+			[
+				"t",
+				"type\tAttr"
+			],
+			[
+				"userr",
+				"$userRPass〔variable〕"
+			],
+			[
+				"font",
+				"font-size"
+			],
+			[
+				"margin",
+				"margin-top"
+			],
+			[
+				"userId",
+				"$userId_arr〔variable〕"
+			],
+			[
+				"is_n",
+				"is_numeric〔function〕"
+			],
+			[
+				"session",
+				"$session3rd〔variable〕"
+			],
+			[
+				"end",
+				"endTime"
+			],
+			[
+				"s",
+				"$session3rd〔variable〕"
+			],
+			[
+				"int",
+				"intval〔function〕"
+			],
+			[
+				"v",
+				"var_dump"
+			],
+			[
+				"fu",
+				"function"
+			],
+			[
+				"open",
+				"$openid_arr〔variable〕"
+			],
+			[
+				"in",
+				"in_array"
+			],
+			[
+				"ex",
+				"exit"
+			],
+			[
+				"user_info",
+				"user_info_id"
+			],
+			[
+				"for",
+				"foreach\tforeach …"
+			],
+			[
+				"req",
+				"require〔keyword〕"
+			],
+			[
+				"REDIS",
+				"REDISTIMELIFE〔constant〕"
+			],
+			[
+				"define",
+				"defined"
+			],
+			[
+				"id",
+				"$idArray〔variable〕"
+			],
+			[
+				"incloud",
+				"include〔keyword〕"
+			],
+			[
+				"incl",
+				"include〔keyword〕"
+			],
+			[
+				"print",
+				"print_r〔function〕"
+			],
+			[
+				"ni",
+				"$nickName〔variable〕"
+			],
+			[
+				"lan",
+				"$language〔variable〕"
+			],
+			[
+				"gend",
+				"$gender〔variable〕"
+			],
+			[
+				"ci",
+				"$city〔variable〕"
+			],
+			[
+				"ava",
+				"$avatarUrl〔variable〕"
+			],
+			[
+				"var",
+				"var_dump〔function〕"
+			],
+			[
+				"jsone",
+				"json_decode〔function〕"
+			],
+			[
+				"i",
+				"is_numeric"
+			],
+			[
+				"pri",
+				"print_r〔function〕"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/Users/work/WEB/tp5-auth/vendor/zouxiang0639/thinkcms-auth/controller/Rbac.php",
+			"settings":
+			{
+				"buffer_size": 13964,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/work/WEB/tp5-auth/vendor/zouxiang0639/thinkcms-auth/Auth.php",
+			"settings":
+			{
+				"buffer_size": 11590,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/work/WEB/tp5-auth/vendor/zouxiang0639/thinkcms-auth/model/AuthRole.php",
+			"settings":
+			{
+				"buffer_size": 650,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "Package Control: ",
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"pic",
+				"Package Control: Install Package"
+			],
+			[
+				"pci",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 540.0
+	},
+	"console":
+	{
+		"height": 265.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/work/WEB/tp5-auth",
+		"/Users/work/WEB/tp5-auth/application",
+		"/Users/work/WEB/tp5-auth/application/index",
+		"/Users/work/WEB/tp5-auth/application/index/controller",
+		"/Users/work/WEB/tp5-auth/application/index/model",
+		"/Users/work/WEB/tp5-auth/application/index/view",
+		"/Users/work/WEB/tp5-auth/mysql",
+		"/Users/work/WEB/tp5-auth/vendor",
+		"/Users/work/WEB/tp5-auth/vendor/zouxiang0639",
+		"/Users/work/WEB/tp5-auth/vendor/zouxiang0639/thinkcms-auth",
+		"/Users/work/WEB/tp5-auth/vendor/zouxiang0639/thinkcms-auth/model"
+	],
+	"file_history":
+	[
+		"/Users/work/WEB/hy/application/controller/Index.php",
+		"/Users/work/WEB/tp5-auth/application/database.php",
+		"/Users/work/WEB/tp5-auth/application/index/controller/Admin.php",
+		"/Users/work/WEB/tp5-auth/application/index/controller/Publics.php",
+		"/Users/work/WEB/tp5-auth/mysql/rbac.sql",
+		"/Users/work/WEB/hy/route/route.php",
+		"/Users/work/WEB/hy/config/app.php",
+		"/Users/work/WEB/hy/application/controller/Finace.php",
+		"/Users/work/WEB/auth/application/route.php",
+		"/Users/work/WEB/auth/application/database.php",
+		"/Users/work/WEB/auth/application/index/controller/Index.php",
+		"/Users/work/WEB/hy/config/database.php",
+		"/Users/work/WEB/auth/public/index.php",
+		"/Users/work/WEB/auth/public/test.php",
+		"/Users/work/WEB/auth/vendor/zouxiang0639/thinkcms-auth/mysql/tp_auth_role.sql",
+		"/Users/work/WEB/auth/mysql/rbac.sql",
+		"/Users/work/WEB/hy/application/view/company/classify.html",
+		"/Users/work/WEB/hy/public/.htaccess",
+		"/Users/work/WEB/hy/application/view/contract/index.html",
+		"/Users/work/WEB/hy/database/hy.sql",
+		"/Users/work/Downloads/tp5-auth v1.1.2/vendor/zouxiang0639/thinkcms-auth/Auth.php",
+		"/Users/work/Downloads/tp5-auth v1.1.2/application/index/controller/Admin.php",
+		"/Users/work/Downloads/tp5-auth v1.1.2/application/index/controller/Auth.php",
+		"/Users/work/Downloads/tp5-auth v1.1.2/application/index/controller/BaseController.php",
+		"/Users/work/Downloads/tp5-auth v1.1.2/application/index/controller/Index.php",
+		"/Users/work/Downloads/tp5-auth v1.1.2/application/index/controller/Publics.php",
+		"/Users/work/Downloads/tp5-auth v1.1.2/application/config.php",
+		"/Users/work/Downloads/tp5-auth v1.1.2/application/route.php",
+		"/Users/work/Downloads/tp5-auth v1.1.2/application/command.php",
+		"/Users/work/Downloads/tp5-auth v1.1.2/application/database.php",
+		"/Users/work/WEB/tp5-auth/composer.json",
+		"/Users/work/WEB/hy/composer.json",
+		"/Users/work/WEB/hy/public/phpspreadsheet/import.php",
+		"/Users/work/WEB/hy/application/view/project/index.html",
+		"/Users/work/WEB/hy/application/controller/Project.php",
+		"/Users/work/WEB/hy/application/controller/Contract.php",
+		"/Users/work/WEB/hy/application/controller/Company.php",
+		"/Users/work/Downloads/helloweba_PHPExcel/composer.json",
+		"/Users/work/WEB/hy/application/view/company/index.html",
+		"/Users/work/Downloads/helloweba_webuploader/index.html",
+		"/Users/work/WEB/hy/public/test/composer.json",
+		"/Users/work/WEB/hy/public/test/conn.php",
+		"/Users/work/WEB/hy/public/test/import.php",
+		"/Users/work/WEB/hy/composer.lock",
+		"/Users/work/Downloads/helloweba_PHPExcel/import.php",
+		"/Users/work/Downloads/helloweba_PHPExcel/conn.php",
+		"/Users/work/WEB/hy/application/view/public/header.html",
+		"/Users/work/WEB/hy/application/view/finace/index.html",
+		"/Users/work/WEB/hy/public/static/layui/css/global.css",
+		"/Users/work/HY_DataBase/hy.sql",
+		"/Users/work/Downloads/HaoYu 20180921 1728.sql",
+		"/Users/work/HY_DataBase/hy2.sql",
+		"/Users/work/WEB/hy/application/view/company/category.html",
+		"/Users/work/WEB/hy/public/static/layui/lay/modules/formSelects-v4.js",
+		"/Users/work/Downloads/HaoYu 20180919 1609.sql",
+		"/Users/work/Downloads/htdocs/hy/data/query.php",
+		"/Users/work/Downloads/HaoYu 20180903 1620.sql",
+		"/Users/work/Downloads/haoyu 20180713 1836.sql",
+		"/Users/work/Downloads/layui-formSelects-master/example/example_v4.html",
+		"/Users/work/Downloads/6194664_1535443673109_449/autocomplete.js",
+		"/Users/work/Downloads/6194664_1535443673109_449/autocomplete.css",
+		"/Users/work/WEB/hy/application/model/Project.php",
+		"/Users/work/Downloads/layui-formSelects-master/dist/formSelects-v4.css",
+		"/Users/work/WEB/hy/info.php",
+		"/Users/work/WEB/hy/public/index.php",
+		"/Users/work/WEB/index.php",
+		"/Users/work/WEB/hy/application/controller/Manager.php",
+		"/Users/work/Downloads/秋叶进销存半成品20180417/application/home/view/login/index.html",
+		"/Users/work/Downloads/秋叶进销存半成品20180417/application/home/controller/Login.php",
+		"/Users/work/WEB/hy/thinkphp/library/traits/controller/Jump.php",
+		"/Users/work/Downloads/秋叶进销存半成品20180417/application/home/model/LoginModel.php",
+		"/Users/work/Downloads/1/application/admin/model/Admin.php",
+		"/Users/work/WEB/hy/application/finace/view/Index/index.html",
+		"/Users/work/WEB/hy/application/contract/view/Index/index.html",
+		"/Users/work/WEB/hy/application/company/view/Index/index.html",
+		"/Users/work/WEB/hy/application/project/view/Index/index.html",
+		"/Users/work/WEB/hy/application/manager/view/Index/index.html",
+		"/Users/work/WEB/hy/application/index/controller/Index.php",
+		"/Users/work/WEB/hy/application/company/controller/Index.php",
+		"/Users/work/WEB/hy/application/contract/controller/Index.php",
+		"/Users/work/WEB/hy/application/manager/controller/Index.php",
+		"/Users/work/WEB/hy/application/project/controller/Index.php",
+		"/Users/work/WEB/hy/application/finace/controller/Index.php",
+		"/Users/work/WEB/hy/config/template.php",
+		"/Users/work/WEB/hy/application/index/view/index/hello.html",
+		"/Users/work/WEB/hy/application/.htaccess",
+		"/Users/work/WEB/hy/thinkphp/library/think/Controller.php",
+		"/Users/work/WEB/hy/thinkphp/library/think/View.php",
+		"/Users/work/WEB/hy/application/index/view/index.html",
+		"/Users/work/WEB/hy/application/finace/view/finace.html",
+		"/Users/work/WEB/hy/application/contract/view/contract.html",
+		"/Users/work/WEB/hy/application/company/view/company.html",
+		"/Users/work/WEB/hy/application/manager/view/manager.html",
+		"/Users/work/WEB/hy/application/project/view/project.html",
+		"/Users/work/WEB/hy/layui/css/global.css",
+		"/Users/work/WEB/hy/project.html",
+		"/Users/work/WEB/hy/layui/css/layui.css",
+		"/Users/work/WEB/hy/manager.html",
+		"/Users/work/WEB/hy/finace.html",
+		"/Users/work/WEB/hy/index.html",
+		"/Users/work/WEB/hy/company.html",
+		"/Users/work/WEB/hy/contract.html",
+		"/Users/work/WEB/hy/public/static/body.css",
+		"/Users/work/WEB/think/composer.json",
+		"/Users/work/WEB/layui/css/layui.css",
+		"/Users/work/WEB/index.html",
+		"/Users/work/WEB/layui/css/global.css",
+		"/Users/work/WEB/test.php",
+		"/Users/work/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/work/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/Users/work/gitHub/lucms/server.php",
+		"/Users/work/gitHub/lucms/database/lucms.sql",
+		"/Users/work/gitHub/lucms/composer.json",
+		"/Users/work/gitHub/lucms/artisan",
+		"/private/var/folders/sx/vs189g811z3_r5b2jg0t_30c0000gp/T/fz3temp-2/Tst 2.php",
+		"/Users/work/Desktop/index.html",
+		"/private/var/folders/sx/vs189g811z3_r5b2jg0t_30c0000gp/T/fz3temp-2/Tst.php",
+		"/private/var/folders/sx/vs189g811z3_r5b2jg0t_30c0000gp/T/fz3temp-2/info.php",
+		"/Users/work/Downloads/fastAdmin/think",
+		"/var/folders/sx/vs189g811z3_r5b2jg0t_30c0000gp/T/sublime-sftp-browse-1530369647/sftp_server_config/fastadmin/application/common.php",
+		"/private/var/folders/sx/vs189g811z3_r5b2jg0t_30c0000gp/T/fz3temp-2/AuthRule.php",
+		"/private/var/folders/sx/vs189g811z3_r5b2jg0t_30c0000gp/T/fz3temp-2/Auth.php",
+		"/private/var/folders/sx/vs189g811z3_r5b2jg0t_30c0000gp/T/fz3temp-2/Index.php",
+		"/private/var/folders/sx/vs189g811z3_r5b2jg0t_30c0000gp/T/fz3temp-2/Config 3.php",
+		"/private/var/folders/sx/vs189g811z3_r5b2jg0t_30c0000gp/T/fz3temp-2/Admin.php",
+		"/Users/work/Downloads/fastAdmin/application/common/controller/Backend.php",
+		"/Users/work/Downloads/fastAdmin/application/admin/controller/Index.php",
+		"/Users/work/Downloads/fastAdmin/application/admin/library/Auth.php"
+	],
+	"find":
+	{
+		"height": 39.0
+	},
+	"find_in_files":
+	{
+		"height": 101.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"ASC) ,",
+			"VISIBLE",
+			"add",
+			"AUTO_INCREMENT = (.)",
+			"AUTO_INCREMENT = (..)",
+			" AUTO_INCREMENT",
+			" AUTO_INCREMENT(*)",
+			" AUTO_INCREMENT(.)",
+			" AUTO_INCREMENT(.d)",
+			" AUTO_INCREMENT(.\\d)",
+			" AUTO_INCREMENT(./d)",
+			" AUTO_INCREMENT(.d)",
+			" AUTO_INCREMENT(.*)",
+			" AUTO_INCREMENT = ",
+			" AUTO_INCREMENT =",
+			" AUTO_INCREMENT = ",
+			" AUTO_INCREMENT = (.*)",
+			" AUTO_INCREMENT = (.d)",
+			" AUTO_INCREMENT = (d)",
+			" VISIBLE",
+			"VISIBLE",
+			"console",
+			"console.log",
+			"label-selected",
+			"labelList",
+			"labellist"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"ASC) VISIBLE,",
+			"AUTO_INCREMENT = 1",
+			""
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/Users/work/WEB/tp5-auth/vendor/zouxiang0639/thinkcms-auth/controller/Rbac.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 13964,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								770,
+								779
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/Users/work/WEB/tp5-auth/vendor/zouxiang0639/thinkcms-auth/Auth.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 11590,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2883.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/Users/work/WEB/tp5-auth/vendor/zouxiang0639/thinkcms-auth/model/AuthRole.php",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 650,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 24.0
+	},
+	"input":
+	{
+		"height": 36.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.sftp":
+	{
+		"height": 102.0
+	},
+	"pinned_build_system": "",
+	"project": "untitled.sublime-project",
+	"replace":
+	{
+		"height": 70.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 392.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 392.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 270.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
