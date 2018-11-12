@@ -435,7 +435,7 @@ layui.use(['element','form','table','laydate','layer','autocomplete'], function(
 
     //获取供应商名称列表
     $.ajax({
-        url:'/company/comQuery',
+        url:'/company/companyQuery',
         method:'GET',
         dataType:'JSON',
         success:function(res){   
@@ -451,7 +451,7 @@ layui.use(['element','form','table','laydate','layer','autocomplete'], function(
 
     //获取公司列表
     $.ajax({
-      url:'/project/corpQuery',
+      url:'/project/corporationQuery',
       method:'GET',
       dataType:'JSON',
       success:function(res){   
