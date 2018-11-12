@@ -4,6 +4,6 @@ use think\Controller;
 
 class Index extends Controller {
 	public function index() {
-		return phpinfo();
+		return $this->fetch();
 	}
 }
