@@ -299,9 +299,9 @@ abstract class Model implements \JsonSerializable, \ArrayAccess
             call_user_func_array([$this, 'base'], [ & $query]);
         }
 
-        $globalScope = is_array($useBaseQuery) && $useBaseQuery ?: $this->globalScope;
+        $globalScope = is_array($useBaseQuery) && $useBaseQuery ? $useBaseQuery : $this->globalScope;
 
-        if ($globalScope) {
+        if ($globalScope && false !== $useBaseQuery) {
             $query->scope($globalScope);
         }
 
@@ -439,6 +439,7 @@ abstract class Model implements \JsonSerializable, \ArrayAccess
 
         // 重新记录原始数据
         $this->origin = $this->data;
+        $this->set    = [];
 
         return true;
     }
