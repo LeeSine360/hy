@@ -35,6 +35,7 @@
               <div class="layui-input-inline">
                 <input type="text" name="proPrice" required  lay-verify="number" placeholder="请输入项目总造价" autocomplete="off" class="layui-input">
               </div>
+              <div class="layui-form-mid layui-word-aux">元</div>
             </div>
             <div class="layui-form-item">
               <label class="layui-form-label">开工日期</label>
@@ -90,7 +91,15 @@
               <div class="layui-input-inline">
                 <input type="text" name="bidsPrice" required  lay-verify="required" placeholder="请输入标段造价" autocomplete="off" class="layui-input">
               </div>
-            </div>            
+              <div class="layui-form-mid layui-word-aux">元</div>
+            </div>
+            <div class="layui-form-item">
+              <label class="layui-form-label">管理费比例</label>
+              <div class="layui-input-inline">
+                <input type="text" name="proDays" required  lay-verify="number" placeholder="请输入项目工期" autocomplete="off" class="layui-input">
+              </div>
+              <div class="layui-form-mid layui-word-aux">%</div>
+            </div>         
             <div class="layui-form-item layui-form-text">
               <label class="layui-form-label">项目描述</label>
               <div class="layui-input-block">
