@@ -96,7 +96,7 @@
             <div class="layui-form-item">
               <label class="layui-form-label">管理费比例</label>
               <div class="layui-input-inline">
-                <input type="text" name="proDays" required  lay-verify="number" placeholder="请输入项目工期" autocomplete="off" class="layui-input">
+                <input type="text" name="proManagerRatio" required  lay-verify="number" placeholder="请输入项目工期" autocomplete="off" class="layui-input">
               </div>
               <div class="layui-form-mid layui-word-aux">%</div>
             </div>         
@@ -148,45 +148,59 @@ layui.use(['element','laydate','form','formSelects','table','layer'], function()
   form = layui.form,
   $ = layui.$;
 
-  //项目表格
-  table.render({
-    elem: '#proList'
-    ,id: 'proListReload'
-    ,height: 315
-    ,url: '/project/projectQuery' //数据接口
-    ,page: true //开启分页
-    ,cols: [[ //表头
-      {field: 'proNumber', title: '项目编号',width: 100, sort: true, fixed: 'left'}
-      ,{field: 'proName', title: '项目名称'}
-      ,{field: 'proPrice', title: '项目总造价',width: 120}
-      ,{field: 'proStart', title: '开工日期',width: 120}
-      ,{field: 'proDays', title: '工期（天）',width: 100} 
-      ,{field: 'proRemark', title: '备注'}
-      ,{field: 'proEdit', title: '操作',fixed:'right', align:'center', toolbar: '#colBar'}
-    ]]
-  });
-  ///标段表格
-  table.render({
-    elem: '#bidsList'
-    ,id:'bidsListReload'
-    ,height: 315
-    ,url: '/project/projectManagerQuery' //数据接口
-    ,page: true //开启分页
-    ,cols: [[ //表头
-      {field: 'id', title: '序号', width:60}
-      ,{field: 'projectName', title: '项目名称', width:360}
-      ,{field: 'proManName', title: '项目标段经理', width:160}
-      ,{field: 'proManPrice', title: '标段造价', width:160}
-      ,{field: 'proManRemark', title: '备注'}
-      ,{field: 'bidsEdit', title: '操作',fixed:'right', align:'center', toolbar: '#colBar'}
-    ]]
-  });
-
   element.on("tab(tab)", function(data){
-    if(data.index == 1){
-      table.reload("proListReload", {});
-    }else if(data.index == 3){
-      table.reload('bidsListReload', {});
+    switch (data.index) {
+      case 2://项目表格        
+        table.render({
+          elem: '#proList'
+          ,id: 'proListReload'
+          ,height: 315
+          ,url: '/project/projectQuery' //数据接口
+          ,page: true //开启分页
+          ,cols: [[ //表头
+            {field: 'proNumber', title: '项目编号',width: 100, sort: true, fixed: 'left'}
+            ,{field: 'proName', title: '项目名称'}
+            ,{field: 'proPrice', title: '项目总造价',width: 120}
+            ,{field: 'proStart', title: '开工日期',width: 120}
+            ,{field: 'proDays', title: '工期（天）',width: 100} 
+            ,{field: 'proRemark', title: '备注'}
+            ,{field: 'proEdit', title: '操作',fixed:'right', align:'center', toolbar: '#colBar'}
+          ]]
+        });
+        break;
+      case 3:
+        $.ajax({
+          url:'/project/projectQuery',
+          method:'GET',
+          dataType:'JSON',
+          success:function(res){   
+            var num = res.data.length;
+            var option = "";
+            res.data.forEach( function(element, index) {
+              option += "<option value='"+element.proId+"'>"+element.proName+"</option>";
+              $("#proId").html(option)
+            });
+            form.render('select');
+          }
+        });
+        break;
+      case 4://项目经理标段表格        
+        table.render({
+          elem: '#bidsList'
+          ,id:'bidsListReload'
+          ,height: 315
+          ,url: '/project/projectManagerQuery' //数据接口
+          ,page: true //开启分页
+          ,cols: [[ //表头
+            {field: 'id', title: '序号', width:60}
+            ,{field: 'projectName', title: '项目名称', width:360}
+            ,{field: 'proManName', title: '项目标段经理', width:160}
+            ,{field: 'proManPrice', title: '标段造价', width:160}
+            ,{field: 'proManRemark', title: '备注'}
+            ,{field: 'bidsEdit', title: '操作',fixed:'right', align:'center', toolbar: '#colBar'}
+          ]]
+        });
+        break;
     }
   });
   form.on('submit(projectForm)', function(data){
@@ -208,36 +222,6 @@ layui.use(['element','laydate','form','formSelects','table','layer'], function()
 
   laydate.render({
     elem: '#proStart' //指定元素
-  });
-
-  $.ajax({
-      url:'/project/projectQuery',
-      method:'GET',
-      dataType:'JSON',
-      success:function(res){   
-        var num = res.data.length;
-        var option = "";
-        res.data.forEach( function(element, index) {
-          option += "<option value='"+element.proId+"'>"+element.proName+"</option>";
-          $("#proId").html(option)
-        });
-        form.render('select');
-      }
-  });
-
-  $.ajax({
-      url:'/project/corporationQuery',
-      method:'GET',
-      dataType:'JSON',
-      success:function(res){   
-        var num = res.data.length;
-        var option = "";
-        res.data.forEach( function(element, index) {
-          option += "<option value='"+element.corpId+"'>"+element.corpName+"</option>";
-          $("#corpId").html(option)
-        });
-        form.render('select');
-      }
   });
 
   table.on('tool(proList)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
@@ -273,16 +257,6 @@ layui.use(['element','laydate','form','formSelects','table','layer'], function()
       content: "/project/manager" //注意，如果str是object，那么需要字符拼接。
     });
   });
-
-  $("#corWindow").click(function(event) {
-    layer.open({
-      type: 2,
-      area:['600px', '500px'],
-      title:"项目经理查询 / 编辑",
-      content: "/project/corporation" //注意，如果str是object，那么需要字符拼接。
-    });
-  });
-  
 });
 </script>
 </body>
