@@ -14,7 +14,7 @@ class Project extends Controller {
 	public function manager() {
 		return $this->fetch();
 	}
-	public function corporation(){
+	public function corporation() {
 		return $this->fetch();
 	}
 
@@ -25,26 +25,26 @@ class Project extends Controller {
 			'price' => Request::param('proPrice'),
 			'start_time' => Request::param('proStart'),
 			'days' => Request::param('proDays'),
-			'remark' => Request::param('proRemark')
+			'remark' => Request::param('proRemark'),
 		]);
 
 		$id = $pro->id;
 		$msg = $id > 0 ? "添加成功！" : "添加失败！";
 		return json(array('code' => $id, 'msg' => $msg));
 	}
-	public function projectManagerAdd(){
+	public function managerAdd() {
 		$data = [
-				'project_id' => Request::param('proId'),
-				'manager_id' => Request::param('proManManager'),
-				'price' => Request::param('proManPrice'),		
-				'remark' => Request::param('proManRemark'),
-			];
+			'project_id' => Request::param('proId'),
+			'manager_id' => Request::param('proManManager'),
+			'price' => Request::param('proManPrice'),
+			'remark' => Request::param('proManRemark'),
+		];
 		$id = Db::table('project_manager')->insertGetId($data);
 		$msg = $id > 0 ? "添加成功！" : "添加失败！";
 		return json(array('code' => $id, 'msg' => $msg));
 	}
 
-	public function projectQuery() {
+	public function projectTableList() {
 		$list = Pro::all();
 		$number = count($list);
 
@@ -65,17 +65,7 @@ class Project extends Controller {
 		return json($return);
 	}
 
-	public function corporationQuery(){
-		$list = Db::query("SELECT 
-								id as corpId,
-								name as corpName
-						   FROM corporation");
-		$number = count($list);
-		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $list);
-		return json($return);
-	}
-
-	public function projectManagerQuery() {
+	public function managerTableList() {
 		$page = Request::param('page');
 		$limit = Request::param('limit');
 		$curr = $page <= 1 ? 1 : ($page - 1) * $limit + 1;
