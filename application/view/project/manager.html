@@ -13,19 +13,29 @@
 <script>
 layui.use(['element','table','form'], function(){
   var element = layui.element,
+  form = layui.form,
   table = layui.table;
+
+  form.on('submit(managerForm)', function(data){
+    $.post('/project/managerAdd',data.field,function(res){        
+        layer.msg(res.msg);
+        //parent.closeIframe(res.msg);
+      }
+    )
+    return false;
+  });
 });
 </script>
 <div class="layui-tab" style="margin:10px 10px">
-	<div class="layui-form">
+	<form class="layui-form" action="">
         <div class="layui-inline">
-        	<input class="layui-input" name="id" id="test-table-demoReload" autocomplete="off" placeholder="请输入项目经理姓名">
+        	<input class="layui-input" name="managerName" placeholder="请输入项目经理姓名">
     	</div>
     	<div class="layui-inline">
-        	<input class="layui-input" name="id" id="test-table-demoReload" autocomplete="off" placeholder="请输入联系电话">
+        	<input class="layui-input" name="managerPhone" placeholder="请输入联系电话">
     	</div>
-        <button class="layui-btn" data-type="reload">添加</button>
-  </div>
+        <button class="layui-btn" lay-submit lay-filter="managerForm">添加</button>
+  	</form>
 	<table class="layui-table" lay-data="{height:390, url:'/project/managerList', page:true, id:'test'}" lay-filter="test">
 		<thead>
 		    <tr>

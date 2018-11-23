@@ -81,7 +81,7 @@
             <div class="layui-form-item">
               <label class="layui-form-label">项目经理</label>
               <div class="layui-input-inline">
-                <select name="bidsManager" xm-select="select" xm-select-search="/project/managerSearch">
+                <select id="managerId" name="managerId" xm-select="select" xm-select-search="/project/managerSearch">
                 </select>
               </div>
               <i class="layui-icon layui-icon-edit" id="managerDialog" style="font-size: 32px; color: #009688;cursor: pointer"></i>
@@ -150,7 +150,7 @@ layui.use(['element','laydate','form','formSelects','table','layer'], function()
 
   element.on("tab(tab)", function(data){
     switch (data.index) {
-      case 2://项目表格        
+      case 1://项目表格        
         table.render({
           elem: '#proList'
           ,id: 'proListReload'
@@ -163,12 +163,12 @@ layui.use(['element','laydate','form','formSelects','table','layer'], function()
             ,{field: 'proPrice', title: '项目总造价',width: 120}
             ,{field: 'proStart', title: '开工日期',width: 120}
             ,{field: 'proDays', title: '工期（天）',width: 100} 
-            ,{field: 'proRemark', title: '备注'}
+            ,{field: 'proRemark', title: '合同内容'}
             ,{field: 'proEdit', title: '操作',fixed:'right', align:'center', toolbar: '#colBar'}
           ]]
         });
         break;
-      case 3:
+      case 2:
         $.ajax({
           url:'/project/projectOptionList',
           method:'GET',
@@ -177,19 +177,37 @@ layui.use(['element','laydate','form','formSelects','table','layer'], function()
             var num = res.data.length;
             var option = "";
             res.data.forEach( function(element, index) {
-              option += "<option value='"+element.proId+"'>"+element.proName+"</option>";
+              option += "<option value='"+element.id+"'>"+element.name+"</option>";
               $("#proId").html(option)
             });
             form.render('select');
           }
         });
+        $.ajax({
+          url:'/project/managerOptionList',
+          method:'GET',
+          dataType:'JSON',
+          success:function(res){   
+            var num = res.data.length;
+            var option = "";
+            res.data.forEach( function(element, index) {
+              option += "<option value='"+element.id+"'>"+element.name+"</option>";
+              $("#managerId").html(option)
+            });
+            form.render('select');
+          }
+        });
         break;
-      case 4://项目经理标段表格        
+      case 3://项目经理标段表格        
         table.render({
           elem: '#bidsList'
           ,id:'bidsListReload'
           ,height: 315
+<<<<<<< HEAD
           ,url: '/project/managerTableList' //数据接口
+=======
+          ,url: '/project/projectManagerTableList' //数据接口
+>>>>>>> 2b822d6467885a6351505e4261ee1191d8df0146
           ,page: true //开启分页
           ,cols: [[ //表头
             {field: 'id', title: '序号', width:60}

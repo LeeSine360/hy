@@ -32,7 +32,11 @@ class Project extends Controller {
 		$msg = $id > 0 ? "添加成功！" : "添加失败！";
 		return json(array('code' => $id, 'msg' => $msg));
 	}
+<<<<<<< HEAD
 	public function managerAdd() {
+=======
+	public function managerAdd(){
+>>>>>>> 2b822d6467885a6351505e4261ee1191d8df0146
 		$data = [
 			'project_id' => Request::param('proId'),
 			'manager_id' => Request::param('proManManager'),
@@ -58,14 +62,17 @@ class Project extends Controller {
 				'proPrice' => $value['price'],
 				'proStart' => date("Y-m-d", $value['start_time']),
 				'proDays' => $value['days'],
-				'proRemark' => $value['remark']);
+				'proContent' => $value['content']);
 		}
 
 		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $data);
 		return json($return);
 	}
 
+<<<<<<< HEAD
 	public function managerTableList() {
+=======
+	public function projectManagerTableList() {
 		$page = Request::param('page');
 		$limit = Request::param('limit');
 		$curr = $page <= 1 ? 1 : ($page - 1) * $limit + 1;
@@ -86,6 +93,30 @@ class Project extends Controller {
 		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $list);
 		return json($return);
 	}
+
+	public function managerTableList(){
+>>>>>>> 2b822d6467885a6351505e4261ee1191d8df0146
+		$page = Request::param('page');
+		$limit = Request::param('limit');
+		$curr = $page <= 1 ? 1 : ($page - 1) * $limit + 1;
+		$list = Db::query("SELECT
+								pm.id as id,
+								pm.price as proManPrice,
+								p.name as projectName,
+								(SELECT GROUP_CONCAT(m.name) FROM manager m WHERE FIND_IN_SET(m.id,pm.manager_id)) as managerName,
+								pm.remark as proManRemark
+						   FROM
+						   		project_manager pm,
+						   		project p
+						   WHERE
+						   		pm.project_id = p.id
+						  ");
+		$number = count($list);
+
+		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $list);
+		return json($return);
+	}
+
 	public function managerSearch() {
 		$keyword = Request::param('keyword');
 		$list = Man::where('name', 'like', "%{$keyword}%")->select();
@@ -105,8 +136,16 @@ class Project extends Controller {
 		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $data);
 		return json($return);
 	}
-	public function managerList() {
+
+	public function managerOptionList() {
 		$data = Man::field('id,name,phone')->order('id desc')->select();
+		$number = count($data);
+		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $data);
+		return json($return);
+	}
+
+	public function projectOptionList() {
+		$data = Pro::field('id,name')->order('id asc')->select();
 		$number = count($data);
 		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $data);
 		return json($return);
