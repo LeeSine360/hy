@@ -14,12 +14,13 @@
 layui.use(['element','table','form'], function(){
   var element = layui.element,
   form = layui.form,
-  table = layui.table;
+  table = layui.table,
+  $=layui.$;
 
   form.on('submit(managerForm)', function(data){
-    $.post('/project/managerAdd',data.field,function(res){        
+    $.post('/manager/managerAdd',data.field,function(res){        
         layer.msg(res.msg);
-        //parent.closeIframe(res.msg);
+        table.reload('managerList', {});
       }
     )
     return false;
@@ -36,7 +37,7 @@ layui.use(['element','table','form'], function(){
     	</div>
         <button class="layui-btn" lay-submit lay-filter="managerForm">添加</button>
   	</form>
-	<table class="layui-table" lay-data="{height:390, url:'/project/managerList', page:true, id:'test'}" lay-filter="test">
+	<table class="layui-table" lay-data="{height:390, url:'/manager/managerTableList', page:true, id:'managerList'}" lay-filter="test">
 		<thead>
 		    <tr>
 			    <th lay-data="{field:'id', width:80}">ID</th>

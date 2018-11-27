@@ -17,7 +17,11 @@ class Company extends Controller {
 		$id = 0;
 		$msg = '';
 
-		$com = Com::create([			
+		$param = Request::param('comComplete');
+
+		return array_values($param);
+
+		/*$com = Com::create([			
 			'category_id' => Request::param('catId'),
 			'name' => Request::param('comName'),
 			'bank_name' => Request::param('comAccountName'),
@@ -29,7 +33,7 @@ class Company extends Controller {
 		$id = $com->id;
 		$msg = $id > 0 ? "添加成功！" : "添加失败！";
 
-		return json(array('code' => $id, 'msg' => $msg));
+		return json(array('code' => $id, 'msg' => $msg));*/
 	}
 
 	public function companyQuery() {
@@ -80,5 +84,9 @@ class Company extends Controller {
 		$number = count($data);
 		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $data);
 		return json($return);
+	}
+
+	private function companyCompleteAdd(){
+
 	}
 }

@@ -11,13 +11,7 @@ class Project extends Controller {
 	public function index() {
 		return $this->fetch();
 	}
-	public function manager() {
-		return $this->fetch();
-	}
-	public function corporation() {
-		return $this->fetch();
-	}
-
+	
 	public function projectAdd() {
 		$pro = Pro::create([
 			'number' => Request::param('proNumber'),
@@ -33,17 +27,18 @@ class Project extends Controller {
 		return json(array('code' => $id, 'msg' => $msg));
 	}
 
-	public function managerAdd() {
+	public function bidsAdd() {
 		$data = [
 			'project_id' => Request::param('proId'),
-			'manager_id' => Request::param('proManManager'),
-			'price' => Request::param('proManPrice'),
-			'remark' => Request::param('proManRemark'),
+			'manager_id' => Request::param('managerId'),
+			'price' => Request::param('bidsPrice'),
+			'manager_ratio' => Request::param('proManagerRatio'),
+			'remark' => Request::param('bidsRemark'),
 		];
 		$id = Db::table('project_manager')->insertGetId($data);
 		$msg = $id > 0 ? "添加成功！" : "添加失败！";
 		return json(array('code' => $id, 'msg' => $msg));
-	}
+	}	
 
 	public function projectTableList() {
 		$list = Pro::all();
@@ -66,16 +61,16 @@ class Project extends Controller {
 		return json($return);
 	}
 
-	public function managerTableList() {
+	public function bidsTableList() {
 		$page = Request::param('page');
 		$limit = Request::param('limit');
 		$curr = $page <= 1 ? 1 : ($page - 1) * $limit + 1;
 		$list = Db::query("SELECT
 								pm.id as id,
-								pm.price as proManPrice,
+								pm.price as bidsPrice,
 								p.name as projectName,
 								(SELECT GROUP_CONCAT(m.name) FROM manager m WHERE FIND_IN_SET(m.id,pm.manager_id)) as managerName,
-								pm.remark as proManRemark
+								pm.remark as bidsRemark
 						   FROM
 						   		project_manager pm,
 						   		project p
@@ -85,33 +80,6 @@ class Project extends Controller {
 		$number = count($list);
 
 		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $list);
-		return json($return);
-	}
-
-	public function managerSearch() {
-		$keyword = Request::param('keyword');
-		$list = Man::where('name', 'like', "%{$keyword}%")->select();
-		$number = count($list);
-
-		$data = array();
-
-		foreach ($list as $key => $value) {
-			$data[] = array(
-				'value' => $value['id'],
-				'name' => $value['name'],
-				'selected' => "",
-				'disabled' => "",
-			);
-		}
-
-		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $data);
-		return json($return);
-	}
-
-	public function managerOptionList() {
-		$data = Man::field('id,name,phone')->order('id desc')->select();
-		$number = count($data);
-		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $data);
 		return json($return);
 	}
 
