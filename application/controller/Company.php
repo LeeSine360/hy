@@ -17,23 +17,19 @@ class Company extends Controller {
 		$id = 0;
 		$msg = '';
 
-		$param = Request::param('comComplete');
-
-		return array_values($param);
-
-		/*$com = Com::create([			
+		$com = Com::create([
 			'category_id' => Request::param('catId'),
 			'name' => Request::param('comName'),
 			'bank_name' => Request::param('comAccountName'),
 			'account' => Request::param('comAccount'),
 			'phone' => Request::param('comPhone'),
 			'remark' => Request::param('remark'),
+			'datum' => implode(',', array_values(Request::param('comComplete'))),
 		]);
 
 		$id = $com->id;
 		$msg = $id > 0 ? "添加成功！" : "添加失败！";
-
-		return json(array('code' => $id, 'msg' => $msg));*/
+		return json(array('code' => $id, 'msg' => $msg));
 	}
 
 	public function companyQuery() {
@@ -65,7 +61,7 @@ class Company extends Controller {
 								phone as comPhone,
 								remark as comRemark
 						   FROM
-						   		company c						   
+						   		company c
 						   ORDER BY c.id ASC
 						   LIMIT $curr,$limit
 						  ");
@@ -86,7 +82,7 @@ class Company extends Controller {
 		return json($return);
 	}
 
-	private function companyCompleteAdd(){
+	private function companyCompleteAdd() {
 
 	}
 }
