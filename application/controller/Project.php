@@ -1,8 +1,8 @@
 <?php
 namespace app\controller;
 
-use app\model\Manager as Man;
 use app\model\Project as Pro;
+use app\model\ProjectManager as PM;
 use think\Controller;
 use think\Db;
 use think\facade\Request;
@@ -11,15 +11,15 @@ class Project extends Controller {
 	public function index() {
 		return $this->fetch();
 	}
-	
+
 	public function projectAdd() {
 		$pro = Pro::create([
 			'number' => Request::param('proNumber'),
 			'name' => Request::param('proName'),
 			'price' => Request::param('proPrice'),
-			'start_time' => Request::param('proStart'),
+			'start_time' => strtotime(Request::param('proStart')),
 			'days' => Request::param('proDays'),
-			'remark' => Request::param('proRemark'),
+			'content' => Request::param('proRemark'),
 		]);
 
 		$id = $pro->id;
@@ -32,13 +32,13 @@ class Project extends Controller {
 			'project_id' => Request::param('proId'),
 			'manager_id' => Request::param('managerId'),
 			'price' => Request::param('bidsPrice'),
-			'manager_ratio' => Request::param('proManagerRatio'),
+			'manager_ratio' => Request::param('birdsRatio'),
 			'remark' => Request::param('bidsRemark'),
 		];
-		$id = Db::table('project_manager')->insertGetId($data);
+		$id = PM::create($data)->id;
 		$msg = $id > 0 ? "添加成功！" : "添加失败！";
 		return json(array('code' => $id, 'msg' => $msg));
-	}	
+	}
 
 	public function projectTableList() {
 		$list = Pro::all();
