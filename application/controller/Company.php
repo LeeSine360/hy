@@ -17,26 +17,22 @@ class Company extends Controller {
 		$id = 0;
 		$msg = '';
 
-		$param = Request::param('comComplete');
-
-		return array_values($param);
-
-		/*$com = Com::create([			
-			'category_id' => Request::param('catId'),
+		$com = Com::create([			
 			'name' => Request::param('comName'),
 			'bank_name' => Request::param('comAccountName'),
 			'account' => Request::param('comAccount'),
-			'phone' => Request::param('comPhone'),
-			'remark' => Request::param('remark'),
+			'phone' => Request::param('comPhone'),			
+			'datum' => implode(",",array_values(Request::param('comComplete'))),
+			'remark' => Request::param('remark')
 		]);
 
 		$id = $com->id;
 		$msg = $id > 0 ? "添加成功！" : "添加失败！";
 
-		return json(array('code' => $id, 'msg' => $msg));*/
+		return json(array('code' => $id, 'msg' => $msg));
 	}
 
-	public function companyQuery() {
+	public function companyOptionList() {
 		$list = Com::all();
 		$number = count($list);
 
@@ -56,13 +52,14 @@ class Company extends Controller {
 	public function companyList() {
 		$page = Request::param('page');
 		$limit = Request::param('limit');
-		$curr = $page <= 1 ? 1 : ($page - 1) * $limit + 1;
+		$curr = $page <= 1 ? 0 : ($page - 1) * $limit + 1;
 		$list = Db::query("SELECT
 								SQL_CALC_FOUND_ROWS id as comId,
 								name as comName,
 								bank_name as comBankName,
 								account as comAccount,
 								phone as comPhone,
+								datum as comDatum,
 								remark as comRemark
 						   FROM
 						   		company c						   

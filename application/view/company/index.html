@@ -44,10 +44,10 @@
             <div class="layui-form-item">
               <label class="layui-form-label">资料详情</label>
               <div class="layui-input-inline" style="width:600px">
-                <input type="checkbox" name="comComplete[]" title="营业执照" lay-skin="primary" value="license">
-                <input type="checkbox" name="comComplete[]" title="法人身份证" lay-skin="primary" value="identity">
-                <input type="checkbox" name="comComplete[]" title="开户银行许可证" lay-skin="primary" value="bank">
-                <input type="checkbox" name="comComplete[]" title="其他资质证明" lay-skin="primary" value="certificate">
+                <input type="checkbox" name="comComplete[]" title="营业执照" lay-skin="primary" value="营业执照">
+                <input type="checkbox" name="comComplete[]" title="法人身份证" lay-skin="primary" value="法人身份证">
+                <input type="checkbox" name="comComplete[]" title="开户银行许可证" lay-skin="primary" value="开户银行许可证">
+                <input type="checkbox" name="comComplete[]" title="其他资质证明" lay-skin="primary" value="其他资质证明">
               </div>
             </div>
             
@@ -113,12 +113,13 @@ layui.use(['element','form','table','formSelects'], function(){
     ,url: '/company/companyList' //数据接口
     ,page: true //开启分页
     ,cols: [[ //表头
-      {field: 'comId', title: '编号', width:80}
-      ,{field: 'catName', title: '分类名称', width:100}
+      {field: 'comId', title: '编号', width:60}      
       ,{field: 'comName', title: '供应商名称', width:280}
       ,{field: 'comBankName', title: '开户行名称', width:180, sort: true}
       ,{field: 'comAccount', title: '付款账号', width:180} 
       ,{field: 'comPhone', title: '联系电话', width: 100}
+      ,{field: 'comDatum', title: '资料名称', width:100}
+      ,{field: 'comRemark', title: '备注', width:100}
       ,{field: 'comEdit', title: '编辑', toolbar: '#colBar'}
     ]]
   });
