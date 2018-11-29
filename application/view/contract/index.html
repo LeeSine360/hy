@@ -25,11 +25,12 @@
                 <select id="corpId" name="corpId" lay-verify="corpId" lay-filter="corpId" lay-search>
                 </select>
               </div>
+              <i class="layui-icon layui-icon-edit" id="coreDialog" style="font-size: 32px; color: #009688;cursor: pointer"></i>
             </div>
             <div class="layui-form-item">
               <label class="layui-form-label">项目名称</label>
               <div class="layui-input-inline">
-                <select name="proList" id="proList" lay-verify="required" lay-filter="proList" lay-search></select>
+                <select name="proId" id="proOptionList" lay-verify="required" lay-filter="proList" lay-search></select>
               </div>
             </div>
             <div class="layui-form-item">
@@ -39,7 +40,7 @@
             <div class="layui-form-item">
               <label class="layui-form-label">供应商名称</label>
               <div class="layui-input-inline">
-                <select name="comList" id="comList" lay-verify="required" lay-filter="comList" lay-search>
+                <select name="comId" id="comList" lay-verify="required" lay-filter="comList" lay-search>
                 </select>
               </div>
             </div>
@@ -52,38 +53,38 @@
             <div class="layui-form-item">
               <label class="layui-form-label">总价</label>
               <div class="layui-input-inline">
-                <input type="text" name="title" lay-verify="required" placeholder="请输入合同总金额" autocomplete="off" class="layui-input">
+                <input type="text" name="conPrice" lay-verify="required" placeholder="请输入合同总金额" autocomplete="off" class="layui-input">
               </div>
               <div class="layui-form-mid layui-word-aux">元</div>
             </div>
             <div class="layui-form-item">
               <label class="layui-form-label">开始日期</label>
               <div class="layui-input-inline">
-                <input type="text" class="layui-input" id="dataTimeStart" placeholder="请选择合同开始日期">
+                <input type="text" id="dataTimeStart" name="conStartTime" class="layui-input" placeholder="请选择合同开始日期">
               </div>
               <label class="layui-form-label">截止日期</label>
               <div class="layui-input-inline">
-                <input type="text" class="layui-input" id="dataTimeEnd" placeholder="请选择合同截止日期">
+                <input type="text" id="dataTimeEnd" name="conEndTime" class="layui-input"placeholder="请选择合同截止日期">
               </div>
             </div>
             <div class="layui-form-item">
               <label class="layui-form-label">合同份数</label>
               <div class="layui-input-inline">
-                <input type="text" name="title" lay-verify="required" placeholder="请输入合同份数" autocomplete="off" class="layui-input">
+                <input type="text" name="conNum" lay-verify="required" placeholder="请输入合同份数" autocomplete="off" class="layui-input">
               </div>
               <label class="layui-form-label">留存份数</label>
               <div class="layui-input-inline">
-                <input type="text" name="title" lay-verify="required" placeholder="请输入合同公司留存份数" autocomplete="off" class="layui-input">
+                <input type="text" name="conSave" lay-verify="required" placeholder="请输入合同公司留存份数" autocomplete="off" class="layui-input">
               </div>
             </div>
             <div class="layui-form-item">
               <label class="layui-form-label">经办人</label>
               <div class="layui-input-inline">
-                <input type="text" id="transactor" name="transactor" lay-verify="required" placeholder="请输入经办人姓名" autocomplete="off" class="layui-input">
+                <input type="text" id="transactor" name="conOpeName" lay-verify="required" placeholder="请输入经办人姓名" autocomplete="off" class="layui-input">
               </div>
               <label class="layui-form-label">联系电话</label>
               <div class="layui-input-inline">
-                <input type="text" id="transactorPhone" name="transactorPhone" lay-verify="required" placeholder="请输入经办人电话" autocomplete="off" class="layui-input">
+                <input type="text" id="transactorPhone" name="conOpePhone" lay-verify="required" placeholder="请输入经办人电话" autocomplete="off" class="layui-input">
               </div>
             </div>
             <div class="layui-form-item">
@@ -92,7 +93,7 @@
                 <select id="classifyId" name="classifyId" xm-select="select" xm-select-search="/company/classifySearch">
                 </select>
               </div>
-              <i class="layui-icon layui-icon-edit" style="font-size: 32px; color: #009688;cursor: pointer"></i>
+              <i class="layui-icon layui-icon-edit" id="cateDialog" style="font-size: 32px; color: #009688;cursor: pointer"></i>
             </div>
             <div class="layui-form-item">
               <label class="layui-form-label">标签</label>
@@ -113,7 +114,7 @@
             <div class="layui-form-item layui-form-text">
               <label class="layui-form-label">备注</label>
               <div class="layui-input-block">
-                <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+                <textarea name="conRemark" placeholder="请输入内容" class="layui-textarea"></textarea>
               </div>
             </div>
             <div class="layui-form-item">
@@ -416,49 +417,75 @@ layui.use(['element','form','table','laydate','layer','autocomplete'], function(
     elem: '#dataTimeEnd' //指定元素
   });
 
+  $("#coreDialog").click(function(event) {
+    layer.open({
+      type: 2,
+      area:['600px', '500px'],
+      title:"公司名称查询 / 编辑",
+      content: "/corporation", //注意，如果str是object，那么需要字符拼接。
+      cancel: function(index, layero){
+        form.render('select'); 
+      }
+    });
+  });
+
+  $("#cateDialog").click(function(event) {
+    layer.open({
+      type: 2,
+      area:['600px', '500px'],
+      title:"分类名称查询 / 编辑",
+      content: "/classify", //注意，如果str是object，那么需要字符拼接。
+      cancel: function(index, layero){ 
+        //formSelects.render('managerId'); 
+      }
+    });
+  });
+
   $(document).ready(function(){
     //获取项目名称列表
     $.ajax({
-      url:'/project/projectQuery',
+      url:'/project/projectOptionList',
       method:'GET',
       dataType:'JSON',
       success:function(res){   
         var num = res.data.length;
         var option = "<option value=''>请选择项目名称</option>";
         res.data.forEach( function(element, index) {
-          option += "<option value='"+element.proId+"'>"+element.proName+"</option>";
-          $("#proList").html(option)
+          option += "<option value='"+element.id+"'>"+element.name+"</option>";
+          
         });
+        $("#proOptionList").html(option);
         form.render('select');
       }
     });
 
     //获取供应商名称列表
     $.ajax({
-        url:'/company/companyQuery',
+        url:'/company/companyOptionList',
         method:'GET',
         dataType:'JSON',
         success:function(res){   
           var num = res.data.length;
-          var option = "";
+          var option = "<option value=''>请选择供应商名称</option>";
           res.data.forEach( function(element, index) {
             option += "<option value='"+element.comId+"'>"+element.comName+"</option>";
-            $("#comList").html(option)
+            
           });
+          $("#comList").html(option);
           form.render('select');
         }
     });
 
     //获取公司列表
     $.ajax({
-      url:'/project/corporationQuery',
+      url:'/corporation/corporationOptionList',
       method:'GET',
       dataType:'JSON',
       success:function(res){   
         var num = res.data.length;
         var option = "";
         res.data.forEach( function(element, index) {
-          option += "<option value='"+element.corpId+"'>"+element.corpName+"</option>";
+          option += "<option value='"+element.id+"'>"+element.name+"</option>";
           $("#corpId").html(option)
         });
         form.render('select');
