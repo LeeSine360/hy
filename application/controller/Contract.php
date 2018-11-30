@@ -87,6 +87,7 @@ class Contract extends Controller {
 								SQL_CALC_FOUND_ROWS c.id,
 								c.id as id,
 								p.name as proName,
+								cor.name as corName,
 								(SELECT GROUP_CONCAT(m.name) FROM manager m  WHERE FIND_IN_SET(m.id,pm.manager_id)) AS bidsName,
 								p.number as proNumber,	
 								c.number as conNumber,
@@ -96,11 +97,13 @@ class Contract extends Controller {
 							FROM
 								contract c,
 								project p,
+								corporation cor,
 								project_manager pm,	
 								company com
 							WHERE
 								c.project_id = p.id AND
-								c.company_id = com.id
+								c.company_id = com.id AND
+								c.corporation_id = cor.id
 							ORDER BY c.id ASC
 							LIMIT $curr, $limit");
 		$listTotal = Db::query("SELECT FOUND_ROWS() as rowcount");

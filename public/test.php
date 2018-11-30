@@ -43,11 +43,13 @@
 FROM
 	contract c,
 	project p,
+	corporation cor,
 	project_manager pm,	
 	company com,								
 	category ca
 WHERE
 	c.project_id = p.id AND
+	c.corporation_id = cor.id AND
 	c.company_id = com.id AND
 
 ORDER BY c.id ASC

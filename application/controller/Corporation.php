@@ -12,12 +12,11 @@ class Corporation extends Controller {
 	}
 	
 	public function CorporationAdd() {
-		$data = [
+		$conId = Cor::create([
 			'name' => Request::param('name')
-		];
-		$id = Db::table('corporation')->insertGetId($data);
-		$msg = $id > 0 ? "添加成功！" : "添加失败！";
-		return json(array('code' => $id, 'msg' => $msg));
+		])->id;
+		$msg = $conId > 0 ? "添加成功！" : "添加失败！";
+		return json(array('code' => $conId, 'msg' => $msg));
 	}
 
 	public function corporationOptionList(){
