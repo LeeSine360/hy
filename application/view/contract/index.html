@@ -222,7 +222,11 @@ layui.use(['element','form','table','laydate','layer','autocomplete'], function(
       type: 2,
       area:['600px', '500px'],
       title:"标签库",
-      content: "/contract/label" //注意，如果str是object，那么需要字符拼接。
+      content: "/contract/label", //注意，如果str是object，那么需要字符拼接。
+      cancel: function(){
+        var classifyId=$("#classifyId").val();
+        optionLabel(classifyId);
+      }
     });
   });
   
@@ -287,32 +291,10 @@ layui.use(['element','form','table','laydate','layer','autocomplete'], function(
     $(".label-selected").find("li").remove();
     var selectId = data.value;
     //点击展开标签时加载数据
-    $.ajax({
-      url:"/classify/cateList",
-      type:"post",
-      datatype:"json",
-      data:{
-        id:selectId
-      },
-      success:function(data){
-        var data = data.data;
-        layer.closeAll('loading');
-        $(".label-item").find("li").remove();//删除原先所有，本来想让数据表随机搜索的，想着有点mmp，就没搞，用的是limit
-        var html = '';
-        for(var i in data){
-          html += "<li data=\""+data[i].id+"\"><i class=\"layui-icon layui-icon-close\" style=\"font-size: 10px;\"></i><span>"+data[i].cateName+"</span></li>";//拼接标签
-
-        }
-        $(".label-item").append(html);//追加至文档
-      },
-      error:function(){
-        layer.closeAll('loading');
-        layer.msg("错误~~~");
-      }
-    })
+    optionLabel(selectId);
   });
 
-  //监听经办人输入框 *****待完善******
+  //监听经办人输入框 
   autocomplete.render({
     elem: $('#conOpeName'),
     url: '/contract/operatorSearch',
@@ -420,6 +402,32 @@ layui.use(['element','form','table','laydate','layer','autocomplete'], function(
       }
     });
   }
+
+  var optionLabel = function(selectId){
+    $.ajax({
+      url:"/classify/cateList",
+      type:"post",
+      datatype:"json",
+      data:{
+        id:selectId
+      },
+      success:function(data){
+        var data = data.data;
+        layer.closeAll('loading');
+        $(".label-item").find("li").remove();//删除原先所有，本来想让数据表随机搜索的，想着有点mmp，就没搞，用的是limit
+        var html = '';
+        for(var i in data){
+          html += "<li data=\""+data[i].id+"\"><i class=\"layui-icon layui-icon-close\" style=\"font-size: 10px;\"></i><span>"+data[i].cateName+"</span></li>";//拼接标签
+
+        }
+        $(".label-item").append(html);//追加至文档
+      },
+      error:function(){
+        layer.closeAll('loading');
+        layer.msg("错误~~~");
+      }
+    });
+  };
 
   //执行一个laydate实例
   laydate.render({

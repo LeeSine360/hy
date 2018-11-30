@@ -2,6 +2,7 @@
 namespace app\controller;
 
 use app\model\Contract as Con;
+use app\model\ContractManage as CM;
 use think\Controller;
 use think\Db;
 use think\facade\Request;
@@ -12,6 +13,30 @@ class Contract extends Controller {
 	}
 	public function label() {
 		return $this->fetch();
+	}
+	public function contractAdd(){
+		
+		$conId = Con::create([
+			'corporation_id' => Request::param('corpId'),
+			'project_id' => Request::param('proId'),
+			'project_manager_id' => implode(",",Request::param('bids')),
+			'company_id' => Request::param('comId'),
+			'price' => Request::param('conPrice'),
+			'start_time' => strtotime(Request::param('conStartTime')),
+			'end_time' => strtotime(Request::param('conEndTime')),
+			'total' => Request::param('conNum'),
+			'keep' => Request::param('conSave'),	
+			'category_id' => Request::param('label'),
+			'remark' => Request::param('conRemark'),
+		])->id;
+
+		if($conId > 0)$cmId = CM::create([
+			'type' => Request::param('type'),
+			'name' => Request::param('conOpeName'),
+			'phone' => Request::param('conOpePhone'),
+		])->id;
+		$msg = $id > 0 ? "添加成功！" : "添加失败！";
+		return json(array('code' => $id, 'msg' => $msg));
 	}
 	public function categoryQuery() {
 		$id = Request::param('id');
@@ -225,5 +250,11 @@ class Contract extends Controller {
 		$number = count($data);
 		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $data);
 		return json($return);
+	}
+
+	public function operatorSearch(){
+		$keyword = Request::param('keywords');
+		$data = Con::where('name', 'like', "%{$keyword}%")->select();
+		return json(array('code' => 0, 'content' => $data));
 	}
 }
