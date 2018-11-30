@@ -17,27 +17,13 @@ layui.use(['element','table','form'], function(){
   form = layui.form,
   $ = layui.$;
 
-  form.on('select(classId)', function(data){
-    table.reload('labelList', {
-      where: { //设定异步数据接口的额外参数，任意设
-        id: data.value
+  form.on('submit(classForm)', function(data){
+    $.post('/classify/classifyAdd',data.field,function(res){        
+        layer.msg(res.msg);
+        table.reload('classifyList', {});
       }
-    });
-  });
-
-  $.ajax({
-      url:'/contract/classQuery',
-      method:'GET',
-      dataType:'JSON',
-      success:function(res){   
-        var num = res.data.length;
-        var option = "";
-        res.data.forEach( function(element, index) {
-          option += "<option value='"+element.id+"'>"+element.name+"</option>";
-          $("#classId").html(option)
-        });
-        form.render('select');
-      }
+    )
+    return false;    
   });
 });
 </script>
@@ -46,18 +32,20 @@ layui.use(['element','table','form'], function(){
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 <div class="layui-tab" style="margin:10px 10px">
+  <form class="layui-form" action="">
   <div class="layui-form">
       <div class="layui-inline">
-        <input class="layui-input" name="id" id="test-table-demoReload" autocomplete="off" placeholder="请输入分类名称">
+        <input class="layui-input" name="name" id="name" autocomplete="off" placeholder="请输入分类名称">
       </div>
-        <button class="layui-btn" data-type="reload">添加</button>
+      <button class="layui-btn" lay-submit lay-filter="classForm">添加</button>
     </div>
-  <table class="layui-table" lay-data="{height:390, url:'/company/classifylist', page:true, id:'labelList'}" lay-filter="labelList">
+  </form>
+  <table class="layui-table" lay-data="{height:390, url:'/classify/classifyList', page:true, id:'classifyList'}" lay-filter="classifyList">
     <thead>
         <tr>
           <th lay-data="{field:'id', width:80}">ID</th>
-          <th lay-data="{field:'cateName', width:180}">分类名称</th>
-          <th lay-data="{field:'bidsEdit', width:120, align:'center', toolbar: '#colBar'}">操作</th>   
+          <th lay-data="{field:'name', width:180}">分类名称</th>
+          <th lay-data="{field:'edit', width:120, align:'center', toolbar: '#colBar'}">操作</th>   
         </tr>
     </thead>
   </table>

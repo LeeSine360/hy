@@ -17,25 +17,35 @@ layui.use(['element','table','form'], function(){
   form = layui.form,
   $ = layui.$;
 
-  form.on('select(classId)', function(data){
-    table.reload('labelList', {
-      where: { //设定异步数据接口的额外参数，任意设
-        id: data.value
+  form.on('submit(lableForm)', function(data){
+    $.post('/classify/cateAdd',data.field,function(res){        
+        layer.msg(res.msg);
+        table.reload('labelList', {});
+      }
+    );
+    return false; 
+  });
+
+  form.on('select(classId)',function(data){
+    var id = data.value;
+    table.reload("labelList",{
+      where: {
+         id: id
       }
     });
   });
 
   $.ajax({
-      url:'/contract/classQuery',
+      url:'/classify/classifyList',
       method:'GET',
       dataType:'JSON',
       success:function(res){   
         var num = res.data.length;
-        var option = "";
+        var option = "<option>请选择分类名称</option>";
         res.data.forEach( function(element, index) {
-          option += "<option value='"+element.id+"'>"+element.name+"</option>";
-          $("#classId").html(option)
+          option += "<option value='"+element.id+"'>"+element.name+"</option>";          
         });
+        $("#classId").html(option)
         form.render('select');
       }
   });
@@ -46,21 +56,23 @@ layui.use(['element','table','form'], function(){
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 <div class="layui-tab" style="margin:10px 10px">
-	<div class="layui-form">
-        <div class="layui-inline">
-        	<select id="classId" name="classId" lay-verify="classId" lay-filter="classId" lay-search></select>
-        </div>
-        <div class="layui-inline">
-        	<input class="layui-input" name="id" id="test-table-demoReload" autocomplete="off" placeholder="请输入标签名称">
+  <form class="layui-form" action="">
+	 <div class="layui-form">
+      <div class="layui-inline">
+      	<select id="classId" name="classId" lay-verify="classId" lay-filter="classId" lay-search></select>
+      </div>
+      <div class="layui-inline">
+      	<input class="layui-input" name="name" autocomplete="off" placeholder="请输入标签名称">
     	</div>
-        <button class="layui-btn" data-type="reload">添加</button>
+        <button class="layui-btn" lay-submit lay-filter="lableForm">添加</button>
   	</div>
-	<table class="layui-table" lay-data="{height:390, url:'/contract/labellist', page:true, id:'labelList'}" lay-filter="labelList">
+  </form>
+	<table class="layui-table" lay-data="{height:390, url:'/classify/cateList', page:true, id:'labelList'}" lay-filter="labelList">
 		<thead>
 		    <tr>
 			    <th lay-data="{field:'id', width:80}">ID</th>
-			    <th lay-data="{field:'classify', width:180}">分类名称</th>
-			    <th lay-data="{field:'name', width:180}">标签名称</th>
+			    <th lay-data="{field:'className', width:180}">分类名称</th>
+			    <th lay-data="{field:'cateName', width:180}">标签名称</th>
           <th lay-data="{field:'bidsEdit', width:120, align:'center', toolbar: '#colBar'}">操作</th>   
 		    </tr>
 		</thead>

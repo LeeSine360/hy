@@ -1,5 +1,7 @@
 <?php
 namespace app\controller;
+
+use app\model\Contract as Con;
 use think\Controller;
 use think\Db;
 use think\facade\Request;
@@ -48,12 +50,7 @@ class Contract extends Controller {
 		$return = array('code' => 0, 'msg' => '', 'count' => $dataTotal[0]['value'], 'data' => $data);
 		return json($return);
 	}
-	public function classQuery() {
-		$data = Db::table('classify')->field('id,name')->order('id desc')->select();
-		$number = count($data);
-		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $data);
-		return json($return);
-	}
+	
 	public function contractQuery() {
 		$page = Request::param('page');
 		$limit = Request::param('limit');
@@ -184,25 +181,7 @@ class Contract extends Controller {
 		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $data);
 		return json($return);
 	}
-	public function categoryList() {
-		$id = Request::param('id');
-		$data = Db::query(" SELECT
-								ca.id as id,
-								c.name as className,
-								ca.name as cateName
-							FROM
-								company com,
-								classify c,
-								category ca
-							WHERE
-								 com.id = $id AND
-								 com.category_id=ca.id AND
-								 ca.classify_id = c.id
-						");
-		$number = count($data);
-		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $data);
-		return json($return);
-	}
+	
 	public function companyQuery() {
 		$id = Request::param('id'); //项目ID
 		$bid =  Request::param('bid'); //标段ID

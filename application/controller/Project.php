@@ -89,4 +89,24 @@ class Project extends Controller {
 		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $data);
 		return json($return);
 	}
+
+	public function bidsList(){
+		$proId = Request::param('id');
+		$list = Db::query("SELECT
+								pm.id as id,
+								pm.price as bidsPrice,
+								(SELECT GROUP_CONCAT(m.name) FROM manager m WHERE FIND_IN_SET(m.id,pm.manager_id)) as managerName,
+								pm.remark as bidsRemark
+						   FROM
+						   		project_manager pm,
+						   		project p
+						   WHERE
+						   		p.id = $proId AND
+						   		pm.project_id = p.id
+						  ");
+		$number = count($list);
+
+		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $list);
+		return json($return);
+	}
 }

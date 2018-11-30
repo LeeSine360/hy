@@ -33,18 +33,8 @@ class Company extends Controller {
 	}
 
 	public function companyOptionList() {
-		$list = Com::all();
-		$number = count($list);
-
-		$data = array();
-
-		foreach ($list as $key => $value) {
-			$data[] = array(
-				'comId' => $value['id'],
-				'comName' => $value['name'],
-			);
-		}
-
+		$data = Com::all();
+		$number = count($data);
 		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $data);
 		return json($return);
 	}
@@ -83,7 +73,5 @@ class Company extends Controller {
 		return json($return);
 	}
 
-	private function companyCompleteAdd(){
-
-	}
+	
 }
