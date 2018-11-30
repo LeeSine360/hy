@@ -126,55 +126,93 @@
             </div>
             <div class="layui-form-item">
               <div class="layui-input-block">
-                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                <button class="layui-btn" lay-submit lay-filter="conForm">立即提交</button>
                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
               </div>
             </div>
           </form>
         </div>
         <div class="layui-tab-item">
-          <form class="layui-form" action="">
-            <div class="layui-search">
-              <div class="layui-input-inline">
-                <select name="proList" id="proList" lay-verify="required" lay-filter="proList" lay-search></select>
-              </div>
-              <div class="layui-input-inline">
-                <select name="proList" id="proList" lay-verify="required" lay-filter="proList" lay-search></select>
-              </div>
-              <div class="layui-input-inline">
-                <select name="proList" id="proList" lay-verify="required" lay-filter="proList" lay-search></select>
-              </div>
-              <div class="layui-inline" style="width: 240px">
-                <input class="layui-input" name="id" id="test-table-demoReload" autocomplete="off" placeholder="请输入供应商名称或合同编号">     
-              </div>                     
-              <button class="layui-btn" data-type="reload">搜索</button>
+          <div class="layui-form"h">
+            <div class="layui-input-inline">
+              <select name="proList" id="proList" lay-verify="required" lay-filter="proList" lay-search>
+                <option value="">请选择项目名称</option>
+              </select>
             </div>
-          </form>
-          <table class="layui-table" lay-data="{height:315, url:'/contract/contractQuery', page:true, id:'contractList'}" lay-filter="contractList">
+            <div class="layui-input-inline">
+              <select name="proList" id="proList" lay-verify="required" lay-filter="proList" lay-search>
+                <option value="">请选择项目经理</option>
+              </select>
+            </div>              
+            <div class="layui-inline" style="width: 240px">
+              <input class="layui-input" name="id" id="test-table-demoReload" autocomplete="off" placeholder="请输入供应商名称或合同编号">     
+            </div>                     
+            <button class="layui-btn" data-type="reload">搜索</button>
+          </div>
+          <table class="layui-table" lay-data="{height:315, url:'/contract/contractTableList', page:true, id:'contractList'}" lay-filter="contractList">
             <thead>
               <tr>
                 <th lay-data="{field: 'id', width:80}">编号</th>
-                <th lay-data="{field: 'proName', width:180}">项目名称</th>
-                <th lay-data="{field: 'bidsName', width:100}">标段名称</th>
                 <th lay-data="{field: 'proNumber', width:90}">项目编号</th>
                 <th lay-data="{field: 'conNumber', width:90} ">合同编号</th>
+                <th lay-data="{field: 'proName', width:180}">项目名称</th>
+                <th lay-data="{field: 'bidsName', width:100}">项目经理</th>           
                 <th lay-data="{field: 'comName', width: 180}">供应商名称</th>
                 <th lay-data="{field: 'conPrice', width: 100}">合同总价</th>
-                <th lay-data="{field: 'category', width: 180}">分类名称</th>
+                <th lay-data="{field: 'categoryName', width: 180}">分类名称</th>
+                <th lay-data="{field: 'conEdit', toolbar: '#colBar'}">操作</th>
+              </tr>
+            </thead>
+          </table>          
+        </div>
+        <div class="layui-tab-item">
+          <table class="layui-table" lay-data="{height:315, url:'/contract/contractTableList', page:true, id:'contractVerify'}" lay-filter="contractVerify">
+            <thead>
+              <tr>
+                <th lay-data="{field: 'id', width:80}">编号</th>
+                <th lay-data="{field: 'proNumber', width:90}">项目编号</th>
+                <th lay-data="{field: 'conNumber', width:90} ">合同编号</th>
+                <th lay-data="{field: 'proName', width:180}">项目名称</th>
+                <th lay-data="{field: 'bidsName', width:100}">项目经理</th>           
+                <th lay-data="{field: 'comName', width: 180}">供应商名称</th>
+                <th lay-data="{field: 'conPrice', width: 100}">合同总价</th>
+                <th lay-data="{field: 'categoryName', width: 180}">分类名称</th>
                 <th lay-data="{field: 'conEdit', toolbar: '#colBar'}">操作</th>
               </tr>
             </thead>
           </table>
-          
         </div>
         <div class="layui-tab-item">
-          <table id="demo2" lay-filter="test2"></table>
+          <table class="layui-table" lay-data="{height:315, url:'/contract/contractTableList', page:true, id:'contractConfirm'}" lay-filter="contractConfirm">
+            <thead>
+              <tr>
+                <th lay-data="{field: 'id', width:80}">编号</th>
+                <th lay-data="{field: 'proNumber', width:90}">项目编号</th>
+                <th lay-data="{field: 'conNumber', width:90} ">合同编号</th>
+                <th lay-data="{field: 'corName', width: 100}">所属公司</th>
+                <th lay-data="{field: 'proName', width:180}">项目名称</th>
+                <th lay-data="{field: 'bidsName', width:100}">项目经理</th>           
+                <th lay-data="{field: 'comName', width: 180}">供应商名称</th>                
+                <th lay-data="{field: 'conEdit', toolbar: '#colBar'}">操作</th>
+              </tr>
+            </thead>
+          </table>
         </div>
         <div class="layui-tab-item">
-          <table id="demo3" lay-filter="test3"></table>
-        </div>
-        <div class="layui-tab-item">
-          <table id="demo4" lay-filter="test4"></table>
+          <table class="layui-table" lay-data="{height:315, url:'/contract/contractTableList', page:true, id:'contractSave'}" lay-filter="contractSave">
+            <thead>
+              <tr>
+                <th lay-data="{field: 'id', width:80}">编号</th>
+                <th lay-data="{field: 'proNumber', width:90}">项目编号</th>
+                <th lay-data="{field: 'conNumber', width:90} ">合同编号</th>
+                <th lay-data="{field: 'corName', width: 100}">所属公司</th>
+                <th lay-data="{field: 'proName', width:180}">项目名称</th>
+                <th lay-data="{field: 'bidsName', width:100}">项目经理</th>           
+                <th lay-data="{field: 'comName', width: 180}">供应商名称</th>                
+                <th lay-data="{field: 'conEdit', toolbar: '#colBar'}">操作</th>
+              </tr>
+            </thead>
+          </table>
         </div>
       </div>
     </div>
@@ -273,8 +311,12 @@ layui.use(['element','form','table','laydate','layer','autocomplete'], function(
 
   
   //监听提交
-  form.on('submit(formDemo)', function(data){
-    layer.msg(JSON.stringify(data.field));
+  form.on('submit(conForm)', function(data){
+    $.post('/contract/contractAdd',data.field,function(res){        
+        layer.msg(res.msg);
+        table.reload('conTableList', {});
+      }
+    );
     return false;
   });
 

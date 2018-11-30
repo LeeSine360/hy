@@ -15,6 +15,7 @@ class Contract extends Controller {
 		return $this->fetch();
 	}
 	public function contractAdd(){
+		$cmId = 0;
 		
 		$conId = Con::create([
 			'corporation_id' => Request::param('corpId'),
@@ -26,19 +27,21 @@ class Contract extends Controller {
 			'end_time' => strtotime(Request::param('conEndTime')),
 			'total' => Request::param('conNum'),
 			'keep' => Request::param('conSave'),	
-			'category_id' => Request::param('label'),
+			'category_id' => implode(",", array_filter(explode(",",Request::param('label')))),
 			'remark' => Request::param('conRemark'),
 		])->id;
 
-		if($conId > 0)$cmId = CM::create([
-			'type' => Request::param('type'),
-			'name' => Request::param('conOpeName'),
-			'phone' => Request::param('conOpePhone'),
-		])->id;
-		$msg = $id > 0 ? "添加成功！" : "添加失败！";
-		return json(array('code' => $id, 'msg' => $msg));
+		if($conId > 0){
+			$cmId = CM::create([
+				'type' => Request::param('type'),
+				'name' => Request::param('conOpeName'),
+				'phone' => Request::param('conOpePhone'),
+			])->id;
+		}
+		$msg = $cmId > 0 ? "添加成功！" : "添加失败！";
+		return json(array('code' => $cmId, 'msg' => $msg));
 	}
-	public function categoryQuery() {
+	/*public function categoryQuery() {
 		$id = Request::param('id');
 		$page = Request::param('page');
 		$limit = Request::param('limit');
@@ -74,45 +77,39 @@ class Contract extends Controller {
 		}
 		$return = array('code' => 0, 'msg' => '', 'count' => $dataTotal[0]['value'], 'data' => $data);
 		return json($return);
-	}
+	}*/
 	
-	public function contractQuery() {
+	public function contractTableList() {
 		$page = Request::param('page');
 		$limit = Request::param('limit');
-		$curr = $page <= 1 ? 1 : ($page - 1) * $limit + 1;
+		$curr = $page <= 1 ? 0 : ($page - 1) * $limit + 1;
 		$data = Db::query("SELECT
-								SQL_CALC_FOUND_ROWS c.id as id,
-								p.number as proNumber,
+								SQL_CALC_FOUND_ROWS c.id,
+								c.id as id,
 								p.name as proName,
+								(SELECT GROUP_CONCAT(m.name) FROM manager m  WHERE FIND_IN_SET(m.id,pm.manager_id)) AS bidsName,
+								p.number as proNumber,	
 								c.number as conNumber,
 								com.name as comName,
 								c.price as conPrice,
-								ca.name as category,
-								(SELECT
-									GROUP_CONCAT(m.name)
-								 FROM manager m
-								 WHERE FIND_IN_SET(m.id,pm.manager_id)
-								) AS proManName
+								(SELECT GROUP_CONCAT(cat.name) FROM category cat WHERE FIND_IN_SET(cat.id, c.category_id)) AS categoryName
 							FROM
-								project p,
-								project_manager pm,
 								contract c,
-								company com,								
-								category ca
+								project p,
+								project_manager pm,	
+								company com
 							WHERE
-								p.id  = pm.project_id AND
-								pm.id = c.project_manager_id AND
-								c.company_id = com.id 								
+								c.project_id = p.id AND
+								c.company_id = com.id
 							ORDER BY c.id ASC
-							LIMIT $curr, $limit"
-		);
+							LIMIT $curr, $limit");
 		$listTotal = Db::query("SELECT FOUND_ROWS() as rowcount");
 		
 		$return = array('code' => 0, 'msg' => '', 'count' => $listTotal[0]['rowcount'], 'data' => $data);
 		return json($return);
 	}
 
-	public function contractVerify() {
+	/*public function contractVerify() {
 		$data = Db::query(" SELECT
 								SQL_CALC_FOUND_ROWS c.id as id,
 								p.number as proNumber,
@@ -250,11 +247,11 @@ class Contract extends Controller {
 		$number = count($data);
 		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $data);
 		return json($return);
-	}
+	}*/
 
 	public function operatorSearch(){
 		$keyword = Request::param('keywords');
-		$data = Con::where('name', 'like', "%{$keyword}%")->select();
+		$data = CM::where('name', 'like', "%{$keyword}%")->select();
 		return json(array('code' => 0, 'content' => $data));
 	}
 }
