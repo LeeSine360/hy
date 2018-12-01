@@ -166,7 +166,7 @@
           </table>          
         </div>
         <div class="layui-tab-item">
-          <table class="layui-table" lay-data="{height:315, url:'/contract/contractTableList', page:true, id:'contractVerify'}" lay-filter="contractVerify">
+          <table class="layui-table" lay-data="{height:315, url:'/contract/contractVertify', page:true, id:'contractVertify'}" lay-filter="contractVerify">
             <thead>
               <tr>
                 <th lay-data="{field: 'id', width:60}">编号</th>
@@ -183,7 +183,7 @@
           </table>
         </div>
         <div class="layui-tab-item">
-          <table class="layui-table" lay-data="{height:315, url:'/contract/contractTableList', page:true, id:'contractConfirm'}" lay-filter="contractConfirm">
+          <table class="layui-table" lay-data="{height:315, url:'/contract/contractConfirm', page:true, id:'contractConfirm'}" lay-filter="contractConfirm">
             <thead>
               <tr>
                 <th lay-data="{field: 'id', width:60}">编号</th>
@@ -199,7 +199,7 @@
           </table>
         </div>
         <div class="layui-tab-item">
-          <table class="layui-table" lay-data="{height:315, url:'/contract/contractTableList', page:true, id:'contractSave'}" lay-filter="contractSave">
+          <table class="layui-table" lay-data="{height:315, url:'/contract/contractSave', page:true, id:'contractSave'}" lay-filter="contractSave">
             <thead>
               <tr>
                 <th lay-data="{field: 'id', width:60}">编号</th>
@@ -314,7 +314,7 @@ layui.use(['element','form','table','laydate','layer','autocomplete'], function(
   form.on('submit(conForm)', function(data){
     $.post('/contract/contractAdd',data.field,function(res){        
         layer.msg(res.msg);
-        table.reload('conTableList', {});
+        table.reload('contractList', {});
       }
     );
     return false;
