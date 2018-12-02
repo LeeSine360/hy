@@ -17,13 +17,13 @@ class Company extends Controller {
 		$id = 0;
 		$msg = '';
 
-		$com = Com::create([			
+		$com = Com::create([
 			'name' => Request::param('comName'),
 			'bank_name' => Request::param('comAccountName'),
 			'account' => Request::param('comAccount'),
-			'phone' => Request::param('comPhone'),			
-			'datum' => implode(",",array_values(Request::param('comComplete'))),
-			'remark' => Request::param('remark')
+			'phone' => Request::param('comPhone'),
+			'datum' => implode(",", array_values(Request::param('comComplete'))),
+			'remark' => Request::param('remark'),
 		]);
 
 		$id = $com->id;
@@ -33,7 +33,32 @@ class Company extends Controller {
 	}
 
 	public function companyOptionList() {
-		$data = Com::all();
+		$proId = Request::param('id'); //项目ID
+		$bId = Request::param('bid'); //标段ID
+		$data = [];
+
+		if (isset($proId) && isset($bId)) {
+			$data = Db::query("SELECT
+								c.id as id,
+								c.name as name,
+								c.bank_name as bankName,
+								c.account as account,
+								c.phone as phone,
+								c.datum as datum,
+								c.remark as remark
+						   FROM
+						   		company c,
+						   		contract con
+						   WHERE
+						   		con.company_id = c.id
+						   GROUP BY
+						   		c.id
+						   ORDER BY c.id ASC
+						  ");
+		} else {
+			$data = Com::all();
+		}
+
 		$number = count($data);
 		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $data);
 		return json($return);
@@ -52,7 +77,7 @@ class Company extends Controller {
 								datum as comDatum,
 								remark as comRemark
 						   FROM
-						   		company c						   
+						   		company c
 						   ORDER BY c.id ASC
 						   LIMIT $curr,$limit
 						  ");
@@ -73,5 +98,4 @@ class Company extends Controller {
 		return json($return);
 	}
 
-	
 }
