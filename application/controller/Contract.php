@@ -55,7 +55,7 @@ class Contract extends Controller {
 								c.id as id,
 								p.name as proName,
 								cor.name as corName,
-								(SELECT GROUP_CONCAT(m.name) FROM manager m  WHERE FIND_IN_SET(m.id,pm.manager_id)) AS bidsName,
+								(SELECT GROUP_CONCAT(m.name) FROM manager m  WHERE FIND_IN_SET(m.id,c.project_manager_id)) AS bidsName,
 								p.number as proNumber,
 								c.number as conNumber,
 								com.name as comName,
@@ -65,7 +65,6 @@ class Contract extends Controller {
 								contract c,
 								project p,
 								corporation cor,
-								project_manager pm,
 								company com
 							WHERE
 								c.project_id = p.id AND
@@ -88,22 +87,23 @@ class Contract extends Controller {
 								c.id as id,
 								p.name as proName,
 								cor.name as corName,
-								(SELECT GROUP_CONCAT(m.name) FROM manager m  WHERE FIND_IN_SET(m.id,pm.manager_id)) AS bidsName,
+								(SELECT GROUP_CONCAT(m.name) FROM manager m  WHERE FIND_IN_SET(m.id,c.project_manager_id)) AS bidsName,
 								p.number as proNumber,
 								c.number as conNumber,
 								com.name as comName,
-								c.price as conPrice
+								c.price as conPrice,
+								(SELECT GROUP_CONCAT(cat.name) FROM category cat WHERE FIND_IN_SET(cat.id, c.category_id)) AS categoryName
 							FROM
 								contract c,
 								project p,
 								corporation cor,
-								project_manager pm,
 								company com,
 								contract_examine ce
 							WHERE
 								c.project_id = p.id AND
 								c.company_id = com.id AND
 								c.corporation_id = cor.id AND
+								c.id = ce.contract_id AND
 								ce.vertify = 0
 							ORDER BY c.id ASC
 							LIMIT $curr, $limit");
@@ -121,22 +121,23 @@ class Contract extends Controller {
 								c.id as id,
 								p.name as proName,
 								cor.name as corName,
-								(SELECT GROUP_CONCAT(m.name) FROM manager m  WHERE FIND_IN_SET(m.id,pm.manager_id)) AS bidsName,
+								(SELECT GROUP_CONCAT(m.name) FROM manager m  WHERE FIND_IN_SET(m.id,c.project_manager_id)) AS bidsName,
 								p.number as proNumber,
 								c.number as conNumber,
 								com.name as comName,
-								c.price as conPrice
+								c.price as conPrice,
+								(SELECT GROUP_CONCAT(cat.name) FROM category cat WHERE FIND_IN_SET(cat.id, c.category_id)) AS categoryName
 							FROM
 								contract c,
 								project p,
 								corporation cor,
-								project_manager pm,
 								company com,
 								contract_examine ce
 							WHERE
 								c.project_id = p.id AND
 								c.company_id = com.id AND
 								c.corporation_id = cor.id AND
+								c.id = ce.contract_id AND
 								ce.confirm = 0
 							ORDER BY c.id ASC
 							LIMIT $curr, $limit");
@@ -154,22 +155,23 @@ class Contract extends Controller {
 								c.id as id,
 								p.name as proName,
 								cor.name as corName,
-								(SELECT GROUP_CONCAT(m.name) FROM manager m  WHERE FIND_IN_SET(m.id,pm.manager_id)) AS bidsName,
+								(SELECT GROUP_CONCAT(m.name) FROM manager m  WHERE FIND_IN_SET(m.id,c.project_manager_id)) AS bidsName,
 								p.number as proNumber,
 								c.number as conNumber,
 								com.name as comName,
-								c.price as conPrice
+								c.price as conPrice,
+								(SELECT GROUP_CONCAT(cat.name) FROM category cat WHERE FIND_IN_SET(cat.id, c.category_id)) AS categoryName
 							FROM
 								contract c,
 								project p,
 								corporation cor,
-								project_manager pm,
 								company com,
 								contract_examine ce
 							WHERE
 								c.project_id = p.id AND
 								c.company_id = com.id AND
 								c.corporation_id = cor.id AND
+								c.id = ce.contract_id AND
 								ce.save = 0
 							ORDER BY c.id ASC
 							LIMIT $curr, $limit");

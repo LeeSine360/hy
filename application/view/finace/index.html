@@ -47,15 +47,7 @@
             <div class="layui-form-item hidden" id="category">
               <label class="layui-form-label">班组名称</label>
               <div class="layui-input-inline" style="width: 200px">
-                <select name="teamClassify" lay-filter="category">
-                  <option value="0">请选择班组类型</option>
-                  <option value="1">行管组</option>
-                  <option value="2">钢筋工组</option>
-                  <option value="3">泥工组</option>
-                  <option value="4">木工组</option>
-                  <option value="5">架工组</option>
-                  <option value="6">防水工组</option>
-                  <option value="7">水电工组</option>
+                <select name="teamNameId" id="teamNameId" lay-filter="category">
                 </select>                
               </div>
               <div class="layui-input-inline" style="width: 200px">
@@ -67,6 +59,7 @@
               <div class="layui-input-inline" style="width: 200px">
                 <input type="text" name="phone" placeholder="请输入联系电话" autocomplete="off" class="layui-input">
               </div>
+              <i class="layui-icon layui-icon-edit" id="teamDialog" style="font-size: 32px; color: #009688;cursor: pointer"></i>
             </div>
             <div class="layui-form-item" id="company">
               <label class="layui-form-label">供应商名称</label>
@@ -144,7 +137,11 @@ layui.use(['element','form','table','laydate'], function(){
   
   //监听提交
   form.on('submit(formDemo)', function(data){
-    layer.msg(JSON.stringify(data.field));
+    $.post('/finace/finaceAdd',data.field,function(res){        
+        layer.msg(res.msg);
+        //table.reload('contractList',{});
+      }
+    );
     return false;
   });
 
@@ -222,25 +219,31 @@ layui.use(['element','form','table','laydate'], function(){
     $("[type='checkbox']").prop("checked", "");
     $(this).prop("checked", "checked");
     form.render('checkbox');
+
     var proId = $("#proOptionList").val(); //获取项目ID
     var bidId = $(this).val(); //获取标段ID
+    var mId = $(":checkbox:checked").val();//获取标段ID
 
-    //获取供应商名称列表
-    $.ajax({
-        url:'/company/companyOptionList',
-        method:'GET',
-        dataType:'JSON',
-        data:'id='+proId+'&bid='+bidId,
-        success:function(res){   
-          var num = res.data.length;
-          var option = "";
-          res.data.forEach( function(element, index) {      
-            option += "<option value='"+element.id+"'>"+element.name+"</option>";
-            $("#comOptionList").html(option);
-          });
-          form.render('select');
-        }
-    });
+    var type = $('input:radio:checked').val();
+
+    if(type == 1){
+      //获取供应商名称列表
+      $.ajax({
+          url:'/company/companyOptionList',
+          method:'GET',
+          dataType:'JSON',
+          data:'id='+proId+'&bid='+bidId+'&mid='+mId,
+          success:function(res){   
+            var num = res.data.length;
+            var option = "";
+            res.data.forEach( function(element, index) {      
+              option += "<option value='"+element.id+"'>"+element.name+"</option>";
+              $("#comOptionList").html(option);
+            });
+            form.render('select');
+          }
+      });
+    }
   });
 
   form.on('select(proOptionList)', function(data){
@@ -256,7 +259,7 @@ layui.use(['element','form','table','laydate'], function(){
           $("#bidsList").empty();
           var html = '';
           res.data.forEach(function(element, index) {
-            html += "<input type='checkbox' name='bids[]' title='"+element.managerName+"' value="+element.id+">";//拼接标签
+            html += "<input type='checkbox' name='bids' title='"+element.managerName+"' value="+element.id+">";//拼接标签
           });
           $("#bidsList").html(html);
           form.render("checkbox");
@@ -264,6 +267,18 @@ layui.use(['element','form','table','laydate'], function(){
     });
   });
 
+ $("#teamDialog").click(function(event) {
+    layer.open({
+      type: 2,
+      area:['800px', '500px'],
+      title:"班组长名称查询 / 编辑",
+      content: "/finace/team", //注意，如果str是object，那么需要字符拼接。
+      cancel: function(index, layero){ 
+        teamOption();
+        form.render('select'); 
+      }
+    });
+  });
 
   laydate.render({
     elem: '#dataTime'
@@ -326,9 +341,28 @@ layui.use(['element','form','table','laydate'], function(){
     });
   }
 
+  //获取班组列表
+  var teamOption = function(){
+    $.ajax({
+      url:'/finace/teamOptionList',
+      method:'GET',
+      dataType:'JSON',
+      success:function(res){   
+        var num = res.data.length;
+        var option = "<option value='0'>请选择班组类型</option>";
+        res.data.forEach( function(element, index) {
+          option += "<option value='"+element.id+"'>"+element.name+"</option>";          
+        });
+        $("#teamNameId").html(option)
+        form.render('select');
+      }
+    });
+  }
+
   $(document).ready(function(){
     corOption();
     proOption();
+    teamOption();
   });
 });
 </script>

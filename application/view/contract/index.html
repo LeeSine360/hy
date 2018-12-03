@@ -166,7 +166,7 @@
           </table>          
         </div>
         <div class="layui-tab-item">
-          <table class="layui-table" lay-data="{height:315, url:'/contract/contractVertify', page:true, id:'contractVertify'}" lay-filter="contractVerify">
+          <table class="layui-table" lay-data="{height:315, url:'/contract/contractVertify', page:true, id:'contractVertify'}" lay-filter="contractVertify">
             <thead>
               <tr>
                 <th lay-data="{field: 'id', width:60}">编号</th>
@@ -314,7 +314,10 @@ layui.use(['element','form','table','laydate','layer','autocomplete'], function(
   form.on('submit(conForm)', function(data){
     $.post('/contract/contractAdd',data.field,function(res){        
         layer.msg(res.msg);
-        table.reload('contractList', {});
+        table.reload('contractList',{});
+        table.reload('contractVertify',{});
+        table.reload('contractConfirm',{});
+        table.reload('contractSave',{});
       }
     );
     return false;
