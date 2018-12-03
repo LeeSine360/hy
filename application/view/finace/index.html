@@ -219,7 +219,7 @@ layui.use(['element','form','table','laydate'], function(){
     $("[type='checkbox']").prop("checked", "");
     $(this).prop("checked", "checked");
     form.render('checkbox');
-
+    var corpId = $("#corpId").val(); //获公司ID
     var proId = $("#proOptionList").val(); //获取项目ID
     var bidId = $(this).val(); //获取标段ID
     var mId = $(":checkbox:checked").val();//获取标段ID
@@ -232,14 +232,15 @@ layui.use(['element','form','table','laydate'], function(){
           url:'/company/companyOptionList',
           method:'GET',
           dataType:'JSON',
-          data:'id='+proId+'&bid='+bidId+'&mid='+mId,
+          data:'id='+proId+'&pid='+proId+'&bid='+bidId+'&mid='+mId,
           success:function(res){   
             var num = res.data.length;
-            var option = "";
+            var option = "<option>请选择供应商名称</option>";
             res.data.forEach( function(element, index) {      
               option += "<option value='"+element.id+"'>"+element.name+"</option>";
               $("#comOptionList").html(option);
             });
+            $("#comOptionList").html(option);
             form.render('select');
           }
       });
