@@ -177,7 +177,7 @@
                 <th lay-data="{field: 'comName', width: 180}">供应商名称</th>
                 <th lay-data="{field: 'conPrice', width: 100}">合同总价</th>
                 <th lay-data="{field: 'categoryName', width: 180}">分类名称</th>
-                <th lay-data="{field: 'conEdit', toolbar: '#colBar'}">操作</th>
+                <th lay-data="{field: 'conEdit', toolbar: '#projectVertifyBar'}">操作</th>
               </tr>
             </thead>
           </table>
@@ -193,7 +193,7 @@
                 <th lay-data="{field: 'proName', width:180}">项目名称</th>
                 <th lay-data="{field: 'bidsName', width:100}">项目经理</th>           
                 <th lay-data="{field: 'comName', width: 180}">供应商名称</th>                
-                <th lay-data="{field: 'conEdit', toolbar: '#colBar'}">操作</th>
+                <th lay-data="{field: 'conEdit', toolbar: '#sealVertifyBar'}">操作</th>
               </tr>
             </thead>
           </table>
@@ -209,7 +209,7 @@
                 <th lay-data="{field: 'proName', width:180}">项目名称</th>
                 <th lay-data="{field: 'bidsName', width:100}">项目经理</th>           
                 <th lay-data="{field: 'comName', width: 180}">供应商名称</th>                
-                <th lay-data="{field: 'conEdit', toolbar: '#colBar'}">操作</th>
+                <th lay-data="{field: 'conEdit', toolbar: '#fileVertifyBar'}">操作</th>
               </tr>
             </thead>
           </table>
@@ -229,15 +229,14 @@
   <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
-<script type="text/html" id="colBar1">
-  <a class="layui-btn layui-btn-xs" lay-event="detail">通过</a>
-  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">不通过</a>
+<script type="text/html" id="projectVertifyBar">
+  <a class="layui-btn layui-btn-xs" lay-event="vertity">审核</a>
 </script>
-<script type="text/html" id="colBar2">
-  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">确认</a>
+<script type="text/html" id="sealVertifyBar">
+  <a class="layui-btn layui-btn-xs" lay-event="vertity">确认盖章</a>
 </script>
-<script type="text/html" id="colBar3">
-  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">归档</a>
+<script type="text/html" id="fileVertifyBar">
+  <a class="layui-btn layui-btn-xs" lay-event="vertity">确认归档</a>
 </script>
 <script>
 layui.config({
@@ -372,6 +371,25 @@ layui.use(['element','form','table','laydate','layer','autocomplete'], function(
     });
   });  
  
+   //监听工具条
+  table.on('tool(contractVertify)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+    var data = obj.data; //获得当前行数据
+    var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+    var tr = obj.tr; //获得当前行 tr 的DOM对象
+   
+    if(layEvent === 'vertity'){ //审核
+       layer.open({
+        type: 2,
+        title:"合同审核",
+        area: ['800px', '600px'],
+        content: "/contract/vertify", //注意，如果str是object，那么需要字符拼接。
+        cancel: function(){
+          //var classifyId=$("#classifyId").val();
+          //optionLabel(classifyId);
+        }
+      });
+    }
+  });
 
 
   //获取项目名称列表

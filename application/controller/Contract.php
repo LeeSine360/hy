@@ -15,6 +15,9 @@ class Contract extends Controller {
 	public function label() {
 		return $this->fetch();
 	}
+	public function vertify(){
+		return $this->fetch();
+	}
 	public function contractAdd() {
 		/*$result = Con::order('id', 'asc')->select();
 
