@@ -31,14 +31,16 @@ class Contract extends Controller {
 			'total' => Request::param('conNum'),
 			'keep' => Request::param('conSave'),
 			'category_id' => implode(",", array_filter(explode(",", Request::param('label')))),
+			'name' => Request::param('name'),
+			'phone' => Request::param('phone'),
 			'remark' => Request::param('conRemark'),
 		])->id;
-		CM::create([
+		/*CM::create([
 			'contract_id' => $conId,
 			'type' => Request::param('type'),
 			'name' => Request::param('conOpeName'),
 			'phone' => Request::param('conOpePhone'),
-		]);
+		]);*/
 		CE::create([
 			'contract_id' => $conId,
 		]);
@@ -183,7 +185,7 @@ class Contract extends Controller {
 
 	public function operatorSearch() {
 		$keyword = Request::param('keywords');
-		$data = CM::where('name', 'like', "%{$keyword}%")->select();
+		$data = Con::field('distinct name','phone')->where('name', 'like', "%{$keyword}%")->select();
 		return json(array('code' => 0, 'content' => $data));
 	}
 }

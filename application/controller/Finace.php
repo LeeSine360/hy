@@ -4,6 +4,7 @@ namespace app\controller;
 use app\model\Reimbursement as R;
 use app\model\TeamInfo as TI;
 use app\model\TeamName as TN;
+use app\model\ReimbursementExamine as RE;
 use think\Controller;
 use think\facade\Request;
 
@@ -50,6 +51,10 @@ class Finace extends Controller {
 			'remark' => $remark,
 		])->id;
 
+		RE::create([
+			'reimbursement_id' => $id
+		]);
+
 		$msg = $id > 0 ? "添加成功！" : "添加失败！";
 		return json(array('code' => $id, 'msg' => $msg));
 	}
@@ -79,5 +84,18 @@ class Finace extends Controller {
 
 		$return = array('code' => 0, 'msg' => '', 'count' => $number, 'data' => $data);
 		return json($return);
+	}
+
+	public function finaceTableList(){
+		/*'id'
+        'proName'
+        'bidsName'
+        'comName'
+        'categoryName'
+        'conPrice'
+        'reiPrice'
+        'type'
+        'conEdit'*/
+
 	}
 }

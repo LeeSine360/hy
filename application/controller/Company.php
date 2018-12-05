@@ -33,12 +33,13 @@ class Company extends Controller {
 	}
 
 	public function companyOptionList() {
-		$proId = Request::param('id'); //项目ID
-		$bId = Request::param('bid'); //标段ID
+		$corId = Request::param('corid'); //公司ID
+		$proId = Request::param('pid'); //项目ID
 		$mId = Request::param('mid'); //标段ID
+
 		$data = [];
 
-		if ($proId != 0 && $bId != 0 && $mId != 0) {
+		if ($corId != 0 && $proId != 0 && $mId != 0) {
 			$data = Db::query("SELECT
 								c.id as id,
 								c.name as name,
@@ -51,8 +52,10 @@ class Company extends Controller {
 						   		company c,
 						   		contract con
 						   WHERE
-						   		con.company_id = c.id AND
-						   		FIND_IN_SET($mId,con.project_manager_id)
+						   		con.corporation_id = $corId AND
+						   		con.project_id = $proId AND						   		
+						   		FIND_IN_SET($mId,con.project_manager_id) AND
+						   		con.company_id = c.id
 						   GROUP BY
 						   		c.id
 						   ORDER BY c.id ASC

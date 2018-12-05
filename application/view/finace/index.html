@@ -54,7 +54,7 @@
                 <input type="text" class="layui-input" id="dataTime" placeholder="请选择月份">
               </div>
               <div class="layui-input-inline" style="width: 200px">
-                <input type="text" name="name" placeholder="请输入组长姓名" autocomplete="off" class="layui-input">
+                <input type="text" name="name" placeholder="请输入姓名" autocomplete="off" class="layui-input">
               </div>
               <div class="layui-input-inline" style="width: 200px">
                 <input type="text" name="phone" placeholder="请输入联系电话" autocomplete="off" class="layui-input">
@@ -113,7 +113,21 @@
               </div>                     
               <button class="layui-btn" data-type="reload">搜索</button>
             </div>
-            <table id="demo" lay-filter="test"></table>
+            <!--<table class="layui-table" lay-data="{height:315, url:'/finace/finaceTableList', page:true, id:'finaceList'}" lay-filter="finaceList">
+            <thead>
+              <tr>
+                <th lay-data="{field: 'id', width:60}">编号</th>
+                <th lay-data="{field: 'proName', width:180}">项目名称</th>
+                <th lay-data="{field: 'bidsName', width:100}">项目经理</th>
+                <th lay-data="{field: 'comName', width: 180}">供应商名称</th>
+                <th lay-data="{field: 'categoryName', width: 180}">分类名称</th>
+                <th lay-data="{field: 'conPrice', width: 100}">合同总价</th>
+                <th lay-data="{field: 'reiPrice', width: 100}">报销金额</th>
+                <th lay-data="{field: 'type', width: 100}">状态 </th>
+                <th lay-data="{field: 'conEdit', toolbar: '#colBar'}">操作</th>
+              </tr>
+            </thead>
+          </table>   -->   
           </form>
         </div>
       </div>
@@ -126,6 +140,11 @@
   </div>
 </div>
 <script src="static/layui/layui.js"></script>
+<script type="text/html" id="colBar">
+  <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
+  <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
 <script>
 //JavaScript代码区域
 layui.use(['element','form','table','laydate'], function(){
@@ -137,7 +156,7 @@ layui.use(['element','form','table','laydate'], function(){
   
   //监听提交
   form.on('submit(formDemo)', function(data){
-    $.post('/finace/finaceAdd',data.field,function(res){        
+    $.post('/finace/finaceAdd',data.field,function(res){
         layer.msg(res.msg);
         //table.reload('contractList',{});
       }
@@ -221,8 +240,7 @@ layui.use(['element','form','table','laydate'], function(){
     form.render('checkbox');
     var corpId = $("#corpId").val(); //获公司ID
     var proId = $("#proOptionList").val(); //获取项目ID
-    var bidId = $(this).val(); //获取标段ID
-    var mId = $(":checkbox:checked").val();//获取标段ID
+    var mId = $(this).val(); //获取标段ID
 
     var type = $('input:radio:checked').val();
 
@@ -232,7 +250,7 @@ layui.use(['element','form','table','laydate'], function(){
           url:'/company/companyOptionList',
           method:'GET',
           dataType:'JSON',
-          data:'id='+proId+'&pid='+proId+'&bid='+bidId+'&mid='+mId,
+          data:'corid='+corpId+'&pid='+proId+'&mid='+mId,
           success:function(res){   
             var num = res.data.length;
             var option = "<option>请选择供应商名称</option>";
@@ -348,11 +366,11 @@ layui.use(['element','form','table','laydate'], function(){
       url:'/finace/teamOptionList',
       method:'GET',
       dataType:'JSON',
-      success:function(res){   
+      success:function(res){
         var num = res.data.length;
         var option = "<option value='0'>请选择班组类型</option>";
         res.data.forEach( function(element, index) {
-          option += "<option value='"+element.id+"'>"+element.name+"</option>";          
+          option += "<option value='"+element.id+"'>"+element.name+"</option>";
         });
         $("#teamNameId").html(option)
         form.render('select');
