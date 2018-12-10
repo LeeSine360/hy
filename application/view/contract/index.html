@@ -378,7 +378,7 @@ layui.use(['element','form','table','laydate','layer','autocomplete'], function(
     var tr = obj.tr; //获得当前行 tr 的DOM对象
    
     if(layEvent === 'vertity'){ //审核
-       var layerOpen = layer.open({
+        var layerOpen = layer.open({
         type: 2,
         title:"合同审核",
         content: "/contract/vertify", //注意，如果str是object，那么需要字符拼接。

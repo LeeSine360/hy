@@ -48,30 +48,37 @@ layui.use(['element','table','form'], function(){
 </script>
 <div class="layui-container">
   <div class="layui-row">
-    <div class="layui-col-sm12">
-      <table class="layui-table">
-        <tbody>
-          <tr><td>项目名称：</td><td>汉寿恒大御府</td></tr>
-          <tr><td>标段负责人：</td><td>李恒孝</td></tr>
-          <tr><td>标段签署合同总数：</td><td>12 个</td></tr>
-          <tr><td>标段总价：</td><td>0 元</td></tr>
-          <tr><td>标段收到工程款：</td><td>0 元</td></tr>
-          <tr><td>标段已付款金额：</td><td>0 元</td></tr>
-        </tbody>
-      </table>  
+    <div class="layui-col-sm6 layui-col-space3">
+      <div class="layui-row">项目名称：汉寿恒大御府</div>
+      <div class="layui-row">标段负责人：李恒孝</div>
+      <div class="layui-row">标段签署合同总数：12个</div>
+      <div class="layui-row">标段总价：0元</div>
+      <div class="layui-row">标段收到工程款：0元</div>
+      <div class="layui-row">标段已付款金额：0元</div>
     </div>
-  </div>
+    <div class="layui-col-sm6 layui-col-space3">
+      <div class="layui-row">供应商名称：湖南博长钢材贸易有限公司</div>
+      <div class="layui-row">供应商电话：1388888888</div>
+      <div class="layui-row">合同类型：塔吊租赁</div>
+      <div class="layui-row">合同金额：20000.00元</div>
+      <div class="layui-row">合同经办人：石晶1388888888</div>
+      <div class="layui-row">合同备注：塑料袋会计法塑料袋会计法是的家乐福开始代理费会计师代理费圣诞快乐就水电费离开家无</div>
+    </div>
+  </div><br />
   <div class="layui-row">
     <div class="layui-col-sm12">同类型合同列表如下：</div>
   </div>
   <div class="layui-row">
     <div class="layui-col-md12">
-    	<table class="layui-table" lay-data="{height:390, url:'', page:true, id:''}" lay-filter="">
+    	<table class="layui-table" lay-data="{height:190, url:'', page:true, id:''}" lay-filter="">
     		<thead>
     		    <tr>
     			    <th lay-data="{field:'id', width:80}">ID</th>
-    			    <th lay-data="{field:'className', width:180}">分类名称</th>
-              <th lay-data="{field:'bidsEdit', width:120, align:'center', toolbar: '#colBar'}">操作</th>   
+    			    <th lay-data="{field:'comName', width:180}">供应商名称</th>
+              <th lay-data="{field:'catName', width:180}">合同类别</th>
+              <th lay-data="{field:'conPrice', width:180}">合同金额</th>
+              <th lay-data="{field:'conOperator', width:180}">经办人</th>
+              <th lay-data="{field:'conRemark', width:180}">备注</th>
     		    </tr>
     		</thead>
     	</table>
@@ -81,8 +88,14 @@ layui.use(['element','table','form'], function(){
     <div class="layui-col-sm2">审核不通过原因：</div>
     <div class="layui-col-sm10"><textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea></div>
   </div>
+  <br />
   <div class="layui-row">
-    <div class="layui-col-sm12" style="text-align:center">通过  不通过</div>
+    <div class="layui-col-sm12" style="text-align:center">
+      <div class="layui-btn-container">
+        <button class="layui-btn">审核通过</button>
+        <button class="layui-btn layui-btn-danger">审核不通过</button>
+      </div>
+    </div>
   </div>
 </div>
 </body>
