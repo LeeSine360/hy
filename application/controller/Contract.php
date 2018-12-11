@@ -117,6 +117,52 @@ class Contract extends Controller {
 		$return = array('code' => 0, 'msg' => '', 'count' => $listTotal[0]['rowcount'], 'data' => $data);
 		return json($return);
 	}
+
+	public function contractVertifyDialogInfo(){
+		/*proName
+      managerName
+      conTotal
+      bidsPrice
+      receivePrice
+      payPrice    */ 
+
+      Db::query("SELECT
+					p.name as proName,
+					cor.name as corName,
+					(SELECT GROUP_CONCAT(m.name) FROM manager m  WHERE FIND_IN_SET(m.id,c.project_manager_id)) AS bidsName,
+					p.number as proNumber,
+					c.number as conNumber,
+					com.name as comName,
+					c.price as conPrice,
+					(SELECT GROUP_CONCAT(cat.name) FROM category cat WHERE FIND_IN_SET(cat.id, c.category_id)) AS categoryName
+				FROM
+					contract c,
+					project p,
+					project_manager,
+					manager,
+					corporation cor,
+					company com,
+					contract_examine ce，
+					receive_project_price,
+					reimbursement,
+					reimbursement_examine
+				WHERE
+					c.project_id = p.id AND
+					c.company_id = com.id AND
+					c.corporation_id = cor.id AND
+					c.id = ce.contract_id AND
+					ce.vertify = 0");
+	}
+
+	public function contractVertifyDialogTableList(){
+/*id
+    	comName
+        catName
+        conPrice
+        conOperator
+        conRemark*/
+	}
+
 	public function contractConfirm() {
 		$page = Request::param('page');
 		$limit = Request::param('limit');

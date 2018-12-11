@@ -10,6 +10,7 @@
 </head>
 <body class="layui-layout-body">
 	<script src="../static/layui/layui.js"></script>
+  <script src="../static/vue/vue.min.js"></script>
 <script>
 layui.use(['element','table','form'], function(){
   var element = layui.element,
@@ -24,6 +25,26 @@ layui.use(['element','table','form'], function(){
       }
     );
     return false; 
+  });
+
+  new Vue({
+    el: '#app',
+    data: {},
+    created: function () {
+      this.corName='湖南浩宇建设有限公司';
+      this.proName='汉寿恒大御府';
+      this.managerName='李恒孝';
+      this.conTotal=0;
+      this.bidsPrice=0;
+      this.receivePrice=0;
+      this.payPrice=0;
+      this.comName='湖南博长钢材贸易有限公司';
+      this.comPhone='1388888888';
+      this.conCate='塔吊租赁';
+      this.conPrice='20000.00';
+      this.conOperator='石晶1388888888';
+      this.conRemark='';
+  }
   });
 
   $.ajax({
@@ -42,27 +63,24 @@ layui.use(['element','table','form'], function(){
   });
 });
 </script>
-<script type="text/html" id="colBar">
-  <a class="layui-btn layui-btn-xs" lay-event="vertifyYes">审核通过</a>
-  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="vertifyNo">审核不通过</a>
-</script>
-<div class="layui-container">
-  <div class="layui-row">
-    <div class="layui-col-sm6 layui-col-space3">
-      <div class="layui-row">项目名称：汉寿恒大御府</div>
-      <div class="layui-row">标段负责人：李恒孝</div>
-      <div class="layui-row">标段签署合同总数：12个</div>
-      <div class="layui-row">标段总价：0元</div>
-      <div class="layui-row">标段收到工程款：0元</div>
-      <div class="layui-row">标段已付款金额：0元</div>
-    </div>
-    <div class="layui-col-sm6 layui-col-space3">
-      <div class="layui-row">供应商名称：湖南博长钢材贸易有限公司</div>
-      <div class="layui-row">供应商电话：1388888888</div>
-      <div class="layui-row">合同类型：塔吊租赁</div>
-      <div class="layui-row">合同金额：20000.00元</div>
-      <div class="layui-row">合同经办人：石晶1388888888</div>
-      <div class="layui-row">合同备注：塑料袋会计法塑料袋会计法是的家乐福开始代理费会计师代理费圣诞快乐就水电费离开家无</div>
+<div class="layui-container" style="color:#666;">
+  <div class="layui-row" style="margin-top: 10px" id="app">
+    <div class="layui-col-sm6 layui-col-space8">    
+        <div class="layui-row">项目名称： {{proName}}</div>
+        <div class="layui-row">标段负责人： {{managerName}}</div>
+        <div class="layui-row">标段签署合同总数： {{conTotal}} 个</div>
+        <div class="layui-row">标段总价： {{bidsPrice}} 元</div>
+        <div class="layui-row">标段收到工程款： {{receivePrice}} 元</div>
+        <div class="layui-row">标段已付款金额： {{payPrice}} 元</div>      
+    </div>      
+    <div class="layui-col-sm6 layui-col-space8">
+        <div class="layui-row">所属公司名称： {{corName}}</div>
+        <div class="layui-row">供应商名称： {{comName}}</div>
+        <div class="layui-row">供应商电话： {{comPhone}}</div>
+        <div class="layui-row">合同类型： {{conCate}}</div>
+        <div class="layui-row">合同金额： {{conPrice}} 元</div>
+        <div class="layui-row">合同经办人： {{conOperator}}</div>
+        <div class="layui-row">合同备注： {{conRemark}}</div>      
     </div>
   </div><br />
   <div class="layui-row">
@@ -92,8 +110,8 @@ layui.use(['element','table','form'], function(){
   <div class="layui-row">
     <div class="layui-col-sm12" style="text-align:center">
       <div class="layui-btn-container">
-        <button class="layui-btn">审核通过</button>
-        <button class="layui-btn layui-btn-danger">审核不通过</button>
+        <button class="layui-btn">同意签署</button>
+        <button class="layui-btn layui-btn-danger">不同意签署</button>
       </div>
     </div>
   </div>
