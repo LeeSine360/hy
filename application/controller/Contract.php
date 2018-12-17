@@ -34,8 +34,8 @@ class Contract extends Controller {
 			'total' => Request::param('conNum'),
 			'keep' => Request::param('conSave'),
 			'category_id' => implode(",", array_filter(explode(",", Request::param('label')))),
-			'name' => Request::param('name'),
-			'phone' => Request::param('phone'),
+			'name' => Request::param('conOpeName'),
+			'phone' => Request::param('conOpePhone'),
 			'remark' => Request::param('conRemark'),
 		])->id;
 		/*CM::create([
@@ -119,6 +119,7 @@ class Contract extends Controller {
 	}
 
 	public function contractVertifyDialogInfo(){
+		$id = Request::param('id');
 		/*proName
       managerName
       conTotal
@@ -128,8 +129,7 @@ class Contract extends Controller {
 
       Db::query("SELECT
 					p.name as proName,
-					cor.name as corName,
-					(SELECT GROUP_CONCAT(m.name) FROM manager m  WHERE FIND_IN_SET(m.id,c.project_manager_id)) AS bidsName,
+					(SELECT GROUP_CONCAT(m.name) FROM manager m  WHERE FIND_IN_SET(m.id,c.project_manager_id)) AS managerName,
 					p.number as proNumber,
 					c.number as conNumber,
 					com.name as comName,
@@ -140,18 +140,14 @@ class Contract extends Controller {
 					project p,
 					project_manager,
 					manager,
-					corporation cor,
-					company com,
 					contract_examine ce，
 					receive_project_price,
 					reimbursement,
 					reimbursement_examine
 				WHERE
-					c.project_id = p.id AND
-					c.company_id = com.id AND
-					c.corporation_id = cor.id AND
-					c.id = ce.contract_id AND
-					ce.vertify = 0");
+					c.id = $id AND
+					c.project_id = p.id
+					");
 	}
 
 	public function contractVertifyDialogTableList(){
